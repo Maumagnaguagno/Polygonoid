@@ -18,6 +18,13 @@ class Pointy < Test::Unit::TestCase
   end
 
   def test_point_equality
-    assert_equal(Point.new(5,5), Point.new(5.0,5.0))
+    assert_equal(true, Point.new(5,5) == Point.new(5.0,5.0))
+    assert_equal(true, Point.new(0.1 + 0.2,2) == Point.new(0.3,2.000000000000000000004))
+    assert_equal(false, Point.new(5,6) == Point.new(6,5))
+    assert_equal(false, Point.new(5.1,5) == Point.new(5,5))
+  end
+
+  def test_point_to_svg
+    assert_equal("<circle cx=\"2.0\" cy=\"3.0\" r=\"2\"/>\n", Point.new(2,3).to_svg)
   end
 end
