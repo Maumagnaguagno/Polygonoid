@@ -13,7 +13,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 
 ## API
 
-### Point
+### [Point](src/Point.rb)
 **Attributes:**
 - ``attr_reader :x`` is the point horizontal position along the X axis.
 - ``attr_reader :y`` is the point vertical position along the Y axis.
@@ -22,9 +22,9 @@ SVG output also provides a nice way of checking what is happening inside the box
 - ``initialize(x, y)`` creates an instance with the given ``x`` and ``y`` coordinates.
 - ``distance(other)``
 - ``==(other)``
-- ``to_svg``
+- ``to_svg`` returns string with SVG description.
 
-### Line
+### [Line](src/Line.rb)
 **Attributes:**
 - ``attr_reader :from``
 - ``attr_reader :to``
@@ -32,29 +32,37 @@ SVG output also provides a nice way of checking what is happening inside the box
 - ``attr_reader :y_intercept``
 
 **Methods:**
-- ``initialize(from, to)``
+- ``initialize(from, to)`` creates an instance with the given ``to`` and ``from`` points.
 - ``perimeter``
-- ...
-- ``to_svg``
+- ``x_intercept``
+- ``vertical?``
+- ``horizontal?``
+- ``parallel_to?(other)``
+- ``contain_point?(other)``
+- ``distance_to_point(other)``
+- ``intersect_line(other)``
+- ``intersect_line2(other)`` works like ``intersect_line(other)`` for non horizontal/vertical lines.
+- ``intersect_line_angle(other)``
+- ``to_svg`` returns string with SVG description.
 
-### Polyline
+### [Polyline](src/Polyline.rb)
+**Attributes:**
+- ``attr_reader :vertices``
+- ``attr_reader :edges``
+
+**Methods:**
+- ``initialize(*vertices)`` creates an instance with the given array of ``vertices``.
+- ``perimeter``
+- ``to_svg`` returns string with SVG description.
+
+### [Polygon](src/Polygon.rb)
 **Attributes:**
 - ``attr_reader :vertices``
 - ``attr_reader :edges``
 
 **Methods:**
 - ``initialize(*vertices)``
-- ``perimeter``
-- ``to_svg``
-
-### Polygon
-**Attributes:**
-- ``attr_reader :vertices``
-- ``attr_reader :edges``
-
-**Methods:**
-- ``initialize(*vertices)``
-- ``to_svg``
+- ``to_svg`` returns string with SVG description.
 
 ## ToDo's
 - API description
