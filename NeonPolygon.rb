@@ -3,11 +3,16 @@ require_relative 'src/Line'
 require_relative 'src/Polyline'
 require_relative 'src/Polygon'
 
+class Numeric
+  def approx(other, relative_epsilon = nil, epsilon = nil)
+    self == other
+  end
+end
+
 class Float
   def approx(other, relative_epsilon = EPSILON, epsilon = EPSILON)
     # Based on Ruby Cookbook
-    difference = (other - self).abs
-    difference <= epsilon || difference / (self > other ? self : other).abs <= relative_epsilon
+    (diff = (other - self).abs) <= epsilon || diff / (self > other ? self : other).abs <= relative_epsilon
   end
 end
 
