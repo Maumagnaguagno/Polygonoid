@@ -5,7 +5,7 @@ class Line
   def initialize(from, to)
     @from = from
     @to = to
-    @slope = (to.y - from.y) / (to.x - from.x)
+    @slope = (to.y - from.y).fdiv(to.x - from.x)
     @y_intercept = from.y - from.x * @slope unless vertical?
   end
 

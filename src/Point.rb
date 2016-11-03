@@ -3,8 +3,8 @@ class Point
   attr_reader :x, :y
 
   def initialize(x, y)
-    @x = x.to_f
-    @y = y.to_f
+    @x = x
+    @y = y
   end
 
   def distance(other)

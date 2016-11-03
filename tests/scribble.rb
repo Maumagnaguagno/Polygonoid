@@ -12,8 +12,13 @@ class Broken < Test::Unit::TestCase
   end
 
   def test_line_intersect_line_middle
+    # Integer points
     l1 = Line.new(Point.new(0,1), Point.new(5,5))
     l2 = Line.new(Point.new(2,5), Point.new(2,0))
+    assert_equal(Point.new(2,2), l1.intersect_line(l2))
+    # Real points
+    l1 = Line.new(Point.new(0.0,1.0), Point.new(5.0,5.0))
+    l2 = Line.new(Point.new(2.0,5.0), Point.new(2.0,0.0))
     assert_equal(Point.new(2.0,2.6), l1.intersect_line(l2))
   end
 

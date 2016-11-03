@@ -32,8 +32,8 @@ environment = [
 ]
 
 # Robot and Goal
-robot = Point.new(80,50)
-goal = Point.new(15,50)
+robot = Point.new(80.0,50.0)
+goal = Point.new(15.0,50.0)
 
 # SVG
 svg = svg_grid(500, 500)

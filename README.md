@@ -13,4 +13,4 @@ SVG output also provides a nice way of checking what is happening inside the box
 
 ## ToDo's
 - Tests
-- Avoid ``to_f`` in Point, support Integer and Bigdecimal
+- Support Integer and Bigdecimal, check zero division cases
