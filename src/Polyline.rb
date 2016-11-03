@@ -3,9 +3,8 @@ class Polyline
   attr_reader :vertices, :edges
 
   def initialize(*vertices)
-    @vertices = vertices
     @edges = []
-    vertices.each_cons(2) {|v1,v2| @edges << Line.new(v1,v2)}
+    (@vertices = vertices).each_cons(2) {|v1,v2| @edges << Line.new(v1,v2)}
   end
 
   def perimeter
