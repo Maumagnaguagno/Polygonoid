@@ -19,20 +19,6 @@ def visible?(position, vertex, environment)
   }
 end
 
-def svg_save(filename, svg, width, height, x_min = 0, y_min = 0, x_max = width, y_max = height)
-  IO.write(filename, ""<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"#{width}\" height=\"#{height}\" viewBox=\"#{x_min} #{y_min} #{x_max} #{y_max}\">\n#{svg}</svg>")
-end
-
-def svg_grid(width, height)
-"<defs>
-<pattern id=\"grid\" width=\"10\" height=\"10\" patternUnits=\"userSpaceOnUse\">
-   <path d=\"M 100 0 L 0 0 0 100\" fill=\"none\" stroke=\"gray\" stroke-width=\"1\"/>
-</pattern>
-</defs>
-<rect fill=\"url(#grid)\" width=\"#{width}\" height=\"#{height}\"></rect>
-<circle r=\"2\"/>\n"
-end
-
 # Environment
 environment = [
   Polygon.new(
