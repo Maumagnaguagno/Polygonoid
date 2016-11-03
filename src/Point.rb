@@ -7,12 +7,12 @@ class Point
     @y = y
   end
 
-  def distance(other)
-    Math.hypot(@x - other.x, @y - other.y)
-  end
-
   def ==(other)
     @x.approx(other.x) && @y.approx(other.y)
+  end
+
+  def distance(other)
+    Math.hypot(@x - other.x, @y - other.y)
   end
 
   def to_svg
