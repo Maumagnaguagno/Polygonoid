@@ -38,9 +38,9 @@ class Broken < Test::Unit::TestCase
     origin = Point.new(0,0)
     x1y1 = Point.new(1,1)
     l1 = Line.new(origin, x1y1)
-    assert_same(0.0, l1.distance_to_point(origin))
-    assert_same(0.0, l1.distance_to_point(x1y1))
-    assert_same(0.0, l1.distance_to_point(Point.new(0.5,0.5)))
+    assert_equal(0, l1.distance_to_point(origin))
+    assert_equal(0, l1.distance_to_point(x1y1))
+    assert_equal(0, l1.distance_to_point(Point.new(0.5,0.5)))
     assert_in_epsilon(Math.sqrt(2) / 2, l1.distance_to_point(Point.new(0.5,-0.5)))
   end
 end
