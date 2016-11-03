@@ -9,6 +9,10 @@ class Line
     @y_intercept = from.y - from.x * @slope unless vertical?
   end
 
+  def ==(other)
+    @from == other.from && @to == other.to
+  end
+
   def perimeter
     @from.distance(@to)
   end
