@@ -48,4 +48,13 @@ class Broken < Test::Unit::TestCase
     assert_equal(0, l1.distance_to_point(Point.new(0.5,0.5)))
     assert_in_epsilon(Math.sqrt(2) / 2, l1.distance_to_point(Point.new(0.5,-0.5)))
   end
+
+  def test_line_to_svg
+    # Integer points
+    l1 = Line.new(Point.new(1,2), Point.new(3,4))
+    assert_equal("<line x1=\"1\" y1=\"2\" x2=\"3\" y2=\"4\" stroke-width=\"1\" stroke=\"black\"/>\n", l1.to_svg)
+    # Real points
+    l1 = Line.new(Point.new(1.0,2.0), Point.new(3.0,4.0))
+    assert_equal("<line x1=\"1.0\" y1=\"2.0\" x2=\"3.0\" y2=\"4.0\" stroke-width=\"1\" stroke=\"black\"/>\n", l1.to_svg)
+  end
 end
