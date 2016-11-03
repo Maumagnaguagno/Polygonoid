@@ -11,6 +11,53 @@ SVG output also provides a nice way of checking what is happening inside the box
 - Polyline
 - Polygon
 
+## API
+
+### Point
+**Attributes:**
+- ``attr_reader :x`` is the point horizontal position along the X axis.
+- ``attr_reader :y`` is the point vertical position along the Y axis.
+
+**Methods:**
+- ``initialize(x, y)`` creates an instance with the given ``x`` and ``y`` coordinates.
+- ``distance(other)``
+- ``==(other)``
+- ``to_svg``
+
+### Line
+**Attributes:**
+- ``attr_reader :from``
+- ``attr_reader :to``
+- ``attr_reader :slope``
+- ``attr_reader :y_intercept``
+
+**Methods:**
+- ``initialize(from, to)``
+- ``perimeter``
+- ...
+- ``to_svg``
+
+### Polyline
+**Attributes:**
+- ``attr_reader :vertices``
+- ``attr_reader :edges``
+
+**Methods:**
+- ``initialize(*vertices)``
+- ``perimeter``
+- ``to_svg``
+
+### Polygon
+**Attributes:**
+- ``attr_reader :vertices``
+- ``attr_reader :edges``
+
+**Methods:**
+- ``initialize(*vertices)``
+- ``to_svg``
+
 ## ToDo's
+- API description
 - Tests
+- Add style parameter to ``to_svg`` methods
 - Support Integer and Bigdecimal, check zero division cases
