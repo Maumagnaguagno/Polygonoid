@@ -18,7 +18,7 @@ class Circle
     Math::PI * @radius ** 2
   end
 
-  def to_svg(style = '')
-    "<circle cx=\"#{@cx}\" cy=\"#{@cy}\" r=\"#{@radius}\" #{style}/>\n"
+  def to_svg(style = 'fill:gray;stroke:black')
+    "<circle cx=\"#{@cx}\" cy=\"#{@cy}\" r=\"#{@radius}\" style=\"#{style}\"/>\n"
   end
 end
