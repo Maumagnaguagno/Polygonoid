@@ -10,6 +10,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 - Line
 - Polyline
 - Polygon
+- Circle
 
 ## API
 
@@ -62,6 +63,18 @@ SVG output also provides a nice way of checking what is happening inside the box
 
 **Methods:**
 - ``initialize(*vertices)``
+- ``to_svg`` returns string with SVG description.
+
+### [Circle](src/Circle.rb)
+**Attributes:**
+- ``attr_reader :cx``
+- ``attr_reader :cy``
+- ``attr_reader :radius``
+
+**Methods:**
+- ``initialize(*vertices)``
+- ``perimeter``
+- ``area``
 - ``to_svg`` returns string with SVG description.
 
 ## ToDo's
