@@ -12,3 +12,5 @@ script:
   # Tests
   - ruby tests/pointy.rb
   - ruby tests/scribble.rb
+  - ruby tests/chain.rb
+  - ruby tests/apeirogon.rb
