@@ -15,7 +15,7 @@ class Point
     Math.hypot(@x - other.x, @y - other.y)
   end
 
-  def to_svg
-    "<circle cx=\"#{@x}\" cy=\"#{@y}\" r=\"2\"/>\n"
+  def to_svg(style = '')
+    "<circle cx=\"#{@x}\" cy=\"#{@y}\" r=\"2\" #{style}/>\n"
   end
 end

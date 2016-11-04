@@ -11,9 +11,9 @@ class Polyline
     @edges.inject(0) {|sum,edge| sum + edge.perimeter}
   end
 
-  def to_svg
+  def to_svg(style = 'style="fill:none;stroke:black"')
     svg = "<polyline points=\""
     @vertices.each {|p| svg << "#{p.x},#{p.y} "}
-    svg << "\" style=\"fill:none;stroke:black;stroke-width:1\"/>\n"
+    svg << "\" #{style}/>\n"
   end
 end

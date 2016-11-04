@@ -86,7 +86,7 @@ class Line
     (Math.atan(@slope) - Math.atan(other.slope)).abs
   end
 
-  def to_svg
-    "<line x1=\"#{@from.x}\" y1=\"#{@from.y}\" x2=\"#{@to.x}\" y2=\"#{@to.y}\" stroke-width=\"1\" stroke=\"black\"/>\n"
+  def to_svg(style = 'stroke="black"')
+    "<line x1=\"#{@from.x}\" y1=\"#{@from.y}\" x2=\"#{@to.x}\" y2=\"#{@to.y}\" #{style}/>\n"
   end
 end
