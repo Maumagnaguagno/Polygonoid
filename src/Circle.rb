@@ -2,6 +2,8 @@ class Circle
 
   attr_reader :cx, :cy, :radius
 
+  PI2 = Math::PI * 2
+
   def initialize(cx, cy, radius)
     @cx = cx
     @cy = cy
@@ -9,11 +11,11 @@ class Circle
   end
 
   def perimeter
-    
+    PI2 * @radius
   end
 
   def area
-    
+    Math::PI * @radius ** 2
   end
 
   def to_svg(style = '')
