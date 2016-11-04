@@ -6,9 +6,69 @@ class Scribble < Test::Unit::TestCase
   def test_line_initialize
     from = Point.new(0,1)
     to = Point.new(5,5)
-    l1 = Line.new(from, to)
-    assert_same(from, l1.from)
-    assert_same(to, l1.to)
+    line = Line.new(from, to)
+    assert_equal(from, line.from)
+    assert_equal(to, line.to)
+    assert_equal(0.8, line.slope)
+    assert_equal(1, line.y_intercept)
+  end
+
+  def test_line_equality
+    a = Point.new(23,89)
+    b = Point.new(155,0.8)
+    c = Point.new(400,0)
+    assert_equal(Line.new(a,b), Line.new(a,b))
+    assert_not_equal(Line.new(a,b), Line.new(b,a))
+    assert_not_equal(Line.new(a,b), Line.new(a,c))
+    assert_not_equal(Line.new(a,b), Line.new(c,b))
+  end
+
+  def test_line_perimeter
+    from = Point.new(23,89)
+    to = Point.new(155,0.8)
+    line = Line.new(from, to)
+    assert_equal(Math.hypot(23 - 155, 89 - 0.8), line.perimeter)
+  end
+
+  def test_line_x_intercept
+    from = Point.new(0,1)
+    to = Point.new(5,5)
+    line = Line.new(from, to)
+    assert_equal(-1.25, line.x_intercept)
+  end
+
+  def test_line_vertical
+    assert_equal(true, Line.new(Point.new(0,0), Point.new(0,1)).vertical?)
+    assert_equal(false, Line.new(Point.new(0,0), Point.new(1,0)).vertical?)
+    assert_equal(false, Line.new(Point.new(0,0), Point.new(1,1)).vertical?)
+    # Weird behavior for same from/to point
+    assert_equal(true, Line.new(Point.new(0,0), Point.new(0,0)).vertical?)
+  end
+
+  def test_line_horizontal
+    assert_equal(false, Line.new(Point.new(0,0), Point.new(0,1)).horizontal?)
+    assert_equal(true, Line.new(Point.new(0,0), Point.new(1,0)).horizontal?)
+    assert_equal(false, Line.new(Point.new(0,0), Point.new(1,1)).horizontal?)
+    # Weird behavior for same from/to point
+    assert_equal(true, Line.new(Point.new(0,0), Point.new(0,0)).horizontal?)
+  end
+
+  def test_line_parallel_to
+    #flunk # TODO
+  end
+
+  def test_line_contain_point
+    #flunk # TODO
+  end
+
+  def test_line_distance_to_point
+    origin = Point.new(0,0)
+    x1y1 = Point.new(1,1)
+    l1 = Line.new(origin, x1y1)
+    assert_equal(0, l1.distance_to_point(origin))
+    assert_equal(0, l1.distance_to_point(x1y1))
+    assert_equal(0, l1.distance_to_point(Point.new(0.5,0.5)))
+    assert_in_epsilon(Math.sqrt(2) / 2, l1.distance_to_point(Point.new(0.5,-0.5)))
   end
 
   def test_line_intersect_line_middle
@@ -39,14 +99,12 @@ class Scribble < Test::Unit::TestCase
     assert_equal(Point.new(80,50), l1.intersect_line(l2))
   end
 
-  def test_line_distance_to_point
-    origin = Point.new(0,0)
-    x1y1 = Point.new(1,1)
-    l1 = Line.new(origin, x1y1)
-    assert_equal(0, l1.distance_to_point(origin))
-    assert_equal(0, l1.distance_to_point(x1y1))
-    assert_equal(0, l1.distance_to_point(Point.new(0.5,0.5)))
-    assert_in_epsilon(Math.sqrt(2) / 2, l1.distance_to_point(Point.new(0.5,-0.5)))
+  def test_line_intersection_line2
+    #flunk # TODO
+  end
+
+  def test_line_intersect_line_angle
+    #flunk # TODO
   end
 
   def test_line_to_svg
