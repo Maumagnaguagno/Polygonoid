@@ -26,8 +26,8 @@ class Pointy < Test::Unit::TestCase
 
   def test_point_to_svg
     # Integer point
-    assert_equal("<circle cx=\"2\" cy=\"3\" r=\"2\" />\n", Point.new(2,3).to_svg)
+    assert_equal("<circle cx=\"2\" cy=\"3\" r=\"0.5\" style=\"fill:none;stroke:black;stroke-width:0.5\"/>\n", Point.new(2,3).to_svg)
     # Real point
-    assert_equal("<circle cx=\"2.0\" cy=\"3.0\" r=\"2\" />\n", Point.new(2.0,3.0).to_svg)
+    assert_equal("<circle cx=\"2.0\" cy=\"3.0\" r=\"0.5\" style=\"fill:none;stroke:black;stroke-width:0.5\"/>\n", Point.new(2.0,3.0).to_svg)
   end
 end
