@@ -1,7 +1,7 @@
 require 'test/unit'
 require './NeonPolygon'
 
-class Broken < Test::Unit::TestCase
+class Scribble < Test::Unit::TestCase
 
   def test_line_initialize
     from = Point.new(0,1)
