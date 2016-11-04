@@ -14,3 +14,4 @@ script:
   - ruby tests/scribble.rb
   - ruby tests/chain.rb
   - ruby tests/apeirogon.rb
+  - ruby tests/geometer.rb
