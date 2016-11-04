@@ -2,6 +2,7 @@ require_relative 'src/Point'
 require_relative 'src/Line'
 require_relative 'src/Polyline'
 require_relative 'src/Polygon'
+require_relative 'src/Circle'
 
 class Numeric
   def approx(other, relative_epsilon = nil, epsilon = nil)
