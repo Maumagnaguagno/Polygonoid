@@ -16,6 +16,6 @@ class Point
   end
 
   def to_svg(style = 'fill:none;stroke:black;stroke-width:0.5')
-    "<circle cx=\"#{@x}\" cy=\"#{@y}\" r=\"0.5\" style=\"#{style}\"/>\n"
+    "<circle cx=\"#{@x}\" cy=\"#{@y}\" r=\"0.5\" style=\"#{style}\" title=\"Point #{@x},#{@y}\"/>\n"
   end
 end

@@ -12,8 +12,7 @@ class Polyline
   end
 
   def to_svg(style = 'fill:none;stroke:black')
-    svg = "<polyline points=\""
-    @vertices.each {|p| svg << "#{p.x},#{p.y} "}
-    svg << "\" style=\"#{style}\"/>\n"
+    v = @vertices.map {|p| "#{p.x},#{p.y}"}.join(' ')
+    "<polyline points=\"#{v}\" style=\"#{style}\" title=\"Polyline #{v}\"/>\n"
   end
 end

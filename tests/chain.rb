@@ -25,6 +25,6 @@ class Chain  < Test::Unit::TestCase
 
   def test_polyline_to_svg
     poly = Polyline.new(Point.new(1,2), Point.new(3,4), Point.new(5,6))
-    assert_equal("<polyline points=\"1,2 3,4 5,6 \" style=\"fill:none;stroke:black\"/>\n", poly.to_svg)
+    assert_equal("<polyline points=\"1,2 3,4 5,6\" style=\"fill:none;stroke:black\" title=\"Polyline 1,2 3,4 5,6\"/>\n", poly.to_svg)
   end
 end

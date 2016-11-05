@@ -26,6 +26,6 @@ class Apeirogon  < Test::Unit::TestCase
 
   def test_polygon_to_svg
     poly = Polygon.new(Point.new(1,2), Point.new(3,4), Point.new(5,6))
-    assert_equal("<polygon points=\"1,2 3,4 5,6 \" style=\"fill:gray;stroke:black\"/>\n", poly.to_svg)
+    assert_equal("<polygon points=\"1,2 3,4 5,6\" style=\"fill:gray;stroke:black\" title=\"Polygon 1,2 3,4 5,6\"/>\n", poly.to_svg)
   end
 end

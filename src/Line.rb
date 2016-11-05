@@ -87,6 +87,6 @@ class Line
   end
 
   def to_svg(style = 'stroke:black')
-    "<line x1=\"#{@from.x}\" y1=\"#{@from.y}\" x2=\"#{@to.x}\" y2=\"#{@to.y}\" style=\"#{style}\"/>\n"
+    "<line x1=\"#{@from.x}\" y1=\"#{@from.y}\" x2=\"#{@to.x}\" y2=\"#{@to.y}\" style=\"#{style}\" title=\"Line #{@from.x},#{@from.y} #{@to.x},#{@to.y}\"/>\n"
   end
 end

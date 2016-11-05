@@ -28,5 +28,5 @@ def svg_grid(width, height, step = 10)
 </pattern>
 </defs>
 <rect fill=\"url(#grid)\" width=\"#{width}\" height=\"#{height}\"></rect>
-<circle r=\"0.5\" style=\"fill:none;stroke:black;stroke-width:0.5\"/>\n"
+<circle r=\"0.5\" style=\"fill:none;stroke:black;stroke-width:0.5\" title=\"Origin\"/>\n"
 end

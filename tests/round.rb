@@ -22,6 +22,6 @@ class Round < Test::Unit::TestCase
 
   def test_circle_to_svg
     circle = Circle.new(1,2,3)
-    assert_equal("<circle cx=\"1\" cy=\"2\" r=\"3\" style=\"fill:gray;stroke:black\"/>\n", circle.to_svg)
+    assert_equal("<circle cx=\"1\" cy=\"2\" r=\"3\" style=\"fill:gray;stroke:black\" title=\"Circle 1,2 3\"/>\n", circle.to_svg)
   end
 end

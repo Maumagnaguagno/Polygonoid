@@ -19,6 +19,6 @@ class Circle
   end
 
   def to_svg(style = 'fill:gray;stroke:black')
-    "<circle cx=\"#{@cx}\" cy=\"#{@cy}\" r=\"#{@radius}\" style=\"#{style}\"/>\n"
+    "<circle cx=\"#{@cx}\" cy=\"#{@cy}\" r=\"#{@radius}\" style=\"#{style}\" title=\"Circle #{@cx},#{@cy} #{@radius}\"/>\n"
   end
 end
