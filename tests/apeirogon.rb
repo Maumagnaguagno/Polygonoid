@@ -20,7 +20,7 @@ class Apeirogon  < Test::Unit::TestCase
     b = Point.new(155,0.8)
     c = Point.new(400,0)
     abc = Polygon.new(a, b, c)
-    perimeter = Math.hypot(23 - 155, 89 - 0.8) + Math.hypot(155 - 400, 0.8 - 0) + Math.hypot(400 - 23, 0 - 89)
+    perimeter = Math.hypot(23 - 155, 89 - 0.8) + Math.hypot(155 - 400, 0.8) + Math.hypot(400 - 23, -89)
     assert_equal(perimeter, abc.perimeter)
   end
 
