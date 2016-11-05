@@ -16,8 +16,8 @@ SVG output also provides a nice way of checking what is happening inside the box
 
 ### [Point](src/Point.rb)
 *Attributes:*
-- ``attr_reader :x`` is the point horizontal position along the X axis.
-- ``attr_reader :y`` is the point vertical position along the Y axis.
+- ``attr_reader :x`` is the horizontal position along the X axis.
+- ``attr_reader :y`` is the vertical position along the Y axis.
 
 *Methods:*
 - ``initialize(x, y)`` creates an instance with the given ``x`` and ``y`` coordinates.
@@ -26,13 +26,13 @@ SVG output also provides a nice way of checking what is happening inside the box
 - ``to_svg(style = 'fill:none;stroke:black;stroke-width:0.5')`` returns string with SVG description.
 
 ### [Line](src/Line.rb)
-**Attributes:**
+*Attributes:*
 - ``attr_reader :from``
 - ``attr_reader :to``
 - ``attr_reader :slope``
 - ``attr_reader :y_intercept``
 
-**Methods:**
+*Methods:*
 - ``initialize(from, to)`` creates an instance with the given ``to`` and ``from`` points.
 - ``perimeter``
 - ``x_intercept``
@@ -47,31 +47,31 @@ SVG output also provides a nice way of checking what is happening inside the box
 - ``to_svg(style = 'stroke:black')`` returns string with SVG description.
 
 ### [Polyline](src/Polyline.rb)
-**Attributes:**
+*Attributes:*
 - ``attr_reader :vertices``
 - ``attr_reader :edges``
 
-**Methods:**
+*Methods:*
 - ``initialize(*vertices)`` creates an instance with the given array of ``vertices``, each vertice is a Point instance.
 - ``perimeter``
 - ``to_svg(style = 'fill:none;stroke:black')`` returns string with SVG description.
 
 ### [Polygon](src/Polygon.rb)
-**Attributes:**
+*Attributes:*
 - ``attr_reader :vertices``
 - ``attr_reader :edges``
 
-**Methods:**
+*Methods:*
 - ``initialize(*vertices)`` creates an instance with the given array of ``vertices``, each vertice is a Point instance.
 - ``to_svg(style = 'fill:gray;stroke:black')`` returns string with SVG description.
 
 ### [Circle](src/Circle.rb)
-**Attributes:**
-- ``attr_reader :cx``
-- ``attr_reader :cy``
+*Attributes:*
+- ``attr_reader :cx`` is the horizontal position along the X axis.
+- ``attr_reader :cy`` is the vertical position along the Y axis.
 - ``attr_reader :radius``
 
-**Methods:**
+*Methods:*
 - ``initialize(cx, cy, radius)`` creates an instance at ``cx`` ``cy`` with radius ``radius``.
 - ``perimeter`` returns perimeter/circumference of circle.
 - ``area`` returns area of circle.
