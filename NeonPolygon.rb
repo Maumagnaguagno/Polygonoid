@@ -17,10 +17,6 @@ class Float
   end
 end
 
-def svg_save(filename, svg, width, height, x_min = 0, y_min = 0, x_max = width, y_max = height)
-  IO.write(filename, "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"#{width}\" height=\"#{height}\" viewBox=\"#{x_min} #{y_min} #{x_max} #{y_max}\">\n#{svg}</svg>")
-end
-
 def svg_grid(width, height, step = 10)
 "<defs>
 <pattern id=\"grid\" width=\"#{step}\" height=\"#{step}\" patternUnits=\"userSpaceOnUse\">
@@ -29,4 +25,8 @@ def svg_grid(width, height, step = 10)
 </defs>
 <rect fill=\"url(#grid)\" width=\"#{width}\" height=\"#{height}\"></rect>
 <circle r=\"0.5\" style=\"fill:none;stroke:black;stroke-width:0.5\" title=\"Origin\"/>\n"
+end
+
+def svg_save(filename, svg, width, height, x_min = 0, y_min = 0, x_max = width, y_max = height)
+  IO.write(filename, "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"#{width}\" height=\"#{height}\" viewBox=\"#{x_min} #{y_min} #{x_max} #{y_max}\">\n#{svg}</svg>")
 end
