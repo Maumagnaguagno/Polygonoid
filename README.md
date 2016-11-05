@@ -15,11 +15,11 @@ SVG output also provides a nice way of checking what is happening inside the box
 ## API
 
 ### [Point](src/Point.rb)
-**Attributes:**
+*Attributes:*
 - ``attr_reader :x`` is the point horizontal position along the X axis.
 - ``attr_reader :y`` is the point vertical position along the Y axis.
 
-**Methods:**
+*Methods:*
 - ``initialize(x, y)`` creates an instance with the given ``x`` and ``y`` coordinates.
 - ``distance(other)``
 - ``==(other)``
@@ -52,7 +52,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 - ``attr_reader :edges``
 
 **Methods:**
-- ``initialize(*vertices)`` creates an instance with the given array of ``vertices``.
+- ``initialize(*vertices)`` creates an instance with the given array of ``vertices``, each vertice is a Point instance.
 - ``perimeter``
 - ``to_svg(style = 'fill:none;stroke:black')`` returns string with SVG description.
 
@@ -62,7 +62,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 - ``attr_reader :edges``
 
 **Methods:**
-- ``initialize(*vertices)``
+- ``initialize(*vertices)`` creates an instance with the given array of ``vertices``, each vertice is a Point instance.
 - ``to_svg(style = 'fill:gray;stroke:black')`` returns string with SVG description.
 
 ### [Circle](src/Circle.rb)
@@ -72,9 +72,11 @@ SVG output also provides a nice way of checking what is happening inside the box
 - ``attr_reader :radius``
 
 **Methods:**
-- ``initialize(*vertices)``
-- ``perimeter``
-- ``area``
+- ``initialize(cx, cy, radius)`` creates an instance at ``cx`` ``cy`` with radius ``radius``.
+- ``perimeter`` returns perimeter/circumference of circle.
+- ``area`` returns area of circle.
+- ``contain_point?(other)``
+- ``distance_to_point(other)``
 - ``to_svg(style = 'fill:gray;stroke:black')`` returns string with SVG description.
 
 ## ToDo's
