@@ -23,7 +23,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 - ``initialize(x, y)`` creates an instance with the given ``x`` and ``y`` coordinates.
 - ``distance(other)``
 - ``==(other)``
-- ``to_svg`` returns string with SVG description.
+- ``to_svg(style = 'fill:none;stroke:black;stroke-width:0.5')`` returns string with SVG description.
 
 ### [Line](src/Line.rb)
 **Attributes:**
@@ -44,7 +44,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 - ``intersect_line(other)``
 - ``intersect_line2(other)`` works like ``intersect_line(other)`` for non horizontal/vertical lines.
 - ``intersect_line_angle(other)``
-- ``to_svg`` returns string with SVG description.
+- ``to_svg(style = 'stroke:black')`` returns string with SVG description.
 
 ### [Polyline](src/Polyline.rb)
 **Attributes:**
@@ -54,7 +54,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 **Methods:**
 - ``initialize(*vertices)`` creates an instance with the given array of ``vertices``.
 - ``perimeter``
-- ``to_svg`` returns string with SVG description.
+- ``to_svg(style = 'fill:none;stroke:black')`` returns string with SVG description.
 
 ### [Polygon](src/Polygon.rb)
 **Attributes:**
@@ -63,7 +63,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 
 **Methods:**
 - ``initialize(*vertices)``
-- ``to_svg`` returns string with SVG description.
+- ``to_svg(style = 'fill:gray;stroke:black')`` returns string with SVG description.
 
 ### [Circle](src/Circle.rb)
 **Attributes:**
@@ -75,7 +75,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 - ``initialize(*vertices)``
 - ``perimeter``
 - ``area``
-- ``to_svg`` returns string with SVG description.
+- ``to_svg(style = 'fill:gray;stroke:black')`` returns string with SVG description.
 
 ## ToDo's
 - API description
