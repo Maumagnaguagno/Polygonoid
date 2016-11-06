@@ -66,7 +66,13 @@ class Scribble < Test::Unit::TestCase
   end
 
   def test_line_parallel_to
-    #flunk # TODO
+    a = Point.new(1,1)
+    b = Point.new(1,0)
+    c = Point.new(5,0)
+    d = Point.new(5,5)
+    assert_equal(true,  Line.new(a,b).parallel_to?(Line.new(a,b)))
+    assert_equal(false, Line.new(a,a).parallel_to?(Line.new(a,a)))
+    assert_equal(true,  Line.new(a,b).parallel_to?(Line.new(c,d)))
   end
 
   def test_line_contain_point
