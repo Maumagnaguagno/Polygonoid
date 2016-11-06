@@ -4,13 +4,27 @@ require './NeonPolygon'
 class Scribble < Test::Unit::TestCase
 
   def test_line_initialize
-    from = Point.new(0,1)
-    to = Point.new(5,5)
-    line = Line.new(from, to)
-    assert_equal(from, line.from)
-    assert_equal(to, line.to)
+    a = Point.new(0,1)
+    b = Point.new(5,5)
+    c = Point.new(5,0)
+    # Different points
+    line = Line.new(a,b)
+    assert_equal(a, line.from)
+    assert_equal(b, line.to)
     assert_equal(0.8, line.slope)
     assert_equal(1, line.y_intercept)
+    # Same point
+    line = Line.new(a,a)
+    assert_equal(a, line.from)
+    assert_equal(a, line.to)
+    assert_equal(true, line.slope.nan?)
+    assert_equal(nil, line.y_intercept)
+    # Vertical lines have undefined slope
+    line = Line.new(b,c)
+    assert_equal(b, line.from)
+    assert_equal(c, line.to)
+    assert_equal(-Float::INFINITY, line.slope)
+    assert_equal(nil, line.y_intercept)
   end
 
   def test_line_equality
@@ -24,33 +38,31 @@ class Scribble < Test::Unit::TestCase
   end
 
   def test_line_perimeter
-    from = Point.new(23,89)
-    to = Point.new(155,0.8)
-    line = Line.new(from, to)
+    line = Line.new(Point.new(23,89), Point.new(155,0.8))
     assert_equal(Math.hypot(23 - 155, 89 - 0.8), line.perimeter)
   end
 
   def test_line_x_intercept
-    from = Point.new(0,1)
-    to = Point.new(5,5)
-    line = Line.new(from, to)
+    line = Line.new(Point.new(0,1), Point.new(5,5))
     assert_equal(-1.25, line.x_intercept)
   end
 
   def test_line_vertical
-    assert_equal(true, Line.new(Point.new(0,0), Point.new(0,1)).vertical?)
-    assert_equal(false, Line.new(Point.new(0,0), Point.new(1,0)).vertical?)
-    assert_equal(false, Line.new(Point.new(0,0), Point.new(1,1)).vertical?)
+    a = Point.new(0,0)
+    assert_equal(true,  Line.new(a, Point.new(0,1)).vertical?)
+    assert_equal(false, Line.new(a, Point.new(1,0)).vertical?)
+    assert_equal(false, Line.new(a, Point.new(1,1)).vertical?)
     # Weird behavior for same from/to point
-    assert_equal(true, Line.new(Point.new(0,0), Point.new(0,0)).vertical?)
+    assert_equal(true, Line.new(a,a).vertical?)
   end
 
   def test_line_horizontal
-    assert_equal(false, Line.new(Point.new(0,0), Point.new(0,1)).horizontal?)
-    assert_equal(true, Line.new(Point.new(0,0), Point.new(1,0)).horizontal?)
-    assert_equal(false, Line.new(Point.new(0,0), Point.new(1,1)).horizontal?)
+    a = Point.new(0,0)
+    assert_equal(false, Line.new(a, Point.new(0,1)).horizontal?)
+    assert_equal(true,  Line.new(a, Point.new(1,0)).horizontal?)
+    assert_equal(false, Line.new(a, Point.new(1,1)).horizontal?)
     # Weird behavior for same from/to point
-    assert_equal(true, Line.new(Point.new(0,0), Point.new(0,0)).horizontal?)
+    assert_equal(true, Line.new(a,a).horizontal?)
   end
 
   def test_line_parallel_to
@@ -62,13 +74,13 @@ class Scribble < Test::Unit::TestCase
   end
 
   def test_line_distance_to_point
-    origin = Point.new(0,0)
-    x1y1 = Point.new(1,1)
-    l1 = Line.new(origin, x1y1)
-    assert_equal(0, l1.distance_to_point(origin))
-    assert_equal(0, l1.distance_to_point(x1y1))
-    assert_equal(0, l1.distance_to_point(Point.new(0.5,0.5)))
-    assert_in_epsilon(Math.sqrt(2) / 2, l1.distance_to_point(Point.new(0.5,-0.5)))
+    a = Point.new(0,0)
+    b = Point.new(1,1)
+    line = Line.new(a,b)
+    assert_equal(0, line.distance_to_point(a))
+    assert_equal(0, line.distance_to_point(b))
+    assert_equal(0, line.distance_to_point(Point.new(0.5,0.5)))
+    assert_in_epsilon(Math.sqrt(2) / 2, line.distance_to_point(Point.new(0.5,-0.5)))
   end
 
   def test_line_intersect_line_middle
@@ -83,14 +95,14 @@ class Scribble < Test::Unit::TestCase
   end
 
   def test_line_intersect_line_vertex
-    origin = Point.new(0,0)
-    l1 = Line.new(origin, Point.new(0,5))
-    l2 = Line.new(origin, Point.new(5,0))
-    assert_equal(origin, l1.intersect_line(l2))
+    a = Point.new(0,0)
+    l1 = Line.new(a, Point.new(0,5))
+    l2 = Line.new(a, Point.new(5,0))
+    assert_equal(a, l1.intersect_line(l2))
     # Intersect other lines beyond segment limits
     l2 = Line.new(Point.new(0,1), Point.new(0,2))
     l3 = Line.new(Point.new(1,0), Point.new(2,0))
-    assert_equal(origin, l2.intersect_line(l3))
+    assert_equal(a, l2.intersect_line(l3))
   end
 
   def test_line_intersect_line_coincident
