@@ -17,11 +17,11 @@ class Pointy < Test::Unit::TestCase
   end
 
   def test_point_distance
-    origin = Point.new(0,0)
-    point = Point.new(1,1)
+    a = Point.new(0,0)
+    b = Point.new(1,1)
     sqrt2 = Math.sqrt(2)
-    assert_in_epsilon(sqrt2, origin.distance(point))
-    assert_in_epsilon(sqrt2, point.distance(origin))
+    assert_in_epsilon(sqrt2, a.distance(b))
+    assert_in_epsilon(sqrt2, b.distance(a))
   end
 
   def test_point_to_svg
