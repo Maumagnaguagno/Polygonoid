@@ -8,15 +8,24 @@
 
 require_relative '../NeonPolygon'
 
-def visible?(position, vertex, environment)
-  # Check if line intersects with anything
+def visible?(position, vertex, environment, edge_collisions = true)
+  # Check if line intersects with each polygon edge from environment
   line = Line.new(position, vertex)
-  environment.all? {|polygon|
-    polygon.edges.none? {|e|
-      intersection = line.intersect_line(e)
-      intersection && intersection != vertex && e.contain_point?(intersection) && line.contain_point?(intersection)
+  if edge_collisions
+    environment.all? {|polygon|
+      polygon.edges.none? {|e|
+        intersection = line.intersect_line(e)
+        intersection && intersection != vertex && e.contain_point?(intersection) && line.contain_point?(intersection)
+      }
     }
-  }
+  else
+    environment.all? {|polygon|
+      polygon.edges.none? {|e|
+        intersection = line.intersect_line(e)
+        intersection && intersection != e.to && intersection != e.from && e.contain_point?(intersection) && line.contain_point?(intersection)
+      }
+    }
+  end
 end
 
 # Environment
@@ -36,9 +45,8 @@ robot = Point.new(80.0,50.0)
 goal = Point.new(15.0,50.0)
 
 # SVG
-svg = svg_grid(500, 500)
+svg = svg_grid(500, 500) << robot.to_svg << goal.to_svg
 environment.each {|object| svg << object.to_svg}
-svg << robot.to_svg << goal.to_svg
 svg_save('test.svg', svg, 500, 500, 0, 0, 100, 100)
 
 reachable_positions = [robot]
@@ -56,7 +64,7 @@ while pos = reachable_positions.shift
   # Robot look at environment, sees polygon
   visible_points = [] # TODO add pos here?
   environment.each {|polygon| polygon.vertices.each {|v| visible_points << v if visible?(pos, v, environment)}}
-  #visible_points -= visited
+  visible_points -= visited
   #visible_points.sort_by! {|p| p.distance(goal)}
   visible_points.each {|p| puts "  Point (#{p.x}, #{p.y}) => Distance #{p.distance(goal)}"}
 
