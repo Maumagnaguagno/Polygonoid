@@ -14,72 +14,65 @@ SVG output also provides a nice way of checking what is happening inside the box
 
 ## API
 
-### [Point](src/Point.rb)
-*Attributes:*
+### [``Point``](src/Point.rb)
+
+**Attributes:**
 - ``attr_reader :x`` is the horizontal position along the X axis.
 - ``attr_reader :y`` is the vertical position along the Y axis.
 
-*Methods:*
+**Methods:**
 - ``initialize(x, y)`` creates an instance with the given ``x`` and ``y`` coordinates.
 - ``distance(other)`` returns distance to ``other`` point.
 - ``==(other)`` returns true if ``self`` is approximately equal to ``other``, false otherwise.
 - ``to_svg(style = 'fill:none;stroke:black;stroke-width:0.5')`` returns string with SVG description.
 
----
-
-### [Line](src/Line.rb)
-*Attributes:*
+### [``Line``](src/Line.rb)
+**Attributes:**
 - ``attr_reader :from`` is the segment origin, a point instance.
 - ``attr_reader :to`` is the segment end, a point instance.
 - ``attr_reader :slope``
 - ``attr_reader :y_intercept`` it the position where line intercepts the Y axis.
 
-*Methods:*
+**Methods:**
 - ``initialize(from, to)`` creates an instance with the given ``to`` and ``from`` points.
 - ``perimeter`` returns distance between ``from`` and ``to``.
 - ``x_intercept`` returns position where line intercepts the X axis.
 - ``vertical?`` returns true if line is vertical, false otherwise.
 - ``horizontal?`` returns true if line is horizontal, false otherwise.
 - ``parallel_to?(other)`` returns true if self is parallel to line ``other``, false otherwise.
-- ``contain_point?(other)`` **TODO**.
+- ``contain_point?(other)`` returns true if segment ``self`` contains point ``other``, false otherwise
 - ``distance_to_point(other)`` **TODO**.
 - ``intersect_line(other)`` **TODO**.
 - ``intersect_line2(other)`` works like ``intersect_line(other)`` for non horizontal/vertical lines.
 - ``intersect_line_angle(other)`` **TODO**.
 - ``to_svg(style = 'stroke:black')`` returns string with SVG description.
 
----
-
-### [Polyline](src/Polyline.rb)
-*Attributes:*
+### [``Polyline``](src/Polyline.rb)
+**Attributes:**
 - ``attr_reader :vertices`` is an array of point instances.
 - ``attr_reader :edges`` is an array of line instances.
 
-*Methods:*
+**Methods:**
 - ``initialize(*vertices)`` creates an instance with the given array of ``vertices``, each vertice is a point instance.
 - ``perimeter`` returns the sum of edge perimeters.
 - ``to_svg(style = 'fill:none;stroke:black')`` returns string with SVG description.
 
----
-
-### [Polygon](src/Polygon.rb)
-*Attributes:*
+### [``Polygon``](src/Polygon.rb)
+**Attributes:**
 - ``attr_reader :vertices`` is an array of point instances.
 - ``attr_reader :edges`` is an array of line instances, last vertex is connected to first vertex.
 
-*Methods:*
+**Methods:**
 - ``initialize(*vertices)`` creates an instance with the given array of ``vertices``, each vertice is a point instance.
 - ``to_svg(style = 'fill:gray;stroke:black')`` returns string with SVG description.
 
----
-
-### [Circle](src/Circle.rb)
-*Attributes:*
+### [``Circle``](src/Circle.rb)
+**Attributes:**
 - ``attr_reader :cx`` is the horizontal position along the X axis.
 - ``attr_reader :cy`` is the vertical position along the Y axis.
 - ``attr_reader :radius`` is how far the circle extends from the center position defined by ``cx,cy``.
 
-*Methods:*
+**Methods:**
 - ``initialize(cx, cy, radius)`` creates an instance at ``cx`` ``cy`` with radius ``radius``.
 - ``perimeter`` returns perimeter/circumference of circle.
 - ``area`` returns area of circle.
