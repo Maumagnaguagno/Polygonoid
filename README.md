@@ -41,12 +41,13 @@ SVG output also provides a nice way of checking what is happening inside the box
 - ``x_intercept`` returns position where line intercepts the X axis.
 - ``vertical?`` returns true if line is vertical, false otherwise.
 - ``horizontal?`` returns true if line is horizontal, false otherwise.
-- ``parallel_to?(other)`` returns true if self is parallel to line ``other``, false otherwise.
-- ``contain_point?(other)`` returns true if segment ``self`` contains point ``other``, false otherwise
-- ``distance_to_point(other)`` **TODO**.
-- ``intersect_line(other)`` **TODO**.
+- ``parallel_to?(other)`` returns true if self is parallel to ``other`` line, false otherwise.
+- ``contain_point?(other)`` returns true if segment ``self`` contains ``other`` point, false otherwise
+- ``distance_to_point(other)`` returns distance between ``self`` and ``other`` point.
+- ``intersect_line(other)`` returns point of intersection between ``self`` and ``other`` line, ``nil`` if none.
+  - **TODO** return line of intersection if lines are coincident.
 - ``intersect_line2(other)`` works like ``intersect_line(other)`` for non horizontal/vertical lines.
-- ``intersect_line_angle(other)`` **TODO**.
+- ``intersect_line_angle(other)`` **TODO** description and tests.
 - ``to_svg(style = 'stroke:black')`` returns string with SVG description.
 
 ===
@@ -84,8 +85,8 @@ SVG output also provides a nice way of checking what is happening inside the box
 - ``initialize(cx, cy, radius)`` creates an instance at ``cx`` ``cy`` with radius ``radius``.
 - ``perimeter`` returns perimeter/circumference of circle.
 - ``area`` returns area of circle.
-- ``contain_point?(other)`` returns true if point ``other`` is within area of circle, false otherwise.
-- ``distance_to_point(other)`` returns distance from point ``other`` to circle border.
+- ``contain_point?(other)`` returns true if ``other`` point is within area of circle, false otherwise.
+- ``distance_to_point(other)`` returns distance from ``other`` point to circle border.
 - ``to_svg(style = 'fill:gray;stroke:black')`` returns string with SVG description.
 
 ## ToDo's
