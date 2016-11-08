@@ -26,6 +26,8 @@ SVG output also provides a nice way of checking what is happening inside the box
 - ``==(other)`` returns true if ``self`` is approximately equal to ``other``, false otherwise.
 - ``to_svg(style = 'fill:none;stroke:black;stroke-width:0.5')`` returns string with SVG description.
 
+===
+
 ### [``Line``](src/Line.rb)
 **Attributes:**
 - ``attr_reader :from`` is the segment origin, a point instance.
@@ -47,6 +49,8 @@ SVG output also provides a nice way of checking what is happening inside the box
 - ``intersect_line_angle(other)`` **TODO**.
 - ``to_svg(style = 'stroke:black')`` returns string with SVG description.
 
+===
+
 ### [``Polyline``](src/Polyline.rb)
 **Attributes:**
 - ``attr_reader :vertices`` is an array of point instances.
@@ -57,6 +61,8 @@ SVG output also provides a nice way of checking what is happening inside the box
 - ``perimeter`` returns the sum of edge perimeters.
 - ``to_svg(style = 'fill:none;stroke:black')`` returns string with SVG description.
 
+===
+
 ### [``Polygon``](src/Polygon.rb)
 **Attributes:**
 - ``attr_reader :vertices`` is an array of point instances.
@@ -65,6 +71,8 @@ SVG output also provides a nice way of checking what is happening inside the box
 **Methods:**
 - ``initialize(*vertices)`` creates an instance with the given array of ``vertices``, each vertice is a point instance.
 - ``to_svg(style = 'fill:gray;stroke:black')`` returns string with SVG description.
+
+===
 
 ### [``Circle``](src/Circle.rb)
 **Attributes:**
