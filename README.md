@@ -14,7 +14,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 
 ## API
 
-### [``Point``](src/Point.rb)
+### [Point](src/Point.rb)
 
 **Attributes:**
 - ``attr_reader :x`` is the horizontal position along the X axis.
@@ -28,7 +28,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 
 ===
 
-### [``Line``](src/Line.rb)
+### [Line](src/Line.rb)
 **Attributes:**
 - ``attr_reader :from`` is the segment origin, a point instance.
 - ``attr_reader :to`` is the segment end, a point instance.
@@ -52,7 +52,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 
 ===
 
-### [``Polyline``](src/Polyline.rb)
+### [Polyline](src/Polyline.rb)
 **Attributes:**
 - ``attr_reader :vertices`` is an array of point instances.
 - ``attr_reader :edges`` is an array of line instances.
@@ -64,7 +64,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 
 ===
 
-### [``Polygon``](src/Polygon.rb)
+### [Polygon](src/Polygon.rb)
 **Attributes:**
 - ``attr_reader :vertices`` is an array of point instances.
 - ``attr_reader :edges`` is an array of line instances, last vertex is connected to first vertex.
@@ -75,7 +75,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 
 ===
 
-### [``Circle``](src/Circle.rb)
+### [Circle](src/Circle.rb)
 **Attributes:**
 - ``attr_reader :cx`` is the horizontal position along the X axis.
 - ``attr_reader :cy`` is the vertical position along the Y axis.
