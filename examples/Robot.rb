@@ -28,6 +28,10 @@ def visible?(position, vertex, environment, edge_collisions = true)
   end
 end
 
+def nearby(point)
+  Point.new(point.x, point.y - 10)
+end
+
 # Environment
 environment = [
   Polygon.new(
@@ -63,9 +67,9 @@ while pos = reachable_positions.shift
 
   # Robot look at environment, sees polygon
   visible_points = [] # TODO add pos here?
-  environment.each {|polygon| polygon.vertices.each {|v| visible_points << v if visible?(pos, v, environment)}}
+  environment.each {|polygon| polygon.vertices.each {|v| visible_points << nearby(v) if visible?(pos, v, environment)}}
   visible_points -= visited
-  #visible_points.sort_by! {|p| p.distance(goal)}
+  visible_points.sort_by! {|p| p.distance(goal)}
   visible_points.each {|p| puts "  Point (#{p.x}, #{p.y}) => Distance #{p.distance(goal)}"}
 
   # TODO merge visible points with visible polygon
