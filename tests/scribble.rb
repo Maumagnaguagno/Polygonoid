@@ -128,9 +128,9 @@ class Scribble < Test::Unit::TestCase
   def test_line_to_svg
     # Integer points
     l1 = Line.new(Point.new(1,2), Point.new(3,4))
-    assert_equal("<line x1=\"1\" y1=\"2\" x2=\"3\" y2=\"4\" style=\"stroke:black\" title=\"Line 1,2 3,4\"/>\n", l1.to_svg)
+    assert_equal("<line x1=\"1\" y1=\"2\" x2=\"3\" y2=\"4\" style=\"stroke:black\"><title>Line 1,2 3,4</title></line>\n", l1.to_svg)
     # Real points
     l1 = Line.new(Point.new(1.0,2.0), Point.new(3.0,4.0))
-    assert_equal("<line x1=\"1.0\" y1=\"2.0\" x2=\"3.0\" y2=\"4.0\" style=\"stroke:black\" title=\"Line 1.0,2.0 3.0,4.0\"/>\n", l1.to_svg)
+    assert_equal("<line x1=\"1.0\" y1=\"2.0\" x2=\"3.0\" y2=\"4.0\" style=\"stroke:black\"><title>Line 1.0,2.0 3.0,4.0</title></line>\n", l1.to_svg)
   end
 end

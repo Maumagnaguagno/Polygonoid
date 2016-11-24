@@ -7,6 +7,6 @@ class Polygon < Polyline
 
   def to_svg(style = 'fill:gray;stroke:black')
     v = @vertices.map {|p| "#{p.x},#{p.y}"}.join(' ')
-    "<polygon points=\"#{v}\" style=\"#{style}\" title=\"Polygon #{v}\"/>\n"
+    "<polygon points=\"#{v}\" style=\"#{style}\"><title>Polygon #{v}</title></polygon>\n"
   end
 end
