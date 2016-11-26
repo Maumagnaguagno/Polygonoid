@@ -39,12 +39,7 @@ COS10 = Math.cos(TETA)
 def nearby(point)
   x0 = point.x
   y0 = point.y
-  #x1 = COS10 * x0 - SIN10 * y0
-  #y1 = SIN10 * x0 + COS10 * y0
-  #ratio = rectHeight? / y1
-  #x1 *= ratio
-  #y1 *= ratio
-  Point.new(x0, y0 - 10)
+  Point.new(x0, y0 - 5)
 end
 
 # Environment
@@ -74,16 +69,20 @@ visible_points = []
 
 index = 0
 while pos = reachable_positions.shift
+  visited << pos
+  pos = nearby(pos)
+
   index += 1
+  new_svg = svg.dup
   puts "#{index}: Point (#{pos.x}, #{pos.y})"
   # Try to see goal
   if visible?(pos, goal, environment)
+    new_svg << Line.new(pos, goal).to_svg('stroke:green;stroke-width:0.5')
+    svg_save("robot_t#{index}.svg", new_svg, 500, 500, 0, 0, 100, 100)
     puts 'Goal'
     break
   end
-  visited << pos
 
-  new_svg = svg.dup
   # Robot look at environment, sees polygon
   environment.each {|polygon|
     polygon.vertices.each {|v|
@@ -94,12 +93,12 @@ while pos = reachable_positions.shift
     }
   }
   svg_save("robot_t#{index}.svg", new_svg, 500, 500, 0, 0, 100, 100)
-  #visible_points.sort_by! {|p| p.distance(goal)}
-  visible_points.each {|p| puts "  Point (#{p.x}, #{p.y}) => Distance #{p.distance(goal)}"}
 
   # TODO merge visible points with visible polygon
   # Visible points are reachable positions
-  reachable_positions.push(*visible_points.map! {|v| nearby(v)})
+  reachable_positions.push(*visible_points).sort_by! {|p| p.distance(goal)}
+  reachable_positions.each {|p| puts "  Point (#{p.x}, #{p.y}) => Distance #{p.distance(goal)}"}
+  
   visible_points.clear
   STDIN.gets
 end
