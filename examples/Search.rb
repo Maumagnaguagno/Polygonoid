@@ -35,6 +35,7 @@ def visible_with_edges?(position, vertex, environment, svg = nil)
 end
 
 def nearby(point)
+  # TODO generate several visible points
   x0 = point.x
   y0 = point.y
   Point.new(x0, y0 - 5)
@@ -103,7 +104,6 @@ until reachable_positions.empty?
   }
   svg_save("search_t#{index}.svg", new_svg, 500, 500, 0, 0, 100, 100)
 
-  # TODO merge visible points with visible polygon
   # Visible points are reachable positions
   reachable_positions.push(*visible_points).sort_by! {|p| p.first.distance(goal)}
   reachable_positions.each {|p| puts "  Point (#{p.first.x}, #{p.first.y}) => Distance #{p.first.distance(goal)}"}
