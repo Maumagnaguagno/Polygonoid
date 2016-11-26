@@ -8,26 +8,16 @@
 
 require_relative '../NeonPolygon'
 
-def visible?(position, vertex, environment, svg = nil)
+def visible?(a, b, environment, svg = nil)
   # Check if line intersects with each polygon edge from environment
-  line = Line.new(position, vertex)
+  line = Line.new(a, b)
   environment.all? {|polygon|
     polygon.edges.none? {|e|
       intersection = line.intersect_line(e)
-      collision = intersection && intersection != vertex && e.contain_point?(intersection) && line.contain_point?(intersection)
-      svg << line.to_svg('stroke:yellow;stroke-width:0.5') << intersection.to_svg('fill:blue;stroke:blue;stroke-width:0.5') if svg and collision
-      collision
-    }
-  }
-end
-
-def visible_with_edges?(position, vertex, environment, svg = nil)
-  # Check if line intersects with each polygon edge from environment
-  line = Line.new(position, vertex)
-  environment.all? {|polygon|
-    polygon.edges.none? {|e|
-      intersection = line.intersect_line(e)
-      collision = intersection && intersection != e.to && intersection != e.from && e.contain_point?(intersection) && line.contain_point?(intersection)
+      # Collide with lines
+      collision = intersection && intersection != b && e.contain_point?(intersection) && line.contain_point?(intersection)
+      # Collide with lines, ignore vertices
+      #collision = intersection && intersection != e.to && intersection != e.from && e.contain_point?(intersection) && line.contain_point?(intersection)
       svg << line.to_svg('stroke:yellow;stroke-width:0.5') << intersection.to_svg('fill:blue;stroke:blue;stroke-width:0.5') if svg and collision
       collision
     }
