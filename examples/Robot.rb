@@ -1,8 +1,8 @@
-# Move robot R to goal G
+# Move from S to goal G
 # Environment is defined by one polygon
 #  __________
 # |    _     |
-# | G | |_ R |
+# | G | |_ S |
 # |   |__/   |
 # |__________|
 
@@ -52,17 +52,16 @@ environment = [
   )
 ]
 
-# Robot and Goal
-robot = Point.new(80.0,50.0)
+# Start and Goal
+start = Point.new(80.0,50.0)
 goal = Point.new(15.0,50.0)
 
 # SVG
-svg = svg_grid(500, 500) << robot.to_svg << goal.to_svg
+svg = svg_grid(500, 500) << start.to_svg << goal.to_svg
 environment.each {|object| svg << object.to_svg}
-svg_save('robot_t0.svg', svg, 500, 500, 0, 0, 100, 100)
 
-reachable_positions = [robot]
-visited = []
+reachable_positions = [start]
+visited = [start]
 visible_points = []
 
 index = 0
@@ -90,7 +89,7 @@ while pos = reachable_positions.shift
       end
     }
   }
-  svg_save("robot_t#{index}.svg", new_svg, 500, 500, 0, 0, 100, 100)
+  svg_save("search_t#{index}.svg", new_svg, 500, 500, 0, 0, 100, 100)
 
   # TODO merge visible points with visible polygon
   # Visible points are reachable positions
