@@ -12,12 +12,10 @@ def visible?(position, vertex, environment, edge_collisions = true, svg = nil)
   # Check if line intersects with each polygon edge from environment
   line = Line.new(position, vertex)
   if edge_collisions
-    puts "\t#{vertex.x} #{vertex.y}"
     environment.all? {|polygon|
       polygon.edges.none? {|e|
         intersection = line.intersect_line(e)
         collision = intersection && intersection != vertex && e.contain_point?(intersection) && line.contain_point?(intersection)
-        p intersection ? [[intersection.x, intersection.y], [vertex.x, vertex.y], intersection != vertex, e.contain_point?(intersection), line.contain_point?(intersection)] : [nil]
         svg << line.to_svg('stroke:yellow;stroke-width:0.5') << intersection.to_svg('fill:blue;stroke:blue;stroke-width:0.5') if svg and collision
         collision
       }
