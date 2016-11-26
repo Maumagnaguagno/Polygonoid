@@ -32,10 +32,6 @@ def visible?(position, vertex, environment, edge_collisions = true, svg = nil)
   end
 end
 
-TETA  = Math::PI / 18 # 10 * PI / 180
-SIN10 = Math.sin(TETA)
-COS10 = Math.cos(TETA)
-
 def nearby(point)
   x0 = point.x
   y0 = point.y
@@ -75,7 +71,7 @@ while pos = reachable_positions.shift
   index += 1
   new_svg = svg.dup
   puts "#{index}: Point (#{pos.x}, #{pos.y})"
-  # Try to see goal
+  # Goal visible test
   if visible?(pos, goal, environment)
     new_svg << Line.new(pos, goal).to_svg('stroke:green;stroke-width:0.5')
     svg_save("robot_t#{index}.svg", new_svg, 500, 500, 0, 0, 100, 100)
@@ -83,7 +79,7 @@ while pos = reachable_positions.shift
     break
   end
 
-  # Robot look at environment, sees polygon
+  # Visible corners
   environment.each {|polygon|
     polygon.vertices.each {|v|
       if not visited.include?(v) and visible?(pos, v, environment, true, new_svg)
