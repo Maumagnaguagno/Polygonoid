@@ -11,7 +11,7 @@ class Numeric
 end
 
 class Float
-  def approx(other, relative_epsilon = EPSILON, epsilon = EPSILON)
+  def approx(other, relative_epsilon = 0.001, epsilon = 0.001)
     # Based on Ruby Cookbook
     (diff = (other - self).abs) <= epsilon || diff / (self > other ? self : other).abs <= relative_epsilon
   end
