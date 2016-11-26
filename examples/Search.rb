@@ -1,4 +1,4 @@
-# Move from S to goal G
+# Move from S to G
 # Environment is defined by one polygon
 #  __________
 # |    _     |
@@ -62,9 +62,8 @@ svg = svg_grid(500, 500) << start.to_svg << goal.to_svg
 environment.each {|object| svg << object.to_svg}
 
 reachable_positions = [start]
-visited = [start]
+visited = []
 visible_points = []
-
 index = 0
 until reachable_positions.empty?
   pos, plan = reachable_positions.shift
@@ -85,9 +84,7 @@ until reachable_positions.empty?
     end
     final_plan.unshift(start)
     # Draw path
-    final_plan.each_cons(2) {|from,to|
-      new_svg << Line.new(from, to).to_svg('stroke:green;stroke-width:0.5')
-    }
+    final_plan.each_cons(2) {|from,to| new_svg << Line.new(from, to).to_svg('stroke:green;stroke-width:0.5')}
     svg_save("search_t#{index}.svg", new_svg, 500, 500, 0, 0, 100, 100)
     break
   end
@@ -107,7 +104,5 @@ until reachable_positions.empty?
   # Visible points are reachable positions
   reachable_positions.push(*visible_points).sort_by! {|p| p.first.distance(goal)}
   reachable_positions.each {|p| puts "  Point (#{p.first.x}, #{p.first.y}) => Distance #{p.first.distance(goal)}"}
-  
   visible_points.clear
-  STDIN.gets
 end
