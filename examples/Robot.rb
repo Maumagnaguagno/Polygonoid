@@ -65,7 +65,8 @@ visited = [start]
 visible_points = []
 
 index = 0
-while pos = reachable_positions.shift
+until reachable_positions.empty?
+  pos, plan = reachable_positions.shift
   visited << pos
   pos = nearby(pos)
 
@@ -73,18 +74,29 @@ while pos = reachable_positions.shift
   new_svg = svg.dup
   puts "#{index}: Point (#{pos.x}, #{pos.y})"
   # Goal visible test
-  if visible?(pos, goal, environment)
-    new_svg << Line.new(pos, goal).to_svg('stroke:green;stroke-width:0.5')
-    svg_save("robot_t#{index}.svg", new_svg, 500, 500, 0, 0, 100, 100)
+  if visible?(pos, goal, environment, new_svg)
     puts 'Goal'
+    # Build plan
+    final_plan = [pos, goal]
+    while plan
+      final_plan.unshift(plan.first)
+      plan = plan.last
+    end
+    final_plan.unshift(start)
+    # Draw path
+    final_plan.each_cons(2) {|from,to|
+      new_svg << Line.new(from, to).to_svg('stroke:green;stroke-width:0.5')
+    }
+    svg_save("search_t#{index}.svg", new_svg, 500, 500, 0, 0, 100, 100)
     break
   end
 
   # Visible corners
+  plan = [pos, plan]
   environment.each {|polygon|
     polygon.vertices.each {|v|
-      if not visited.include?(v) and visible?(pos, v, environment, true, new_svg)
-        visible_points << v
+      if not visited.include?(v) and visible?(pos, v, environment, new_svg)
+        visible_points << [v, plan]
         new_svg << Line.new(pos, v).to_svg('stroke:red;stroke-width:0.5')
       end
     }
@@ -93,8 +105,8 @@ while pos = reachable_positions.shift
 
   # TODO merge visible points with visible polygon
   # Visible points are reachable positions
-  reachable_positions.push(*visible_points).sort_by! {|p| p.distance(goal)}
-  reachable_positions.each {|p| puts "  Point (#{p.x}, #{p.y}) => Distance #{p.distance(goal)}"}
+  reachable_positions.push(*visible_points).sort_by! {|p| p.first.distance(goal)}
+  reachable_positions.each {|p| puts "  Point (#{p.first.x}, #{p.first.y}) => Distance #{p.first.distance(goal)}"}
   
   visible_points.clear
   STDIN.gets
