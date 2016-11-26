@@ -76,7 +76,10 @@ class Scribble < Test::Unit::TestCase
   end
 
   def test_line_contain_point
-    #flunk # TODO
+    a = Point.new(60,40)
+    b = Point.new(55,70)
+    c = Point.new(58,50)
+    assert_equal(true, Line.new(a,b).contain_point?(c))
   end
 
   def test_line_distance_to_point
