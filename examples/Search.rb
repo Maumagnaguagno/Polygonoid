@@ -83,20 +83,20 @@ def search(start, goal, environment)
   end
 end
 
-# Environment
-environment = [
-  Polygon.new(
-    Point.new(35,30),
-    Point.new(50,30),
-    Point.new(50,50),
-    Point.new(60,50),
-    Point.new(55,70),
-    Point.new(35,70)
-  )
-]
-
-# Start and Goal
-start = Point.new(80.0,50.0)
-goal = Point.new(15.0,50.0)
-
-search(start, goal, environment)
+search(
+  # Start
+  Point.new(80.0,50.0),
+  # Goal
+  Point.new(15.0,50.0),
+  # Environment
+  [
+    Polygon.new(
+      Point.new(35,30),
+      Point.new(50,30),
+      Point.new(50,50),
+      Point.new(60,50),
+      Point.new(55,70),
+      Point.new(35,70)
+    )
+  ]
+)
