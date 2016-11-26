@@ -84,7 +84,7 @@ until reachable_positions.empty?
     end
     final_plan.unshift(start)
     # Draw path
-    final_plan.each_cons(2) {|from,to| new_svg << Line.new(from, to).to_svg('stroke:green;stroke-width:0.5')}
+    new_svg << Polyline.new(*final_plan).to_svg('fill:none;stroke:green;stroke-width:0.5')
     svg_save("search_t#{index}.svg", new_svg, 500, 500, 0, 0, 100, 100)
     break
   end
