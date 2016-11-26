@@ -23,8 +23,7 @@ class Circle
   end
 
   def distance_to_point(other)
-    dis = Math.hypot(@cx - other.x, @cy - other.y)
-    dis <= @radius ? 0 : dis - @radius
+    (dis = Math.hypot(@cx - other.x, @cy - other.y) - @radius) <= 0 ? 0 : dis
   end
 
   def to_svg(style = 'fill:gray;stroke:black')
