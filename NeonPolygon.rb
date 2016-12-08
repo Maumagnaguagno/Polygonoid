@@ -17,10 +17,10 @@ class Float
   end
 end
 
-def svg_grid(width, height, step = 10)
+def svg_grid(width, height, step = 10, style = 'fill:none;stroke:gray;stroke-width:0.5')
 "<defs>
 <pattern id=\"grid\" width=\"#{step}\" height=\"#{step}\" patternUnits=\"userSpaceOnUse\">
-  <path d=\"M 100 0 L 0 0 0 100\" style=\"fill:none;stroke:gray;stroke-width:0.5\"/>
+  <path d=\"M 100 0 L 0 0 0 100\" style=\"#{style}\"/>
 </pattern>
 </defs>
 <rect fill=\"url(#grid)\" width=\"#{width}\" height=\"#{height}\"></rect>
