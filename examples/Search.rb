@@ -8,6 +8,8 @@
 
 require_relative '../NeonPolygon'
 
+NDEG2RAD = Math::PI / -180
+
 def visible?(a, b, environment, svg = nil)
   # Check if line intersects with each polygon edge from environment
   line = Line.new(a, b)
@@ -24,14 +26,23 @@ def visible?(a, b, environment, svg = nil)
   }
 end
 
-def nearby(point, environment)
-  # TODO generate several visible points
-  x0 = point.x
-  y0 = point.y
-  new_point = Point.new(x0, y0 - 5)
-  yield new_point# if visible?(point, new_point, environment)
-  #new_point = Point.new(x0, y0 + 5)
-  #yield new_point if visible?(point, new_point, environment)
+def rotate(a, b, angle)
+  if b
+    line = Line.new(a,b)
+    angle = line.slope + angle * NDEG2RAD
+    Point.new(
+      b.x - line.perimeter * Math.cos(angle),
+      b.y - line.perimeter * Math.sin(angle)
+    )
+  else a
+  end
+end
+
+def nearby(a, b, environment)
+  point = rotate(a, b, -10)
+  yield point #if visible?(a, point, environment)
+  #point = rotate(a, b, 10)
+  #yield point if visible?(a, point, environment)
 end
 
 def search(start, goal, environment)
@@ -45,7 +56,7 @@ def search(start, goal, environment)
   until reachable_positions.empty?
     point, plan = reachable_positions.shift
     visited << point
-    nearby(point, environment) {|pos|
+    nearby(point, plan && plan.first, environment) {|pos|
       index += 1
       new_svg = svg.dup
       puts "#{index}: Point (#{pos.x}, #{pos.y})"
