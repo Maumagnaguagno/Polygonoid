@@ -7,8 +7,16 @@ SVG output also provides a nice way of checking what is happening inside the box
 
 ## API
 
-### [Point](src/Point.rb)
+### [NeonPolygon](NeonPolygon.rb)
+- ``Numeric.approx(other, relative_epsilon = nil, epsilon = nil)`` alias for ``==``
+- ``Float.approx(other, relative_epsilon = 0.001, epsilon = 0.001)`` compares with epsilon for robustness.
+- ``svg_grid(width, height, step = 10, style = 'fill:none;stroke:gray;stroke-width:0.5')`` returns a SVG grid pattern with cells of size ``step``.
+- ``svg_text(x, y, text, style = 'font-family:Helvetica;font-size:8px')`` returns a SVG text element at the specified position.
+- ``svg_save(filename, svg, width, height, x_min = 0, y_min = 0, x_max = width, y_max = height)`` saves SVG to file ``filename`` with size and viewbox specified.
 
+===
+
+### [Point class](src/Point.rb)
 **Attributes:**
 - ``attr_reader :x`` is the horizontal position along the X axis.
 - ``attr_reader :y`` is the vertical position along the Y axis.
@@ -21,7 +29,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 
 ===
 
-### [Line](src/Line.rb)
+### [Line class](src/Line.rb)
 **Attributes:**
 - ``attr_reader :from`` is the segment origin, a point instance.
 - ``attr_reader :to`` is the segment end, a point instance.
@@ -45,7 +53,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 
 ===
 
-### [Polyline](src/Polyline.rb)
+### [Polyline class](src/Polyline.rb)
 **Attributes:**
 - ``attr_reader :vertices`` is an array of point instances.
 - ``attr_reader :edges`` is an array of line instances.
@@ -57,7 +65,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 
 ===
 
-### [Polygon](src/Polygon.rb)
+### [Polygon class](src/Polygon.rb)
 **Attributes:**
 - ``attr_reader :vertices`` is an array of point instances.
 - ``attr_reader :edges`` is an array of line instances, last vertex is connected to first vertex.
@@ -68,14 +76,14 @@ SVG output also provides a nice way of checking what is happening inside the box
 
 ===
 
-### [Circle](src/Circle.rb)
+### [Circle class](src/Circle.rb)
 **Attributes:**
 - ``attr_reader :cx`` is the horizontal position along the X axis.
 - ``attr_reader :cy`` is the vertical position along the Y axis.
-- ``attr_reader :radius`` is how far the circle extends from the center position defined by ``cx,cy``.
+- ``attr_reader :radius`` is how far the circle extends from the center position ``cx`` and ``cy``.
 
 **Methods:**
-- ``initialize(cx, cy, radius)`` creates an instance at ``cx`` ``cy`` with radius ``radius``.
+- ``initialize(cx, cy, radius)`` creates an instance at ``cx`` and ``cy`` with radius ``radius``.
 - ``perimeter`` returns perimeter/circumference of circle.
 - ``area`` returns area of circle.
 - ``contain_point?(other)`` returns true if ``other`` point is within area of circle, false otherwise.
@@ -85,5 +93,4 @@ SVG output also provides a nice way of checking what is happening inside the box
 ## ToDo's
 - API description
 - Tests
-- Add style parameter to ``to_svg`` methods
 - Support Integer and Bigdecimal, check zero division cases
