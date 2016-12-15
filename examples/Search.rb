@@ -47,6 +47,18 @@ def nearby(a, b, environment)
 end
 
 def search(start, goal, environment)
+  a = Point.new(50,50)
+  b = Point.new(60,50)
+  svg = svg_grid(100, 100, 10) << a.to_svg
+  line = Line.new(a,b)
+  p line
+  svg << line.to_svg
+  
+  line = Line.new(a, rotate(a,b, -10))
+  p line
+  svg << line.to_svg
+  svg_save('test.svg', svg, 500, 500, 0, 0, 100, 100)
+
   # SVG
   svg = svg_grid(500, 500) << start.to_svg << goal.to_svg
   environment.each {|polygon| svg << polygon.to_svg}
