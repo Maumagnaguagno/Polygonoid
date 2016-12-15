@@ -69,7 +69,6 @@ def search(start, goal, environment)
           final_plan.unshift(plan.first)
           plan = plan.last
         end
-        final_plan.unshift(start)
         # Draw path
         new_svg << Polyline.new(*final_plan).to_svg('fill:none;stroke:green;stroke-width:0.5')
         svg_save("search_t#{index}.svg", new_svg, 500, 500, 0, 0, 100, 100)
