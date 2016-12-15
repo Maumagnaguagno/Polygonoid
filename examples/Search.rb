@@ -6,6 +6,7 @@
 # |   |__/   |
 # |__________|
 
+require 'matrix'
 require_relative '../NeonPolygon'
 
 NDEG2RAD = Math::PI / -180
@@ -28,13 +29,12 @@ end
 
 def rotate(a, b, angle)
   if b
-    line = Line.new(a,b)
-    distance = line.perimeter
-    angle = line.slope + angle * NDEG2RAD
-    Point.new(
-      b.x - distance * Math.cos(angle),
-      b.y - distance * Math.sin(angle)
-    )
+    # Based on http://math.stackexchange.com/questions/1687901/how-to-rotate-a-line-segment-around-one-of-the-end-points
+    angle *= NDEG2RAD
+    sin = Math.sin(angle)
+    cos = Math.cos(angle)
+    rot = Matrix[[cos,-sin], [sin,cos]] * Matrix[[b.x - a.x], [b.y - a.y]] + Matrix[[a.x], [a.y]]
+    Point.new(rot[0,0], rot[1,0])
   else a
   end
 end
@@ -53,8 +53,8 @@ def search(start, goal, environment)
   line = Line.new(a,b)
   p line
   svg << line.to_svg
-  
-  line = Line.new(a, rotate(a,b, -10))
+
+  line = Line.new(a, rotate(a, b, -45))
   p line
   svg << line.to_svg
   svg_save('test.svg', svg, 500, 500, 0, 0, 100, 100)
