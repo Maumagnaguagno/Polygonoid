@@ -29,10 +29,11 @@ end
 def rotate(a, b, angle)
   if b
     line = Line.new(a,b)
+    distance = line.perimeter
     angle = line.slope + angle * NDEG2RAD
     Point.new(
-      b.x - line.perimeter * Math.cos(angle),
-      b.y - line.perimeter * Math.sin(angle)
+      b.x - distance * Math.cos(angle),
+      b.y - distance * Math.sin(angle)
     )
   else a
   end
