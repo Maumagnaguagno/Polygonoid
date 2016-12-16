@@ -27,32 +27,34 @@ def visible?(a, b, environment, svg = nil)
 end
 
 def rotate(a, b, angle)
-  if b
-    # Based on http://math.stackexchange.com/questions/1687901/how-to-rotate-a-line-segment-around-one-of-the-end-points
-    angle *= NDEG2RAD
-    sin = Math.sin(angle)
-    cos = Math.cos(angle)
-    bax = b.x - a.x
-    bay = b.y - a.y
-    Point.new(
-      cos * bax - sin * bay + a.x,
-      sin * bax + cos * bay + a.y
-    )
-  else a
-  end
+  # Based on http://math.stackexchange.com/questions/1687901/how-to-rotate-a-line-segment-around-one-of-the-end-points
+  angle *= NDEG2RAD
+  sin = Math.sin(angle)
+  cos = Math.cos(angle)
+  bax = b.x - a.x
+  bay = b.y - a.y
+  Point.new(
+    cos * bax - sin * bay + a.x,
+    sin * bax + cos * bay + a.y
+  )
 end
 
 def nearby(a, b, environment)
-  point = rotate(a, b, -10)
-  yield point #if visible?(a, point, environment)
-  #point = rotate(a, b, 10)
-  #yield point if visible?(a, point, environment)
+  if a
+    point = rotate(a, b, -10)
+    yield point if visible?(a, point, environment)
+    point = rotate(a, b, 10)
+    yield point if visible?(a, point, environment)
+  else
+    yield b
+  end
 end
 
 def search(start, goal, environment)
   # SVG
   svg = svg_grid(500, 500) << start.to_svg << goal.to_svg
   environment.each {|polygon| svg << polygon.to_svg}
+  # BFS
   reachable_positions = [start]
   visited = []
   visible_points = []
@@ -60,7 +62,7 @@ def search(start, goal, environment)
   until reachable_positions.empty?
     point, plan = reachable_positions.shift
     visited << point
-    nearby(point, plan && plan.first, environment) {|pos|
+    nearby(plan && plan.first, point, environment) {|pos|
       index += 1
       new_svg = svg.dup
       puts "#{index}: Point (#{pos.x}, #{pos.y})"
