@@ -156,6 +156,40 @@ if $0 == __FILE__
     Point.new(65,65),
     Point.new(56.0200,71.6505),
     Point.new(35.0309,73.6753),
-    Point.new(15.0,50.0)
+    Point.new(15,50)
+  ]
+
+  puts '------------------------------',
+  'Problem 3'
+  plan = search(
+    # Problem
+    'problem_3',
+    # Start
+    Point.new(5.0,40.0),
+    # Goal
+    Point.new(95.0,50.0),
+    # Environment
+    [
+      Polygon.new(
+        Point.new(10,5),
+        Point.new(35,5),
+        Point.new(35,80),
+        Point.new(10,80),
+      ),
+      Polygon.new(
+        Point.new(50,30),
+        Point.new(90,30),
+        Point.new(90,90),
+        Point.new(50,90),
+      )
+    ]
+  )
+
+  abort('Plan 3 failed') if plan != [
+    Point.new(5,40),
+    Point.new(2.9781,80.2605),
+    Point.new(47.5943,98.0173),
+    Point.new(90.7479,97.4854),
+    Point.new(95,50)
   ]
 end
