@@ -15,3 +15,5 @@ script:
   - ruby tests/chain.rb
   - ruby tests/apeirogon.rb
   - ruby tests/round.rb
+  # Examples
+  - ruby examples/Search.rb
