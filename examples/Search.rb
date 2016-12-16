@@ -6,7 +6,6 @@
 # |   |__/   |
 # |__________|
 
-require 'matrix'
 require_relative '../NeonPolygon'
 
 NDEG2RAD = Math::PI / -180
@@ -33,8 +32,12 @@ def rotate(a, b, angle)
     angle *= NDEG2RAD
     sin = Math.sin(angle)
     cos = Math.cos(angle)
-    rot = Matrix[[cos,-sin], [sin,cos]] * Matrix[[b.x - a.x], [b.y - a.y]] + Matrix[[a.x], [a.y]]
-    Point.new(rot[0,0], rot[1,0])
+    bax = b.x - a.x
+    bay = b.y - a.y
+    Point.new(
+      cos * bax - sin * bay + a.x,
+      sin * bax + cos * bay + a.y
+    )
   else a
   end
 end
