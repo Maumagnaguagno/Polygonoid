@@ -100,6 +100,9 @@ def search(title, start, goal, environment)
 end
 
 if $0 == __FILE__
+  # Remove old files
+  File.delete(*Dir.glob('*.svg'))
+
   puts 'Problem 1'
   plan = search(
     'problem_1',
