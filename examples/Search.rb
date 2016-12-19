@@ -198,4 +198,86 @@ if $0 == __FILE__
     Point.new(90.7479,97.4854),
     Point.new(95,50)
   ]
+
+  puts '------------------------------',
+  'Problem 4'
+  plan = search(
+    # Problem
+    'problem_4',
+    # Start
+    Point.new(22.0,8.0),
+    # Goal
+    Point.new(41.0,15.0),
+    # Angle
+    5,
+    # Environment
+    [
+      Polygon.new(
+        Point.new(26,8),
+        Point.new(26,34),
+        Point.new(62,36),
+        Point.new(52,26),
+        Point.new(42,24)
+      ),
+      Polygon.new(
+        Point.new(38,2),
+        Point.new(52,18),
+        Point.new(78,30),
+        Point.new(68,6)
+      ),
+      Polygon.new(
+        Point.new(2,12),
+        Point.new(4,36),
+        Point.new(20,36),
+        Point.new(18,2)
+      ),
+      Polygon.new(
+        Point.new(18,2),
+        Point.new(26,8),
+        Point.new(48,12),
+        Point.new(38,2)
+      )
+    ]
+  )
+
+  puts '------------------------------',
+  'Problem 5'
+  plan = search(
+    # Problem
+    'problem_5',
+    # Start
+    Point.new(41.0,15.0),
+    # Goal
+    Point.new(22.0,8.0),
+    # Angle
+    10,
+    # Environment
+    [
+      Polygon.new(
+        Point.new(26,8),
+        Point.new(26,34),
+        Point.new(62,36),
+        Point.new(52,26),
+        Point.new(42,24)
+      ),
+      Polygon.new(
+        Point.new(38,2),
+        Point.new(52,18),
+        Point.new(78,30),
+        Point.new(68,6)
+      ),
+      Polygon.new(
+        Point.new(2,12),
+        Point.new(4,36),
+        Point.new(20,36),
+        Point.new(18,2)
+      ),
+      Polygon.new(
+        Point.new(18,2),
+        Point.new(26,8),
+        Point.new(48,12),
+        Point.new(38,2)
+      )
+    ]
+  )
 end
