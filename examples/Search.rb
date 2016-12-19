@@ -39,18 +39,18 @@ def rotate(a, b, angle)
   )
 end
 
-def nearby(a, b, environment)
+def nearby(a, b, angle, environment)
   if a
-    point = rotate(a, b, -10)
+    point = rotate(a, b, -angle)
     yield point if visible?(a, point, environment)
-    point = rotate(a, b, 10)
+    point = rotate(a, b, angle)
     yield point if visible?(a, point, environment)
   else
     yield b
   end
 end
 
-def search(title, start, goal, environment)
+def search(title, start, goal, angle, environment)
   # SVG
   svg = svg_grid(500, 500) << start.to_svg << goal.to_svg
   environment.each {|polygon| svg << polygon.to_svg}
@@ -62,7 +62,7 @@ def search(title, start, goal, environment)
   until reachable_positions.empty?
     point, plan = reachable_positions.shift
     visited << point
-    nearby(plan && plan.first, point, environment) {|pos|
+    nearby(plan && plan.first, point, angle, environment) {|pos|
       index += 1
       new_svg = svg.dup
       puts "#{index}: Point (#{pos.x}, #{pos.y})"
@@ -110,6 +110,8 @@ if $0 == __FILE__
     Point.new(80.0,50.0),
     # Goal
     Point.new(15.0,50.0),
+    # Angle
+    10,
     # Environment
     [
       Polygon.new(
@@ -139,6 +141,8 @@ if $0 == __FILE__
     Point.new(65.0,65.0),
     # Goal
     Point.new(15.0,50.0),
+    # Angle
+    10,
     # Environment
     [
       Polygon.new(
@@ -168,6 +172,8 @@ if $0 == __FILE__
     Point.new(5.0,40.0),
     # Goal
     Point.new(95.0,50.0),
+    # Angle
+    10,
     # Environment
     [
       Polygon.new(
