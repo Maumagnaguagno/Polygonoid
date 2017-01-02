@@ -1,6 +1,7 @@
 require_relative '../NeonPolygon'
 
 def rect(x,y,w,h)
+  # TODO maybe it is better to keep polygons as simple Arrays [x,yw,h]
   Polygon.new(
     Point.new(x,   y),
     Point.new(x+w, y),
@@ -41,3 +42,17 @@ svg = svg_grid(500, 500)
 environment.each {|polygon| svg << polygon.to_svg('fill:white;stroke:black')}
 goals.each {|point| svg << point.to_svg}
 svg_save('partition.svg', svg, 500, 500)
+
+
+# TODO complete partition
+def partition(environment, goals, rect = nil)
+  if rect
+    # Filter
+    environment
+    goals
+  end
+  until goals.empty?
+    rect - find_outer_rect(environment) # TODO
+     partition(environment, goals, rect)
+  end
+end
