@@ -34,6 +34,7 @@ goals = [
   Point.new(0,0)
 ]
 
+srand(2)
 svg = svg_grid(500, 500)
 environment.each {|rect| svg << rect_to_svg(*rect)}
 goals.each {|point| svg << point.to_svg}
