@@ -1,28 +1,24 @@
 require_relative '../NeonPolygon'
 
-def rect(x,y,w,h)
-  # TODO maybe it is better to keep polygons as simple Arrays [x,yw,h]
+def rect_to_svg(x, y, w, h)
   Polygon.new(
     Point.new(x,   y),
     Point.new(x+w, y),
     Point.new(x+w, y+h),
     Point.new(x,   y+h)
-  )
+  ).to_svg("fill:##{rand(4096).to_s(16)};stroke:black")
 end
 
 environment = [
-  rect(0,0,500,500),
-  rect(350,0,20,150),
-  rect(245,120,20,150),
-  rect(175,270,175,20),
-  rect(245,290,20,130),
-  rect(350,270,20,230),
-  rect(370,300,130,20),
-  rect(0,365,130,20),
-#  Circle.new(90,125,25),
-#  Circle.new(175,225,25),
-#  Circle.new(425,240,25),
-#  Circle.new(175,445,25)
+  # Rects [x,y,w,h]
+  [0,0,500,500],
+  [350,0,20,150],
+  [245,120,20,150],
+  [175,270,175,20],
+  [245,290,20,130],
+  [350,270,20,230],
+  [370,300,130,20],
+  [0,365,130,20]
 ]
 
 goals = [
@@ -39,7 +35,7 @@ goals = [
 ]
 
 svg = svg_grid(500, 500)
-environment.each {|polygon| svg << polygon.to_svg('fill:white;stroke:black')}
+environment.each {|rect| svg << rect_to_svg(*rect)}
 goals.each {|point| svg << point.to_svg}
 svg_save('partition.svg', svg, 500, 500)
 
