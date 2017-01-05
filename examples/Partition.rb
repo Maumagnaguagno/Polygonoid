@@ -24,7 +24,7 @@ def partition_environment(environment, tree = [])
 end
 
 def partition_goals(goals, tree)
-  goal_rects = []
+  rect_goals = Hash.new {|h,k| h[k] = []}
   until goals.empty?
     goal = goals.shift
     subtree = find_branch(goal, tree.first)
@@ -48,10 +48,23 @@ def partition_goals(goals, tree)
       rect_bottom = top if top < rect_bottom and top > goal.y
       rect_bottom = bottom if bottom < rect_bottom and bottom > goal.y
     }
-    goal_rects << [[rect_left, rect_top, rect_right - rect_left, rect_bottom - rect_top], goal]
+    rect_goals[[rect_left, rect_top, rect_right - rect_left, rect_bottom - rect_top]] << goal
   end
   # Further divide goals within same rect
-  # TODO
+  goal_rects = []
+  rect_goals.each {|rect,rgoals|
+    if rgoals.size != 1
+      g2 = table[r]
+      # Horizontal split
+      if (g.x - g2.x).abs <= (g.y - g2.y).abs
+        # TODO gx + (g.x - g2.x) / 2
+      # Vertical split
+      else
+        # TODO gy + (g.y - g2.y) / 2
+      end
+    else goal_rects << [rect, rgoals.first]
+    end
+  }
   goal_rects
 end
 
