@@ -24,20 +24,17 @@ def partition_environment(environment, tree = [])
 end
 
 def partition_goals(goals, tree)
+  goal_rects = []
   until goals.empty?
     goal = goals.shift
     subtree = find_branch(goal, tree.first)
     # Expand to all sides and check collisions
     outer_rect = subtree.first
-    rect_left = outer_rect[0]
-    rect_right = rect_left + outer_rect[2]
-    rect_top = outer_rect[1]
-    rect_bottom = rect_top + outer_rect[3]
+    rect_right = (rect_left = outer_rect[0]) + outer_rect[2]
+    rect_bottom = (rect_top = outer_rect[1]) + outer_rect[3]
     subtree.last.each {|rect,_|
-      left = rect[0]
-      right = rect[0] + rect[2]
-      top = rect[1]
-      bottom = rect[1] + rect[3]
+      right = (left = rect[0]) + rect[2]
+      bottom = (top = rect[1]) + rect[3]
 
       rect_left = left if left > rect_left and left < goal.x
       rect_left = right if right > rect_left and right < goal.x
@@ -51,9 +48,11 @@ def partition_goals(goals, tree)
       rect_bottom = top if top < rect_bottom and top > goal.y
       rect_bottom = bottom if bottom < rect_bottom and bottom > goal.y
     }
-    yield [rect_left, rect_top, rect_right - rect_left, rect_bottom - rect_top], goal
+    goal_rects << [[rect_left, rect_top, rect_right - rect_left, rect_bottom - rect_top], goal]
   end
-  tree
+  # Further divide goals within same rect
+  # TODO
+  goal_rects
 end
 
 def find_branch(goal, tree)
@@ -99,7 +98,7 @@ if $0 == __FILE__
 
   p tree = partition_environment(environment.dup)
   counter = 0
-  partition_goals(goals.dup, tree) {|rect,goal|
+  partition_goals(goals.dup, tree).each {|rect,goal|
     svg << rect_to_svg(*rect, "fill:##{rand(4096).to_s(16)};stroke:white;stroke-dasharray:2;opacity:0.7")
     svg << goal.to_svg('fill:none;stroke:black;stroke-width:10')
     svg_save("partition#{counter += 1}.svg", svg, 500, 500)
