@@ -68,40 +68,42 @@ def find_branch(goal, tree)
   tree
 end
 
-environment = [
-  # Rects [x,y,w,h]
-  [0,0,500,500],
-  [350,0,20,150],
-  [245,120,20,150],
-  [175,270,175,20],
-  [245,290,20,130],
-  [350,270,20,230],
-  [370,300,130,20],
-  [0,365,130,20]
-]
+if $0 == __FILE__
+  environment = [
+    # Rects [x,y,w,h]
+    [0,0,500,500],
+    [350,0,20,150],
+    [245,120,20,150],
+    [175,270,175,20],
+    [245,290,20,130],
+    [350,270,20,230],
+    [370,300,130,20],
+    [0,365,130,20]
+  ]
 
-goals = [
-  Point.new(435,75),
-  Point.new(480,200),
-  Point.new(380,250),
-  Point.new(300,50),
-  Point.new(280,200),
-  Point.new(200,150),
-  Point.new(100,150),
-  Point.new(230,330),
-  Point.new(50,470),
-  Point.new(450,470)
-]
+  goals = [
+    Point.new(435,75),
+    Point.new(480,200),
+    Point.new(380,250),
+    Point.new(300,50),
+    Point.new(280,200),
+    Point.new(200,150),
+    Point.new(100,150),
+    Point.new(230,330),
+    Point.new(50,470),
+    Point.new(450,470)
+  ]
 
-srand(2)
-svg = svg_grid(500, 500)
-environment.each {|rect| svg << rect_to_svg(*rect, "fill:##{rand(4096).to_s(16)};stroke:black")}
-svg_save('partition.svg', svg, 500, 500)
+  srand(2)
+  svg = svg_grid(500, 500)
+  environment.each {|rect| svg << rect_to_svg(*rect, "fill:##{rand(4096).to_s(16)};stroke:black")}
+  svg_save('partition.svg', svg, 500, 500)
 
-p tree = partition_environment(environment.dup)
-counter = 0
-partition_goals(goals.dup, tree) {|rect,goal|
-  svg << rect_to_svg(*rect, "fill:##{rand(4096).to_s(16)};stroke:black;stroke-dasharray:2;opacity:0.7")
-  svg << goal.to_svg('fill:none;stroke:black;stroke-width:10')
-  svg_save("partition#{counter += 1}.svg", svg, 500, 500)
-}
+  p tree = partition_environment(environment.dup)
+  counter = 0
+  partition_goals(goals.dup, tree) {|rect,goal|
+    svg << rect_to_svg(*rect, "fill:##{rand(4096).to_s(16)};stroke:white;stroke-dasharray:2;opacity:0.7")
+    svg << goal.to_svg('fill:none;stroke:black;stroke-width:10')
+    svg_save("partition#{counter += 1}.svg", svg, 500, 500)
+  }
+end
