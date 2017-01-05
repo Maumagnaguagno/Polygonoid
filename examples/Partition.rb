@@ -26,7 +26,7 @@ end
 def partition_goals(goals, tree)
   until goals.empty?
     goal = goals.shift
-    subtree = find_branch(goal, tree)
+    subtree = find_branch(goal, tree.first)
     # Expand to all sides and check collisions
     outer_rect = subtree.first
     rect_left = outer_rect[0]
@@ -57,8 +57,6 @@ def partition_goals(goals, tree)
 end
 
 def find_branch(goal, tree)
-  return tree.first
-  # TODO fix return value to include branch
   tree.last.each {|branch|
     rect = branch.first
     if goal.x.between?(rect[0], rect[0] + rect[2]) and goal.y.between?(rect[1], rect[1] + rect[3])
