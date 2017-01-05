@@ -9,18 +9,12 @@ def rect_to_svg(x, y, w, h, style)
   ).to_svg(style)
 end
 
-def within?(rect, outer_rect)
-  rect_left = outer_rect[0]
-  rect_right = rect_left + outer_rect[2]
-  rect_top = outer_rect[1]
-  rect_bottom = rect_top + outer_rect[3]
-  rect != outer_rect and rect_left <= rect[0] and (rect[0] + rect[2]) <= rect_right and rect_top <= rect[1] and (rect[1] + rect[3]) <= rect_bottom
-end
-
 def partition_environment(environment, tree = [])
   until environment.empty?
     tree << [environment.shift, []] if tree.none? {|branch|
-      if within?(environment.first, branch.first)
+      rect = environment.first
+      outer_rect = branch.first
+      if rect != outer_rect and outer_rect[0] <= rect[0] and (rect[0] + rect[2]) <= (outer_rect[0] + outer_rect[2]) and outer_rect[1] <= rect[1] and (rect[1] + rect[3]) <= (outer_rect[1] + outer_rect[3])
         partition_environment(environment, branch.last)
         true
       end
