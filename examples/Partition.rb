@@ -39,18 +39,23 @@ def partition_goals(goals, tree)
     rect_right = rect_left + outer_rect[2]
     rect_top = outer_rect[1]
     rect_bottom = rect_top + outer_rect[3]
-    subtree.last.each {|rect, _|
-      rect_left = rect[0] if rect[0] > rect_left and rect[0] < goal.x
-      rect_left = rect[0] + rect[2] if rect[0] + rect[2] > rect_left and rect[0] + rect[2] < goal.x
+    subtree.last.each {|rect,_|
+      left = rect[0]
+      right = rect[0] + rect[2]
+      top = rect[1]
+      bottom = rect[1] + rect[3]
 
-      rect_right = rect[0] if rect[0] < rect_right and rect[0] > goal.x
-      rect_right = rect[0] + rect[2] if rect[0] + rect[2] < rect_right and rect[0] + rect[2] > goal.x
+      rect_left = left if left > rect_left and left < goal.x
+      rect_left = right if right > rect_left and right < goal.x
 
-      rect_top = rect[1] if rect[1] > rect_top and rect[1] < goal.y
-      rect_top = rect[1] + rect[3] if rect[1] + rect[3] > rect_top and rect[1] + rect[3] < goal.y
+      rect_right = left if left < rect_right and left > goal.x
+      rect_right = right if right < rect_right and right > goal.x
 
-      rect_bottom = rect[1] if rect[1] < rect_bottom and rect[1] > goal.y
-      rect_bottom = rect[1] + rect[3] if rect[1] + rect[3] < rect_bottom and rect[1] + rect[3] > goal.y
+      rect_top = top if top > rect_top and top < goal.y
+      rect_top = bottom if bottom > rect_top and bottom < goal.y
+
+      rect_bottom = top if top < rect_bottom and top > goal.y
+      rect_bottom = bottom if bottom < rect_bottom and bottom > goal.y
     }
     yield [rect_left, rect_top, rect_right - rect_left, rect_bottom - rect_top], goal
   end
