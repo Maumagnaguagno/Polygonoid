@@ -54,13 +54,25 @@ def partition_goals(goals, tree)
   goal_rects = []
   rect_goals.each {|rect,rgoals|
     if rgoals.size != 1
-      g2 = table[r]
-      # Horizontal split
-      if (g.x - g2.x).abs <= (g.y - g2.y).abs
-        # TODO gx + (g.x - g2.x) / 2
+      # TODO repeat for N goals
+      g1 = rgoals.shift
+      g2 = rgoals.shift
       # Vertical split
+      if (g1.x - g2.x).abs <= (g1.y - g2.y).abs
+        g1, g2 = g2, g1 if g1.y > g2.y
+        ny = (g1.y + g2.y) / 2
+        goal_rects.push(
+          [[rect[0], rect[1], rect[2], ny - rect[1]], g1],
+          [[ny, rect[1], rect[2], rect[1] + rect[3] - ny], g2]
+        )
+      # Horizontal split
       else
-        # TODO gy + (g.y - g2.y) / 2
+        g1, g2 = g2, g1 if g1.x > g2.x
+        nx = (g1.x + g2.x) / 2
+        goal_rects.push(
+          [[rect[0], rect[1], nx - rect[0], rect[3]], g1],
+          [[nx, rect[1], rect[0] + rect[2] - nx, rect[3]], g2]
+        )
       end
     else goal_rects << [rect, rgoals.first]
     end
