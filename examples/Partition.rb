@@ -1,4 +1,4 @@
-require_relative '../NeonPolygon'
+require_relative '../Polygonoid'
 
 def rect_to_svg(x, y, w, h, style)
   Polygon.new(

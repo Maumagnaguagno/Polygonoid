@@ -1,4 +1,4 @@
-# NeonPolygon [![Build Status](https://travis-ci.com/Maumagnaguagno/NeonPolygon.svg?token=a1y1UzqtYCxXazSreSDC)](https://travis-ci.com/Maumagnaguagno/NeonPolygon)
+# Polygonoid [![Build Status](https://travis-ci.com/Maumagnaguagno/Polygonoid.svg?token=a1y1UzqtYCxXazSreSDC)](https://travis-ci.com/Maumagnaguagno/Polygonoid)
 **Geometric library for Ruby**
 
 Geometric library currently restricted to 2D operations supporting few primitives, SVG output and Float comparison.
@@ -7,7 +7,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 
 ## API
 
-### [NeonPolygon](NeonPolygon.rb)
+### [Polygonoid](Polygonoid.rb)
 - ``Numeric.approx(other, relative_epsilon = nil, epsilon = nil)`` alias for ``==``.
 - ``Float.approx(other, relative_epsilon = 0.001, epsilon = 0.001)`` compares with epsilon for robustness.
 - ``svg_grid(width, height, step = 10, style = 'fill:none;stroke:gray;stroke-width:0.5')`` returns a SVG grid pattern with cells of size ``step``.

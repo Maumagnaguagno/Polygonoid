@@ -6,7 +6,7 @@
 # |   |__/   |
 # |__________|
 
-require_relative '../NeonPolygon'
+require_relative '../Polygonoid'
 
 NDEG2RAD = Math::PI / -180
 

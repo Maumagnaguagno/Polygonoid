@@ -1,5 +1,5 @@
 require 'test/unit'
-require './NeonPolygon'
+require './Polygonoid'
 
 class Round < Test::Unit::TestCase
 
