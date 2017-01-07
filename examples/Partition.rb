@@ -27,7 +27,14 @@ def partition_goals(goals, tree)
   rect_goals = Hash.new {|h,k| h[k] = []}
   until goals.empty?
     goal = goals.shift
-    subtree = find_branch(goal, tree.first)
+    # Find subtree containing goal
+    subtree = tree.first
+    loop {
+      break if subtree.last.none? {|branch|
+        rect = branch.first
+        subtree = branch if goal.x.between?(rect[0], rect[0] + rect[2]) and goal.y.between?(rect[1], rect[1] + rect[3])
+      }
+    }
     # Expand to all sides and check collisions
     outer_rect = subtree.first
     rect_right = (rect_left = outer_rect[0]) + outer_rect[2]
@@ -78,16 +85,6 @@ def partition_goals(goals, tree)
     end
   }
   goal_rects
-end
-
-def find_branch(goal, tree)
-  tree.last.each {|branch|
-    rect = branch.first
-    if goal.x.between?(rect[0], rect[0] + rect[2]) and goal.y.between?(rect[1], rect[1] + rect[3])
-      return find_branch(goal, branch)
-    end
-  }
-  tree
 end
 
 if $0 == __FILE__
