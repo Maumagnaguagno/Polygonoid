@@ -68,18 +68,23 @@ def partition_goals(goals, tree)
       if (g1.x - g2.x).abs <= (g1.y - g2.y).abs
         g1, g2 = g2, g1 if g1.y > g2.y
         ny = (g1.y + g2.y) / 2
-        goal_rects.push(
-          [[rect[0], rect[1], rect[2], ny - rect[1]], g1],
-          [[ny, rect[1], rect[2], rect[1] + rect[3] - ny], g2]
-        )
+        goal_rects << [
+          rect, [
+            [[rect[0], rect[1], rect[2], ny - rect[1]], g1],
+            [[ny, rect[1], rect[2], rect[1] + rect[3] - ny], g2]
+          ]
+        ]
       # Horizontal split
       else
         g1, g2 = g2, g1 if g1.x > g2.x
         nx = (g1.x + g2.x) / 2
-        goal_rects.push(
-          [[rect[0], rect[1], nx - rect[0], rect[3]], g1],
-          [[nx, rect[1], rect[0] + rect[2] - nx, rect[3]], g2]
-        )
+        goal_rects << [
+          rect,
+          [
+            [[rect[0], rect[1], nx - rect[0], rect[3]], g1],
+            [[nx, rect[1], rect[0] + rect[2] - nx, rect[3]], g2]
+          ]
+        ]
       end
     else goal_rects << [rect, rgoals.first]
     end
@@ -116,13 +121,20 @@ if $0 == __FILE__
   srand(2)
   svg = svg_grid(500, 500)
   environment.each {|rect| svg << rect_to_svg(*rect, "fill:##{rand(4096).to_s(16)};stroke:black")}
-  svg_save('partition.svg', svg, 500, 500)
+  svg_save('partition0.svg', svg, 500, 500)
 
-  p tree = partition_environment(environment.dup)
+  p environment_tree = partition_environment(environment.dup)
+  p goal_tree = partition_goals(goals.dup, environment_tree)
+
   counter = 0
-  partition_goals(goals.dup, tree).each {|rect,goal|
-    svg << rect_to_svg(*rect, "fill:##{rand(4096).to_s(16)};stroke:white;stroke-dasharray:2;opacity:0.7")
-    svg << goal.to_svg('fill:none;stroke:black;stroke-width:10')
-    svg_save("partition#{counter += 1}.svg", svg, 500, 500)
-  }
+  queue = [goal_tree]
+  until queue.empty?
+    queue.shift.each {|rect, content|
+      svg << rect_to_svg(*rect, "fill:##{rand(4096).to_s(16)};stroke:white;stroke-dasharray:2;opacity:0.7")
+      if content.instance_of?(Array) then queue.push(content)
+      else svg << content.to_svg('fill:none;stroke:black;stroke-width:10')
+      end
+      svg_save("partition#{counter += 1}.svg", svg, 500, 500)
+    }
+  end
 end
