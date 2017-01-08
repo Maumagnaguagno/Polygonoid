@@ -29,12 +29,11 @@ def partition_goals(goals, tree)
     goal = goals.shift
     # Find subtree containing goal
     subtree = tree.first
-    loop {
-      break if subtree.last.none? {|branch|
+    until subtree.last.none? {|branch|
         rect = branch.first
         subtree = branch if goal.x.between?(rect[0], rect[0] + rect[2]) and goal.y.between?(rect[1], rect[1] + rect[3])
       }
-    }
+    end
     # Expand to all sides and check collisions
     outer_rect = subtree.first
     rect_right = (rect_left = outer_rect[0]) + outer_rect[2]
