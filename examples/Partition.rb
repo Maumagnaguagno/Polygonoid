@@ -128,12 +128,9 @@ if $0 == __FILE__
   counter = 0
   queue = [goal_tree]
   until queue.empty?
-    queue.shift.each {|rect, content|
+    queue.shift.each {|rect,content|
       svg << rect_to_svg(*rect, "fill:##{rand(4096).to_s(16)};stroke:white;stroke-dasharray:2;opacity:0.7")
-      if content.instance_of?(Array) then queue.push(content)
-      else svg << content.to_svg('fill:none;stroke:black;stroke-width:10')
-      end
-      svg_save("partition#{counter += 1}.svg", svg, 500, 500)
+      content.instance_of?(Array) ? queue.push(content) : svg << content.to_svg('fill:none;stroke:black;stroke-width:10')
     }
   end
 end
