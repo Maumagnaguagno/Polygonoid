@@ -12,7 +12,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 - ``Float.approx(other, relative_epsilon = 0.001, epsilon = 0.001)`` compares with epsilon for robustness.
 - ``svg_grid(width, height, step = 10, style = 'fill:none;stroke:gray;stroke-width:0.5')`` returns a SVG grid pattern with cells of size ``step``.
 - ``svg_text(x, y, text, style = 'font-family:Helvetica;font-size:8px')`` returns a SVG text element at the specified position.
-- ``svg_save(filename, svg, width, height, x_min = 0, y_min = 0, x_max = width, y_max = height)`` saves SVG to file ``filename`` with size and viewbox specified.
+- ``svg_save(filename, svg, options = nil)`` saves SVG to file ``filename`` with specified ``options``.
 
 ===
 
@@ -92,5 +92,5 @@ SVG output also provides a nice way of checking what is happening inside the box
 
 ## ToDo's
 - API description
-- Tests
+- Add missing tests
 - Support Integer and Bigdecimal, check zero division cases

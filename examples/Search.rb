@@ -52,7 +52,7 @@ end
 
 def search(title, start, goal, angle, environment)
   # SVG
-  svg = svg_grid(500, 500) << start.to_svg << goal.to_svg
+  svg = svg_grid(100, 100) << start.to_svg << goal.to_svg
   environment.each {|polygon| svg << polygon.to_svg}
   # BFS
   reachable_positions = [start]
@@ -77,7 +77,7 @@ def search(title, start, goal, angle, environment)
         end
         # Draw path
         new_svg << Polyline.new(*final_plan).to_svg('fill:none;stroke:green;stroke-width:0.5')
-        svg_save("#{title}_t#{index}.svg", new_svg, 500, 500, 0, 0, 100, 100)
+        svg_save("#{title}_t#{index}.svg", new_svg, 'viewbox="0 0 100 100"')
         return final_plan
       end
       # Visible corners
@@ -90,7 +90,7 @@ def search(title, start, goal, angle, environment)
           end
         }
       }
-      svg_save("#{title}_t#{index}.svg", new_svg, 500, 500, 0, 0, 100, 100)
+      svg_save("#{title}_t#{index}.svg", new_svg, 'viewbox="0 0 100 100"')
     }
     # Visible points are reachable positions
     reachable_positions.push(*visible_points).sort_by! {|p| p.first.distance(goal)}

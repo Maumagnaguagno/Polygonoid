@@ -31,6 +31,6 @@ def svg_text(x, y, text, style = 'font-family:Helvetica;font-size:8px')
   "<text x=\"#{x}\" y=\"#{y}\" style=\"#{style}\">#{text}</text>"
 end
 
-def svg_save(filename, svg, width, height, x_min = 0, y_min = 0, x_max = width, y_max = height)
-  IO.write(filename, "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"#{width}\" height=\"#{height}\" viewBox=\"#{x_min} #{y_min} #{x_max} #{y_max}\">\n#{svg}</svg>")
+def svg_save(filename, svg, options = nil)
+  IO.write(filename, "<svg xmlns=\"http://www.w3.org/2000/svg\" #{options}>\n#{svg}</svg>")
 end

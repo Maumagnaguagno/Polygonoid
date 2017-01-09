@@ -120,7 +120,7 @@ if $0 == __FILE__
   srand(2)
   svg = svg_grid(500, 500)
   environment.each {|rect| svg << rect_to_svg(*rect, "fill:##{rand(4096).to_s(16)};stroke:black")}
-  svg_save('partition0.svg', svg, 500, 500)
+  svg_save('partition0.svg', svg)
 
   p environment_tree = partition_environment(environment.dup)
   p goal_tree = partition_goals(goals.dup, environment_tree)
@@ -131,6 +131,7 @@ if $0 == __FILE__
     queue.shift.each {|rect,content|
       svg << rect_to_svg(*rect, "fill:##{rand(4096).to_s(16)};stroke:white;stroke-dasharray:2;opacity:0.7")
       content.instance_of?(Array) ? queue.push(content) : svg << content.to_svg('fill:none;stroke:black;stroke-width:10')
+      svg_save("partition#{counter += 1}.svg", svg)
     }
   end
 end
