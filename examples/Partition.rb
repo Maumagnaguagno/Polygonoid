@@ -9,6 +9,16 @@ def rect_to_svg(x, y, w, h, style)
   ).to_svg(style)
 end
 
+def visible?(a, b, environment)
+  # Check if a line betweem a and b points intersects with each polygon edge from environment
+  line = Line.new(a, b)
+  environment.all? {|rect|
+    rect_to_polygon(*rect).edges.none? {|e|
+      (intersection = line.intersect_line(e)) && intersection != b && e.contain_point?(intersection) && line.contain_point?(intersection)
+    }
+  }
+end
+
 def partition_environment(environment, tree = [])
   until environment.empty?
     tree << [environment.shift, []] if tree.none? {|branch|
