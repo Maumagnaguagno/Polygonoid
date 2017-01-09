@@ -1,12 +1,12 @@
 require_relative '../Polygonoid'
 
-def rect_to_svg(x, y, w, h, style)
+def rect_to_polygon(x, y, w, h)
   Polygon.new(
     Point.new(x,   y),
     Point.new(x+w, y),
     Point.new(x+w, y+h),
     Point.new(x,   y+h)
-  ).to_svg(style)
+  )
 end
 
 def visible?(a, b, environment)
@@ -66,7 +66,7 @@ def partition_goals(goals, tree)
     }
     rect_goals[[rect_left, rect_top, rect_right - rect_left, rect_bottom - rect_top]] << goal
   end
-  # Further divide goals within same rect
+  # Divide goals within same rect
   goal_rects = []
   rect_goals.each {|rect,rgoals|
     if rgoals.size != 1
@@ -129,7 +129,7 @@ if $0 == __FILE__
 
   srand(2)
   svg = svg_grid(500, 500)
-  environment.each {|rect| svg << rect_to_svg(*rect, "fill:##{rand(4096).to_s(16)};stroke:black")}
+  environment.each {|rect| svg << rect_to_polygon(*rect).to_svg("fill:##{rand(4096).to_s(16)};stroke:black")}
   svg_save('partition0.svg', svg)
 
   p environment_tree = partition_environment(environment.dup)
@@ -139,7 +139,7 @@ if $0 == __FILE__
   queue = [goal_tree]
   until queue.empty?
     queue.shift.each {|rect,content|
-      svg << rect_to_svg(*rect, "fill:##{rand(4096).to_s(16)};stroke:white;stroke-dasharray:2;opacity:0.7")
+      svg << rect_to_polygon(*rect).to_svg("fill:##{rand(4096).to_s(16)};stroke:white;stroke-dasharray:2;opacity:0.7")
       content.instance_of?(Array) ? queue.push(content) : svg << content.to_svg('fill:none;stroke:black;stroke-width:10')
       svg_save("partition#{counter += 1}.svg", svg)
     }
