@@ -98,6 +98,7 @@ def partition_goals(goals, tree)
     else goal_rects << [rect, rgoals.first]
     end
   }
+  # TODO expand rects to create upper layers
   goal_rects
 end
 
@@ -132,8 +133,8 @@ if $0 == __FILE__
   environment.each {|rect| svg << rect_to_polygon(*rect).to_svg("fill:##{rand(4096).to_s(16)};stroke:black")}
   svg_save('partition0.svg', svg)
 
-  p environment_tree = partition_environment(environment.dup)
-  p goal_tree = partition_goals(goals.dup, environment_tree)
+  environment_tree = partition_environment(environment.dup)
+  goal_tree = partition_goals(goals.dup, environment_tree)
 
   counter = 0
   queue = [goal_tree]
@@ -144,4 +145,60 @@ if $0 == __FILE__
       svg_save("partition#{counter += 1}.svg", svg)
     }
   end
+
+  # Centroid visibility cluster
+  clusters = []
+  rect_centroids = goal_tree.map {|r,_| [r, Point.new(r[0] + r[2] / 2, r[1] + r[3] / 2)]}
+  rect_centroids.each {|r1,c1|
+    dist = 500 ** 2 # TODO rect_to_polygon(*rect).area
+    c = r = nil
+    rect_centroids.each {|r2,c2|
+      if c1 != c2 and (d = c1.distance(c2)) < dist and visible?(c1, c2, environment)
+        dist = d
+        r = r2
+        c = c2
+      end
+    }
+    if c
+      svg << Line.new(c1, c).to_svg('stroke:red')
+      clusters << [[r1,r], [c1,c]] if clusters.none? {|cluster|
+        if cluster.last.include?(c1)
+          cluster.first << r
+          cluster.last << c
+          true
+        elsif cluster.last.include?(c)
+          cluster.first << r1
+          cluster.last << c1
+          true
+        end
+      }
+    end
+  }
+  svg_save("partition#{counter += 1}.svg", svg)
+
+  clusters.each {|rects,_|
+    p rects
+    rect = rects.shift
+    rect_right = (rect_left = rect[0]) + rect[2]
+    rect_bottom = (rect_top = rect[1]) + rect[3]
+
+    rects.each {|rect|
+      right = (left = rect[0]) + rect[2]
+      bottom = (top = rect[1]) + rect[3]
+
+      rect_left = left if left > rect_left
+      rect_left = right if right > rect_left
+
+      rect_right = left if left < rect_right
+      rect_right = right if right < rect_right
+
+      rect_top = top if top > rect_top
+      rect_top = bottom if bottom > rect_top
+
+      rect_bottom = top if top < rect_bottom
+      rect_bottom = bottom if bottom < rect_bottom
+    }
+    svg << rect_to_polygon(rect_left, rect_top, rect_right - rect_left, rect_bottom - rect_top).to_svg("fill:#fff;stroke:white;stroke-dasharray:2;opacity:0.5")
+    svg_save("partition#{counter += 1}.svg", svg)
+  }
 end
