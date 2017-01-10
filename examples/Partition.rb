@@ -67,7 +67,7 @@ def partition_goals(goals, tree)
     rect_goals[[rect_left, rect_top, rect_right - rect_left, rect_bottom - rect_top]] << goal
   end
   # Divide goals within same rect
-  goal_rects = []
+  goal_tree = []
   rect_goals.each {|rect,rgoals|
     if rgoals.size != 1
       # TODO repeat for N goals
@@ -77,7 +77,7 @@ def partition_goals(goals, tree)
       if (g1.x - g2.x).abs <= (g1.y - g2.y).abs
         g1, g2 = g2, g1 if g1.y > g2.y
         ny = (g1.y + g2.y) / 2
-        goal_rects << [
+        goal_tree << [
           rect, [
             [[rect[0], rect[1], rect[2], ny - rect[1]], g1],
             [[ny, rect[1], rect[2], rect[1] + rect[3] - ny], g2]
@@ -87,7 +87,7 @@ def partition_goals(goals, tree)
       else
         g1, g2 = g2, g1 if g1.x > g2.x
         nx = (g1.x + g2.x) / 2
-        goal_rects << [
+        goal_tree << [
           rect,
           [
             [[rect[0], rect[1], nx - rect[0], rect[3]], g1],
@@ -95,11 +95,11 @@ def partition_goals(goals, tree)
           ]
         ]
       end
-    else goal_rects << [rect, rgoals.first]
+    else goal_tree << [rect, rgoals.first]
     end
   }
   # TODO expand rects to create upper layers
-  goal_rects
+  goal_tree
 end
 
 if $0 == __FILE__
