@@ -102,6 +102,39 @@ def partition_goals(goals, tree)
   goal_tree
 end
 
+def cluster_visible_rects(environment, goal_tree, svg = nil, svg_filename = 'partition_clusters.svg')
+  clusters = []
+  # Use rect centroid as reference for visibility
+  rect_centroids = goal_tree.map {|r,_| [r, Point.new(r[0] + r[2] / 2, r[1] + r[3] / 2)]}
+  rect_centroids.each {|r1,c1|
+    dist = 500 ** 2 # TODO rect_to_polygon(*rect).area
+    c = r = nil
+    rect_centroids.each {|r2,c2|
+      if c1 != c2 and (d = c1.distance(c2)) < dist and visible?(c1, c2, environment)
+        dist = d
+        r = r2
+        c = c2
+      end
+    }
+    if c
+      svg << Line.new(c1, c).to_svg('stroke:red') if svg
+      clusters << [[r1,r], [c1,c]] if clusters.none? {|cluster|
+        if cluster.last.include?(c1)
+          cluster.first << r
+          cluster.last << c
+          true
+        elsif cluster.last.include?(c)
+          cluster.first << r1
+          cluster.last << c1
+          true
+        end
+      }
+    end
+  }
+  svg_save(svg_filename, svg) if svg
+  clusters
+end
+
 if $0 == __FILE__
   # Remove old files
   File.delete(*Dir.glob('*.svg'))
@@ -149,38 +182,7 @@ if $0 == __FILE__
     }
   end
 
-  # Centroid visibility cluster
-  clusters = []
-  rect_centroids = goal_tree.map {|r,_| [r, Point.new(r[0] + r[2] / 2, r[1] + r[3] / 2)]}
-  rect_centroids.each {|r1,c1|
-    dist = 500 ** 2 # TODO rect_to_polygon(*rect).area
-    c = r = nil
-    rect_centroids.each {|r2,c2|
-      if c1 != c2 and (d = c1.distance(c2)) < dist and visible?(c1, c2, environment)
-        dist = d
-        r = r2
-        c = c2
-      end
-    }
-    if c
-      svg << Line.new(c1, c).to_svg('stroke:red')
-      clusters << [[r1,r], [c1,c]] if clusters.none? {|cluster|
-        if cluster.last.include?(c1)
-          cluster.first << r
-          cluster.last << c
-          true
-        elsif cluster.last.include?(c)
-          cluster.first << r1
-          cluster.last << c1
-          true
-        end
-      }
-    end
-  }
-  svg_save("partition#{counter += 1}.svg", svg)
-
-  clusters.each {|rects,_|
-    rect = rects.shift
+  cluster_visible_rects(environment, goal_tree, svg, "partition#{counter += 1}.svg").each {|rects,goals|
     rect_right = (rect_left = rect[0]) + rect[2]
     rect_bottom = (rect_top = rect[1]) + rect[3]
 
