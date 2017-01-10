@@ -206,6 +206,6 @@ if $0 == __FILE__
     svg << rect_to_polygon(rect_left, rect_top, rect_right - rect_left, rect_bottom - rect_top).to_svg("fill:#fff;stroke:white;stroke-dasharray:2;opacity:0.5")
     svg_save("partition#{counter += 1}.svg", svg)
     puts "  intermediary: #{rect}"
-    rects.each {|r| puts "    local: #{r}"}
+    rects.zip(goals) {|r,g| puts "    local: #{r}\n      goal: (#{g.x}, #{g.y})"}
   }
 end
