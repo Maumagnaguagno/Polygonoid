@@ -103,6 +103,9 @@ def partition_goals(goals, tree)
 end
 
 if $0 == __FILE__
+  # Remove old files
+  File.delete(*Dir.glob('*.svg'))
+
   environment = [
     # Rects [x,y,w,h]
     [  0,   0, 500, 500],
@@ -177,7 +180,6 @@ if $0 == __FILE__
   svg_save("partition#{counter += 1}.svg", svg)
 
   clusters.each {|rects,_|
-    p rects
     rect = rects.shift
     rect_right = (rect_left = rect[0]) + rect[2]
     rect_bottom = (rect_top = rect[1]) + rect[3]
