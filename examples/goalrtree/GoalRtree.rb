@@ -98,7 +98,6 @@ def partition_goals(goals, tree)
     else goal_tree << [rect, rgoals.first]
     end
   }
-  # TODO expand rects to create upper layers
   goal_tree
 end
 
@@ -174,6 +173,7 @@ if $0 == __FILE__
   environment.each {|rect| svg << rect_to_polygon(*rect).to_svg("fill:##{rand(4096).to_s(16)};stroke:black")}
   svg_save('partition0.svg', svg)
 
+  # TODO take advantage of environment tree
   environment_tree = partition_environment(environment.dup)
   goal_tree = partition_goals(goals.dup, environment_tree)
 
@@ -181,12 +181,14 @@ if $0 == __FILE__
   queue = [goal_tree]
   until queue.empty?
     queue.shift.each {|rect,content|
+      # Global rect
       right = (left = rect[0]) + rect[2]
       bottom = (top = rect[1]) + rect[3]
       global_left = left if left < global_left
       global_right = right if right > global_right
       global_top = top if top < global_top
       global_bottom = bottom if bottom > global_bottom
+      # Local rect
       svg << rect_to_polygon(*rect).to_svg("fill:##{rand(4096).to_s(16)};stroke:white;stroke-dasharray:2;opacity:0.7")
       content.instance_of?(Array) ? queue.push(content) : svg << content.to_svg('fill:none;stroke:black;stroke-width:10')
       svg_save("partition#{counter += 1}.svg", svg)
@@ -198,6 +200,7 @@ if $0 == __FILE__
   global_height = global_bottom - global_top
   puts "global: #{[global_left, global_top, global_width, global_height]}"
   cluster_visible_rects(environment, goal_tree, Math.hypot(global_width, global_height), svg, "partition#{counter += 1}.svg").each {|rects,rects_goals|
+    # Intermediary rect
     rect = rects.shift
     rect_right = (rect_left = rect[0]) + rect[2]
     rect_bottom = (rect_top = rect[1]) + rect[3]
@@ -215,5 +218,6 @@ if $0 == __FILE__
     svg_save("partition#{counter += 1}.svg", svg)
     puts "  intermediary: #{intermediary}"
     rects.zip(rects_goals) {|r,g| puts "    local: #{r}\n      goal: (#{g.x}, #{g.y})"}
+    # TODO add specific and non-clustered rects
   }
 end
