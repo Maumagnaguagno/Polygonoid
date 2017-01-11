@@ -191,24 +191,17 @@ if $0 == __FILE__
     rect = rects.shift
     rect_right = (rect_left = rect[0]) + rect[2]
     rect_bottom = (rect_top = rect[1]) + rect[3]
-
-    rects.drop(1).each {|rect|
-      right = (left = rect[0]) + rect[2]
-      bottom = (top = rect[1]) + rect[3]
-
-      rect_left = left if left > rect_left
-      rect_left = right if right > rect_left
-
-      rect_right = left if left < rect_right
-      rect_right = right if right < rect_right
-
-      rect_top = top if top > rect_top
-      rect_top = bottom if bottom > rect_top
-
-      rect_bottom = top if top < rect_bottom
-      rect_bottom = bottom if bottom < rect_bottom
+    rects.each {|left,top,width,height|
+      right = left + width
+      bottom = top + height
+      rect_left = left if left < rect_left
+      rect_right = right if right > rect_right
+      rect_top = top if top < rect_top
+      rect_bottom = bottom if bottom > rect_bottom
     }
-    svg << rect_to_polygon(rect_left, rect_top, rect_right - rect_left, rect_bottom - rect_top).to_svg("fill:#fff;stroke:white;stroke-dasharray:2;opacity:0.5")
+    rects.unshift(rect)
+    intermediary = [rect_left, rect_top, rect_right - rect_left, rect_bottom - rect_top]
+    svg << rect_to_polygon(*intermediary).to_svg("fill:#fff;stroke:white;stroke-dasharray:2;opacity:0.5")
     svg_save("partition#{counter += 1}.svg", svg)
     puts "  intermediary: #{intermediary}"
     rects.zip(rects_goals) {|r,g| puts "    local: #{r}\n      goal: (#{g.x}, #{g.y})"}
