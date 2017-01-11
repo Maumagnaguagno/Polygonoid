@@ -102,12 +102,12 @@ def partition_goals(goals, tree)
   goal_tree
 end
 
-def cluster_visible_rects(environment, goal_tree, svg = nil, svg_filename = 'partition_clusters.svg')
+def cluster_visible_rects(environment, goal_tree, max_distance, svg = nil, svg_filename = 'partition_clusters.svg')
   clusters = []
   # Use rect centroid as reference for visibility
   rect_centroids = goal_tree.map {|r,_| [r, Point.new(r[0] + r[2] / 2, r[1] + r[3] / 2)]}
   rect_centroids.each {|r1,c1|
-    dist = 500 ** 2 # TODO rect_to_polygon(*rect).area
+    dist = max_distance
     c = r = nil
     rect_centroids.each {|r2,c2|
       if c1 != c2 and (d = c1.distance(c2)) < dist and visible?(c1, c2, environment)
@@ -194,8 +194,10 @@ if $0 == __FILE__
   end
 
   puts 'Rect format: [x, y, width, height]'
-  puts "global: #{[global_left, global_top, global_right - global_left, global_bottom - global_top]}"
-  cluster_visible_rects(environment, goal_tree, svg, "partition#{counter += 1}.svg").each {|rects,rects_goals|
+  global_width = global_right - global_left
+  global_height = global_bottom - global_top
+  puts "global: #{[global_left, global_top, global_width, global_height]}"
+  cluster_visible_rects(environment, goal_tree, Math.hypot(global_width, global_height), svg, "partition#{counter += 1}.svg").each {|rects,rects_goals|
     rect = rects.shift
     rect_right = (rect_left = rect[0]) + rect[2]
     rect_bottom = (rect_top = rect[1]) + rect[3]
