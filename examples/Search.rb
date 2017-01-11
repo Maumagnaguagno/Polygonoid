@@ -11,7 +11,7 @@ require_relative '../Polygonoid'
 NDEG2RAD = Math::PI / -180
 
 def visible?(a, b, environment, svg = nil)
-  # Check if line intersects with each polygon edge from environment
+  # Check if a line betweem a and b points intersects with each polygon edge from environment
   line = Line.new(a, b)
   environment.all? {|polygon|
     polygon.edges.none? {|e|
