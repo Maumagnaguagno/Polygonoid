@@ -117,15 +117,20 @@ def cluster_visible_rects(environment, goal_tree, svg = nil, svg_filename = 'par
       end
     }
     if c
+      # TODO merge clusters that are connected later
       svg << Line.new(c1, c).to_svg('stroke:red') if svg
       clusters << [[r1,r], [c1,c]] if clusters.none? {|cluster|
         if cluster.last.include?(c1)
-          cluster.first << r
-          cluster.last << c
+          unless cluster.last.include?(c)
+            cluster.first << r
+            cluster.last << c
+          end
           true
         elsif cluster.last.include?(c)
-          cluster.first << r1
-          cluster.last << c1
+          unless cluster.last.include?(c1)
+            cluster.first << r1
+            cluster.last << c1
+          end
           true
         end
       }
