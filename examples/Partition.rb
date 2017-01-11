@@ -177,16 +177,24 @@ if $0 == __FILE__
   environment_tree = partition_environment(environment.dup)
   goal_tree = partition_goals(goals.dup, environment_tree)
 
-  counter = 0
+  global_left = global_top = global_right = global_bottom = counter = 0
   queue = [goal_tree]
   until queue.empty?
     queue.shift.each {|rect,content|
+      right = (left = rect[0]) + rect[2]
+      bottom = (top = rect[1]) + rect[3]
+      global_left = left if left < global_left
+      global_right = right if right > global_right
+      global_top = top if top < global_top
+      global_bottom = bottom if bottom > global_bottom
       svg << rect_to_polygon(*rect).to_svg("fill:##{rand(4096).to_s(16)};stroke:white;stroke-dasharray:2;opacity:0.7")
       content.instance_of?(Array) ? queue.push(content) : svg << content.to_svg('fill:none;stroke:black;stroke-width:10')
       svg_save("partition#{counter += 1}.svg", svg)
     }
   end
 
+  puts 'Rect format: [x, y, width, height]'
+  puts "global: #{[global_left, global_top, global_right - global_left, global_bottom - global_top]}"
   cluster_visible_rects(environment, goal_tree, svg, "partition#{counter += 1}.svg").each {|rects,rects_goals|
     rect = rects.shift
     rect_right = (rect_left = rect[0]) + rect[2]
