@@ -16,4 +16,4 @@ script:
   - ruby tests/apeirogon.rb
   - ruby tests/round.rb
   # Examples
-  - ruby examples/Search.rb
+  - ruby examples/search/Search.rb
