@@ -187,8 +187,8 @@ if $0 == __FILE__
     }
   end
 
-  cluster_visible_rects(environment, goal_tree, svg, "partition#{counter += 1}.svg").each {|rects,goals|
-    rect = rects.first
+  cluster_visible_rects(environment, goal_tree, svg, "partition#{counter += 1}.svg").each {|rects,rects_goals|
+    rect = rects.shift
     rect_right = (rect_left = rect[0]) + rect[2]
     rect_bottom = (rect_top = rect[1]) + rect[3]
 
@@ -210,7 +210,7 @@ if $0 == __FILE__
     }
     svg << rect_to_polygon(rect_left, rect_top, rect_right - rect_left, rect_bottom - rect_top).to_svg("fill:#fff;stroke:white;stroke-dasharray:2;opacity:0.5")
     svg_save("partition#{counter += 1}.svg", svg)
-    puts "  intermediary: #{rect}"
-    rects.zip(goals) {|r,g| puts "    local: #{r}\n      goal: (#{g.x}, #{g.y})"}
+    puts "  intermediary: #{intermediary}"
+    rects.zip(rects_goals) {|r,g| puts "    local: #{r}\n      goal: (#{g.x}, #{g.y})"}
   }
 end
