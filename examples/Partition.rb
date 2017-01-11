@@ -142,7 +142,7 @@ end
 
 if $0 == __FILE__
   # Remove old files
-  File.delete(*Dir.glob('*.svg'))
+  File.delete(*Dir.glob('partition*.svg'))
 
   environment = [
     # Rects [x,y,w,h]
