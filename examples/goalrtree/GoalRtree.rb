@@ -155,7 +155,9 @@ def find_tree(environment, goals)
   environment.each {|rect| svg << rect_to_polygon(*rect).to_svg("fill:##{rand(4096).to_s(16)};stroke:black")}
   svg_save('partition0.svg', svg)
 
-  global_left = global_top = global_right = global_bottom = counter = 0
+  global_right = goal_tree.first.first[2] - (global_left = goal_tree.first.first[0])
+  global_bottom = goal_tree.first.first[3] - (global_top = goal_tree.first.first[1])
+  counter = 0
   queue = [goal_tree]
   until queue.empty?
     queue.shift.each {|rect,content|
