@@ -172,7 +172,6 @@ def find_tree(environment, goals)
     }
   end
 
-  puts 'Rect format: [x, y, width, height]'
   global_width = global_right - global_left
   global_height = global_bottom - global_top
   puts "global: #{[global_left, global_top, global_width, global_height]}"
