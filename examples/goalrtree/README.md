@@ -1,5 +1,88 @@
 # Goal R-tree
+Partition space according to goals (defined by points) and obstacles (defined by rects).
+The process starts finding the smallest local rects around goals using the obstacles horizontal and vertical lines as reference.
+If more than one goal is within such rect, it is going to be partitioned again to a specific rect.
+Local rects are clustered in intermediary rects by grouping nearest visible rect centroids.
+The global rect contains intermediary rects.
 
+## Execution
+Execute with ``ruby pb1.rb``.
+Previously generated SVGs are deleted to avoid being mixed.
+
+### Input
+```ruby
+require_relative 'GoalRtree'
+
+environment = [
+  # Rects [x,y,w,h]
+  [  0,   0, 500, 500],
+  [350,   0,  20, 150],
+  [245, 120,  20, 150],
+  [175, 270, 175,  20],
+  [245, 290,  20, 130],
+  [350, 270,  20, 230],
+  [370, 300, 130,  20],
+  [  0, 365, 130,  20]
+]
+
+goals = [
+  Point.new(435,  75),
+  Point.new(480, 200),
+  Point.new(380, 250),
+  Point.new(300,  50),
+  Point.new(280, 200),
+  Point.new(200, 150),
+  Point.new(100, 150),
+  Point.new(230, 330),
+  Point.new( 50, 470),
+  Point.new(450, 470)
+]
+
+find_tree(environment, goals)
+```
+
+### Output
+```
+global: [0, 0, 500, 500]
+  intermediary: [265, 0, 235, 270]
+    local: [370, 0, 130, 120]
+      centroid: (435, 60)
+      goal: (435, 75)
+    local: [370, 150, 130, 120]
+      centroid: (435, 210)
+      specific: [370, 150, 60, 120]
+        goal: (380, 250)
+      specific: [430, 150, 70, 120]
+        goal: (480, 200)
+    local: [265, 150, 85, 120]
+      centroid: (307, 210)
+      goal: (280, 200)
+    local: [265, 0, 85, 120]
+      centroid: (307, 60)
+      goal: (300, 50)
+  intermediary: [0, 120, 245, 150]
+    local: [175, 120, 70, 150]
+      centroid: (210, 195)
+      goal: (200, 150)
+    local: [0, 120, 130, 150]
+      centroid: (65, 195)
+      goal: (100, 150)
+  intermediary: [0, 320, 245, 180]
+    local: [175, 320, 70, 45]
+      centroid: (210, 342)
+      goal: (230, 330)
+    local: [0, 420, 130, 80]
+      centroid: (65, 460)
+      goal: (50, 470)
+  intermediary: [370, 420, 130, 80]
+    local: [370, 420, 130, 80]
+      centroid: (435, 460)
+      goal: (450, 470)
+```
+Also SVGs are generate to better understand each step of the program.
+
+
+## Pseudocode
 ```
 environment = set of rectangles that describe walls and regions
 goals = set of points of interest
@@ -22,35 +105,40 @@ for each rect1 in goal_tree
   c = r = null
   for each rect2 in goal_tree
     c2 = centroid of rect
-    if c1 != c2 and (d = c1.distance(c2)) < dist and no obstacle between c1 and c2
+    d = distance between c1 and c2
+    if c1 != c2 and d < dist and no obstacle between c1 and c2
       dist = d
       r = r2
       c = c2
     end
   end
-  if c
-    if cluster in clusters includes (r1,c1)
+  if c != null
+    if find cluster in clusters includes (r1,c1)
       store (r,c) in cluster
       merge clusters if another cluster contains (r,c)
-    elseif cluster in clusters includes (r,c)
+    elseif find cluster in clusters includes (r,c)
       store (r1,c1) in cluster
       merge clusters if another cluster contains (r1,c1)
     else
       clusters add (r1,c1) and (r,c)
     end
   else
-    clusters add [(r1,c1)]
+    clusters add (r1,c1)
   end
 end
 
-global_rect = find bounding rect for environment
+global_rect = find bounding rect for clusters
+print global_rect
 for rects in clusters
   intermediary_rect = find bounding rect for rects
+  print intermediary_rect
   for rect in rects
     local_rect = rect
+    print local_rect
     find rect in goal tree
     if rect is split
       specific_rect = rect
+      print specific rect
     end
   end
 end
