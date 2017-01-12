@@ -2,8 +2,8 @@
 Partition space according to goals (defined by points) and obstacles (defined by rects).
 The process starts finding the smallest local rects around goals using the obstacles horizontal and vertical lines as reference.
 If more than one goal is within such rect, it is going to be partitioned again to a specific rect.
-Local rects are clustered in intermediary rects by grouping nearest visible rect centroids.
-The global rect contains intermediary rects.
+Local rects are clustered in intermediate rects by grouping nearest visible rect centroids.
+The global rect contains intermediate rects.
 
 ## Execution
 Execute with ``ruby pb1.rb``.
@@ -44,7 +44,7 @@ find_tree(environment, goals)
 ### Output
 ```
 global: [0, 0, 500, 500]
-  intermediary: [265, 0, 235, 270]
+  intermediate: [265, 0, 235, 270]
     local: [370, 0, 130, 120]
       centroid: (435, 60)
       goal: (435, 75)
@@ -60,21 +60,21 @@ global: [0, 0, 500, 500]
     local: [265, 0, 85, 120]
       centroid: (307, 60)
       goal: (300, 50)
-  intermediary: [0, 120, 245, 150]
+  intermediate: [0, 120, 245, 150]
     local: [175, 120, 70, 150]
       centroid: (210, 195)
       goal: (200, 150)
     local: [0, 120, 130, 150]
       centroid: (65, 195)
       goal: (100, 150)
-  intermediary: [0, 320, 245, 180]
+  intermediate: [0, 320, 245, 180]
     local: [175, 320, 70, 45]
       centroid: (210, 342)
       goal: (230, 330)
     local: [0, 420, 130, 80]
       centroid: (65, 460)
       goal: (50, 470)
-  intermediary: [370, 420, 130, 80]
+  intermediate: [370, 420, 130, 80]
     local: [370, 420, 130, 80]
       centroid: (435, 460)
       goal: (450, 470)
@@ -130,8 +130,8 @@ end
 global_rect = find bounding rect for clusters
 print global_rect
 for rects in clusters
-  intermediary_rect = find bounding rect for rects
-  print intermediary_rect
+  intermediate_rect = find bounding rect for rects
+  print intermediate_rect
   for rect in rects
     local_rect = rect
     print local_rect

@@ -134,7 +134,7 @@ def cluster_visible_rects(environment, goal_tree, max_distance, svg = nil, svg_f
           true
         end
       }
-    # Keep intermediary level with single element cluster
+    # Keep intermediate level with single element cluster
     else clusters << [[r1],[c1]]
     end
   }
@@ -179,7 +179,7 @@ def find_tree(environment, goals)
   global_height = global_bottom - global_top
   puts "global: #{[global_left, global_top, global_width, global_height]}"
   cluster_visible_rects(environment, goal_tree, Math.hypot(global_width, global_height), svg, "partition#{counter += 1}.svg").each {|rects,centroids|
-    # Intermediary rect
+    # Intermediate rect
     rect = rects.shift
     rect_right = (rect_left = rect[0]) + rect[2]
     rect_bottom = (rect_top = rect[1]) + rect[3]
@@ -192,10 +192,10 @@ def find_tree(environment, goals)
       rect_bottom = bottom if bottom > rect_bottom
     }
     rects.unshift(rect)
-    intermediary = [rect_left, rect_top, rect_right - rect_left, rect_bottom - rect_top]
-    svg << rect_to_polygon(*intermediary).to_svg("fill:#fff;stroke:white;stroke-dasharray:2;opacity:0.5")
+    intermediate = [rect_left, rect_top, rect_right - rect_left, rect_bottom - rect_top]
+    svg << rect_to_polygon(*intermediate).to_svg("fill:#fff;stroke:white;stroke-dasharray:2;opacity:0.5")
     svg_save("partition#{counter += 1}.svg", svg)
-    puts "  intermediary: #{intermediary}"
+    puts "  intermediate: #{intermediate}"
     rects.zip(centroids) {|r,c|
       puts "    local: #{r}",
            "      centroid: (#{c.x}, #{c.y})"
