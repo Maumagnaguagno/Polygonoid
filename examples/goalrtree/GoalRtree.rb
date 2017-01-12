@@ -146,13 +146,14 @@ def find_tree(environment, goals)
   # Remove old files
   File.delete(*Dir.glob('partition*.svg'))
 
-  srand(2)
-  svg = svg_grid(500, 500)
-  environment.each {|rect| svg << rect_to_polygon(*rect).to_svg("fill:##{rand(4096).to_s(16)};stroke:black")}
-  svg_save('partition0.svg', svg)
-
   environment_tree = partition_environment(environment.dup)
   goal_tree = partition_goals(goals.dup, environment_tree)
+
+  srand(2)
+  world_rect = environment_tree.first.first
+  svg = svg_grid(world_rect[2], world_rect[3])
+  environment.each {|rect| svg << rect_to_polygon(*rect).to_svg("fill:##{rand(4096).to_s(16)};stroke:black")}
+  svg_save('partition0.svg', svg)
 
   global_left = global_top = global_right = global_bottom = counter = 0
   queue = [goal_tree]
