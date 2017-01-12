@@ -151,7 +151,6 @@ def find_tree(environment, goals)
   environment.each {|rect| svg << rect_to_polygon(*rect).to_svg("fill:##{rand(4096).to_s(16)};stroke:black")}
   svg_save('partition0.svg', svg)
 
-  # TODO take advantage of environment tree
   environment_tree = partition_environment(environment.dup)
   goal_tree = partition_goals(goals.dup, environment_tree)
 
@@ -177,7 +176,7 @@ def find_tree(environment, goals)
   global_width = global_right - global_left
   global_height = global_bottom - global_top
   puts "global: #{[global_left, global_top, global_width, global_height]}"
-  cluster_visible_rects(environment, goal_tree, Math.hypot(global_width, global_height), svg, "partition#{counter += 1}.svg").each {|rects,rects_goals|
+  cluster_visible_rects(environment, goal_tree, Math.hypot(global_width, global_height), svg, "partition#{counter += 1}.svg").each {|rects,centroids|
     # Intermediary rect
     rect = rects.shift
     rect_right = (rect_left = rect[0]) + rect[2]
@@ -195,7 +194,18 @@ def find_tree(environment, goals)
     svg << rect_to_polygon(*intermediary).to_svg("fill:#fff;stroke:white;stroke-dasharray:2;opacity:0.5")
     svg_save("partition#{counter += 1}.svg", svg)
     puts "  intermediary: #{intermediary}"
-    rects.zip(rects_goals) {|r,g| puts "    local: #{r}\n      goal: (#{g.x}, #{g.y})"}
-    # TODO add specific and non-clustered rects
+    rects.zip(centroids) {|r,c|
+      puts "    local: #{r}",
+           "      centroid: (#{c.x}, #{c.y})"
+      goals_within = goal_tree.assoc(r).last
+      if goals_within.instance_of?(Array)
+        goals_within.each {|specific,g|
+          puts "      specific: #{specific}",
+               "        goal: (#{g.x}, #{g.y})"
+        }
+      else
+        puts "      goal: (#{goals_within.x}, #{goals_within.y})"
+      end
+    }
   }
 end
