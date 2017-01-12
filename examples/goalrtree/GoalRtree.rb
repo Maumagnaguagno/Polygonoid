@@ -116,23 +116,26 @@ def cluster_visible_rects(environment, goal_tree, max_distance, svg = nil, svg_f
       end
     }
     if c
-      # TODO merge clusters that are connected later
       svg << Line.new(c1, c).to_svg('stroke:red') if svg
       clusters << [[r1,r], [c1,c]] if clusters.none? {|cluster|
         if cluster.last.include?(c1)
           unless cluster.last.include?(c)
+            # TODO check if this connection merges two clusters
             cluster.first << r
             cluster.last << c
           end
           true
         elsif cluster.last.include?(c)
           unless cluster.last.include?(c1)
+            # TODO check if this connection merges two clusters
             cluster.first << r1
             cluster.last << c1
           end
           true
         end
       }
+    # Keep intermediary level with single element cluster
+    else clusters << [[r1],[c1]]
     end
   }
   svg_save(svg_filename, svg) if svg
