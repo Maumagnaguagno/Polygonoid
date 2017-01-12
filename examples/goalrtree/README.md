@@ -15,7 +15,7 @@ for each goal in goals
   end
 end
 
-clusters = array
+clusters = set
 for each rect1 in goal_tree
   c1 = centroid of rect
   dist = infinity
@@ -36,7 +36,7 @@ for each rect1 in goal_tree
       store (r1,c1) in cluster
       merge clusters if another cluster contains (r1,c1)
     else
-      clusters add [(r1,c1), (r,c)]
+      clusters add (r1,c1) and (r,c)
     end
   else
     clusters add [(r1,c1)]
