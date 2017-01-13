@@ -1,4 +1,4 @@
-# Polygonoid [![Build Status](https://travis-ci.com/Maumagnaguagno/Polygonoid.svg?token=a1y1UzqtYCxXazSreSDC)](https://travis-ci.com/Maumagnaguagno/Polygonoid)
+# Polygonoid [![Build Status](https://travis-ci.org/Maumagnaguagno/Polygonoid.svg)](https://travis-ci.org/Maumagnaguagno/Polygonoid)
 **Geometric library for Ruby**
 
 Geometric library currently restricted to 2D operations supporting few primitives, SVG output and Float comparison.
