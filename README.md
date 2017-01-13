@@ -24,7 +24,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 **Methods:**
 - ``initialize(x, y)`` creates an instance with the given ``x`` and ``y`` coordinates.
 - ``distance(other)`` returns distance to ``other`` point.
-- ``==(other)`` returns true if ``self`` is approximately equal to ``other``, false otherwise.
+- ``==(other)`` returns true if ``self`` is approximately equal to ``other`` point, false otherwise.
 - ``to_svg(style = 'fill:none;stroke:black;stroke-width:0.5')`` returns string with SVG description.
 
 ===
