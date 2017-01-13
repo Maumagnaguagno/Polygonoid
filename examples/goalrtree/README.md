@@ -1,16 +1,17 @@
 # Goal R-tree
 Partition space according to goals (defined by points) and obstacles (defined by rects).
-The process starts finding the smallest local rects around goals using the obstacles horizontal and vertical lines as reference.
-If more than one goal is within such rect, it is going to be partitioned again to a specific rect.
+The process starts finding the smallest local rects around goals using the horizontal and vertical lines of obstacles as reference.
+If more than one goal is within such rect, it is going to be partitioned again to a more specific rect.
 Local rects are clustered in intermediate rects by grouping nearest visible rect centroids.
-The global rect contains intermediate rects.
+A global rect contains such intermediate rects.
+
 <p align="center">
 <img src="https://cloud.githubusercontent.com/assets/11094484/21917666/465b7478-d928-11e6-86bd-b3e0822ea424.gif" alt="Animation with goals and rects being clustered"/>
 </p>
 
 ## Execution
 Execute with ``ruby pb1.rb``.
-Previously generated SVGs are deleted to avoid being mixed.
+Previously generated SVGs are deleted to avoid mixing executions.
 
 ### Input
 ```ruby
@@ -123,10 +124,10 @@ for each rect1 in goal_tree
       store (r1,c1) in cluster
       merge clusters if another cluster contains (r1,c1)
     else
-      clusters add (r1,c1) and (r,c)
+      clusters add cluster with (r1,c1) and (r,c)
     end
   else
-    clusters add (r1,c1)
+    clusters add cluster with (r1,c1)
   end
 end
 
