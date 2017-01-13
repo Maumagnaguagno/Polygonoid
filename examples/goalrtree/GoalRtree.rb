@@ -101,6 +101,26 @@ def partition_goals(goals, tree)
   goal_tree
 end
 
+def divide_rect(rect, goals)
+  if rgoals.size != 1
+    specific_rects = []
+    specific_top = rect[0]
+    specific_left = rect[1]
+    specific_right = rect[0] + rect[2]
+    specific_bottom = rect[1] + rect[3]
+    rgoals.each {|g1|
+      rgoals.each {|g2|
+        if g1 != g2
+          # TODO
+        end
+      }
+      specific_rects << [specific_top, specific_left, specific_right - specific_left, specific_bottom - specific_top]
+    }
+    [rect, specific_rects]
+  else [rect, rgoals.first]
+  end
+end
+
 def cluster_visible_rects(environment, goal_tree, max_distance, svg = nil, svg_filename = 'partition_clusters.svg')
   clusters = []
   # Use rect centroid as reference for visibility
