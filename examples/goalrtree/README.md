@@ -4,6 +4,9 @@ The process starts finding the smallest local rects around goals using the obsta
 If more than one goal is within such rect, it is going to be partitioned again to a specific rect.
 Local rects are clustered in intermediate rects by grouping nearest visible rect centroids.
 The global rect contains intermediate rects.
+<p align="center">
+<img src="https://cloud.githubusercontent.com/assets/11094484/21917666/465b7478-d928-11e6-86bd-b3e0822ea424.gif" alt="Animation with goals and rects being clustered"/>
+</p>
 
 ## Execution
 Execute with ``ruby pb1.rb``.
