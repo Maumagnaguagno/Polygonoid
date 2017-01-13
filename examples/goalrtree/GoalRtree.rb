@@ -142,7 +142,7 @@ def cluster_visible_rects(environment, goal_tree, max_distance, svg = nil, svg_f
   clusters
 end
 
-def find_tree(environment, goals)
+def find_goalrtree(environment, goals)
   # Remove old files
   File.delete(*Dir.glob('partition*.svg'))
 
@@ -177,7 +177,7 @@ def find_tree(environment, goals)
 
   global_width = global_right - global_left
   global_height = global_bottom - global_top
-  puts "global: #{[global_left, global_top, global_width, global_height]}"
+  hierarchy = "global: #{[global_left, global_top, global_width, global_height]}"
   cluster_visible_rects(environment, goal_tree, Math.hypot(global_width, global_height), svg, "partition#{counter += 1}.svg").each {|rects,centroids|
     # Intermediate rect
     rect = rects.shift
@@ -195,19 +195,18 @@ def find_tree(environment, goals)
     intermediate = [rect_left, rect_top, rect_right - rect_left, rect_bottom - rect_top]
     svg << rect_to_polygon(*intermediate).to_svg("fill:#fff;stroke:white;stroke-dasharray:2;opacity:0.5")
     svg_save("partition#{counter += 1}.svg", svg)
-    puts "  intermediate: #{intermediate}"
+    hierarchy << "\n  intermediate: #{intermediate}"
     rects.zip(centroids) {|r,c|
-      puts "    local: #{r}",
-           "      centroid: (#{c.x}, #{c.y})"
+      hierarchy << "\n    local: #{r}\n      centroid: (#{c.x}, #{c.y})"
       goals_within = goal_tree.assoc(r).last
       if goals_within.instance_of?(Array)
         goals_within.each {|specific,g|
-          puts "      specific: #{specific}",
-               "        goal: (#{g.x}, #{g.y})"
+          hierarchy << "\n      specific: #{specific}\n        goal: (#{g.x}, #{g.y})"
         }
       else
-        puts "      goal: (#{goals_within.x}, #{goals_within.y})"
+        hierarchy << "\n      goal: (#{goals_within.x}, #{goals_within.y})"
       end
     }
   }
+  hierarchy
 end
