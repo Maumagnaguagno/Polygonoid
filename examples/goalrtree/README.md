@@ -42,7 +42,7 @@ goals = [
   Point.new(450, 470)
 ]
 
-find_tree(environment, goals)
+puts find_goalrtree(environment, goals)
 ```
 
 ### Output
