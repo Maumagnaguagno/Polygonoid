@@ -80,14 +80,13 @@ def divide_rect(rect, rgoals)
       g1_bottom = (g1_top = rect[1]) + rect[3]
       rgoals.each {|g2|
         if g1 != g2
-          # TODO check if more conditionals are required
           x = (g1.x + g2.x) / 2
           y = (g1.y + g2.y) / 2
-          if g1.x > x then g1_left = x# if x < g1_left
-          elsif g1.x < x then g1_right = x# if x > g1_right
+          if g1.x > x then g1_left = x if x > g1_left
+          elsif g1.x < x then g1_right = x if x < g1_right
           end
-          if g1.y > y then g1_top = y# if y < g1_top
-          elsif g1.y < y then g1_bottom = y# if y > g1_bottom
+          if g1.y > y then g1_top = y if y > g1_top
+          elsif g1.y < y then g1_bottom = y if y < g1_bottom
           end
         end
       }
