@@ -12,6 +12,5 @@ goals = [
   Point.new(90, 60)
 ]
 
-puts 'TODO: fix many goals within same rect'
 tree = find_goalrtree(environment, goals)
 puts tree

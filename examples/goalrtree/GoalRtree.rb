@@ -68,53 +68,30 @@ def partition_goals(goals, tree)
   end
   # Divide goals within same rect
   goal_tree = []
-  rect_goals.each {|rect,rgoals|
-    if rgoals.size != 1
-      # TODO repeat for N goals
-      g1 = rgoals.shift
-      g2 = rgoals.shift
-      # Horizontal split
-      if (g1.x - g2.x).abs <= (g1.y - g2.y).abs
-        g1, g2 = g2, g1 if g1.y > g2.y
-        ny = (g1.y + g2.y) / 2
-        goal_tree << [
-          rect, [
-            [[rect[0], rect[1], rect[2], ny - rect[1]], g1],
-            [[rect[0], ny, rect[2], rect[1] + rect[3] - ny], g2]
-          ]
-        ]
-      # Vertical split
-      else
-        g1, g2 = g2, g1 if g1.x > g2.x
-        nx = (g1.x + g2.x) / 2
-        goal_tree << [
-          rect,
-          [
-            [[rect[0], rect[1], nx - rect[0], rect[3]], g1],
-            [[nx, rect[1], rect[0] + rect[2] - nx, rect[3]], g2]
-          ]
-        ]
-      end
-    else goal_tree << [rect, rgoals.first]
-    end
-  }
+  rect_goals.each {|rect,rgoals| goal_tree << divide_rect(rect, rgoals)}
   goal_tree
 end
 
-def divide_rect(rect, goals)
+def divide_rect(rect, rgoals)
   if rgoals.size != 1
     specific_rects = []
-    specific_top = rect[0]
-    specific_left = rect[1]
-    specific_right = rect[0] + rect[2]
-    specific_bottom = rect[1] + rect[3]
     rgoals.each {|g1|
+      g1_right = (g1_left = rect[0]) + rect[2]
+      g1_bottom = (g1_top = rect[1]) + rect[3]
       rgoals.each {|g2|
         if g1 != g2
-          # TODO
+          # TODO check if more conditionals are required
+          x = (g1.x + g2.x) / 2
+          y = (g1.y + g2.y) / 2
+          if g1.x > x then g1_left = x# if x < g1_left
+          elsif g1.x < x then g1_right = x# if x > g1_right
+          end
+          if g1.y > y then g1_top = y# if y < g1_top
+          elsif g1.y < y then g1_bottom = y# if y > g1_bottom
+          end
         end
       }
-      specific_rects << [specific_top, specific_left, specific_right - specific_left, specific_bottom - specific_top]
+      specific_rects << [[g1_left, g1_top, g1_right - g1_left, g1_bottom - g1_top], g1]
     }
     [rect, specific_rects]
   else [rect, rgoals.first]
