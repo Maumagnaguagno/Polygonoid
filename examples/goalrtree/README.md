@@ -6,7 +6,7 @@ Local rects are clustered in intermediate rects by grouping nearest visible rect
 A global rect contains such intermediate rects.
 
 <p align="center">
-<img src="https://cloud.githubusercontent.com/assets/11094484/21917666/465b7478-d928-11e6-86bd-b3e0822ea424.gif" alt="Animation with goals and rects being clustered"/>
+<img src="https://cloud.githubusercontent.com/assets/11094484/21962561/46c81c3c-db07-11e6-849f-70715b55bea7.gif" alt="Animation with goals and rects being clustered"/>
 </p>
 
 ## Execution
