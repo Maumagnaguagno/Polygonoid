@@ -28,7 +28,7 @@ goals = [
 tree = find_goalrtree(environment, goals)
 puts tree
 
-abort('Tree is different from expected') if tree != 
+abort('Tree is different from expected') if tree !=
 'global: [0, 0, 500, 500]
   intermediate: [265, 0, 235, 270]
     local: [370, 0, 130, 120]
