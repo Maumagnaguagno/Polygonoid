@@ -9,11 +9,11 @@ def rect_to_polygon(x, y, w, h)
   )
 end
 
-def visible?(a, b, environment)
+def visible?(a, b, environment_polygons)
   # Check if a line betweem a and b points intersects with each polygon edge from environment
   line = Line.new(a, b)
-  environment.all? {|rect|
-    rect_to_polygon(*rect).edges.none? {|e|
+  environment_polygons.all? {|polygon|
+    polygon.edges.none? {|e|
       (intersection = line.intersect_line(e)) && intersection != b && e.contain_point?(intersection) && line.contain_point?(intersection)
     }
   }
@@ -97,7 +97,7 @@ def divide_rect(rect, rgoals)
   end
 end
 
-def cluster_visible_rects(environment, goal_tree, max_distance, svg = nil, svg_filename = 'partition_clusters.svg')
+def cluster_visible_rects(environment_polygons, goal_tree, max_distance, svg = nil, svg_filename = 'partition_clusters.svg')
   clusters = []
   # Use rect centroid as reference for visibility
   rect_centroids = goal_tree.map {|r,_| [r, Point.new(r[0] + r[2] / 2, r[1] + r[3] / 2)]}
@@ -105,7 +105,7 @@ def cluster_visible_rects(environment, goal_tree, max_distance, svg = nil, svg_f
     dist = max_distance
     c = r = nil
     rect_centroids.each {|r2,c2|
-      if c1 != c2 and (d = c1.distance(c2)) < dist and visible?(c1, c2, environment)
+      if c1 != c2 and (d = c1.distance(c2)) < dist and visible?(c1, c2, environment_polygons)
         dist = d
         r = r2
         c = c2
@@ -142,13 +142,14 @@ def find_goalrtree(environment, goals)
   # Remove old files
   File.delete(*Dir.glob('partition*.svg'))
 
+  environment_polygons = environment.map {|rect| rect_to_polygon(*rect)}
   environment_tree = partition_environment(environment.dup)
   goal_tree = partition_goals(goals.dup, environment_tree)
 
   srand(2)
   world_rect = environment_tree.first.first
   svg = svg_grid(world_rect[2], world_rect[3])
-  environment.each {|rect| svg << rect_to_polygon(*rect).to_svg("fill:##{rand(4096).to_s(16)};stroke:black")}
+  environment_polygons.each {|polygon| svg << polygon.to_svg("fill:##{rand(4096).to_s(16)};stroke:black")}
   svg_save('partition0.svg', svg)
 
   global_right = goal_tree.first.first[2] - (global_left = goal_tree.first.first[0])
@@ -174,7 +175,7 @@ def find_goalrtree(environment, goals)
   global_width = global_right - global_left
   global_height = global_bottom - global_top
   hierarchy = "global: #{[global_left, global_top, global_width, global_height]}"
-  cluster_visible_rects(environment, goal_tree, Math.hypot(global_width, global_height), svg, "partition#{counter += 1}.svg").each {|rects,centroids|
+  cluster_visible_rects(environment_polygons, goal_tree, Math.hypot(global_width, global_height), svg, "partition#{counter += 1}.svg").each {|rects,centroids|
     # Intermediate rect
     rect = rects.shift
     rect_right = (rect_left = rect[0]) + rect[2]
