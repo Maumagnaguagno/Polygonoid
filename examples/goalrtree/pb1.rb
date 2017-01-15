@@ -36,10 +36,10 @@ abort('Tree is different from expected') if tree !=
       goal: (435, 75)
     local: [370, 150, 130, 120]
       centroid: (435, 210)
-      specific: [370, 150, 60, 120]
-        goal: (380, 250)
-      specific: [430, 150, 70, 120]
+      specific: [430, 150, 70, 75]
         goal: (480, 200)
+      specific: [370, 225, 60, 45]
+        goal: (380, 250)
     local: [265, 150, 85, 120]
       centroid: (307, 210)
       goal: (280, 200)
