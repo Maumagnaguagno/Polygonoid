@@ -31,8 +31,8 @@ puts tree
 abort('Tree is different from expected') if tree !=
 'global: [0, 0, 500, 500]
   intermediate: [265, 0, 235, 270]
-    local: [370, 0, 130, 120]
-      centroid: (435, 60)
+    local: [370, 0, 130, 150]
+      centroid: (435, 75)
       goal: (435, 75)
     local: [370, 150, 130, 120]
       centroid: (435, 210)
@@ -46,21 +46,20 @@ abort('Tree is different from expected') if tree !=
     local: [265, 0, 85, 120]
       centroid: (307, 60)
       goal: (300, 50)
-  intermediate: [0, 120, 245, 150]
+  intermediate: [0, 120, 245, 380]
     local: [175, 120, 70, 150]
       centroid: (210, 195)
       goal: (200, 150)
     local: [0, 120, 130, 150]
       centroid: (65, 195)
       goal: (100, 150)
-  intermediate: [0, 320, 245, 180]
-    local: [175, 320, 70, 45]
-      centroid: (210, 342)
+    local: [175, 290, 70, 75]
+      centroid: (210, 327)
       goal: (230, 330)
     local: [0, 420, 130, 80]
       centroid: (65, 460)
       goal: (50, 470)
-  intermediate: [370, 420, 130, 80]
-    local: [370, 420, 130, 80]
-      centroid: (435, 460)
+  intermediate: [370, 320, 130, 180]
+    local: [370, 320, 130, 180]
+      centroid: (435, 410)
       goal: (450, 470)'

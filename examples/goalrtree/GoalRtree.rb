@@ -33,7 +33,7 @@ def partition_environment(environment, tree = [])
   tree
 end
 
-def partition_goals(goals, tree)
+def partition_goals(environment_polygons, goals, tree)
   rect_goals = Hash.new {|h,k| h[k] = []}
   until goals.empty?
     goal = goals.shift
@@ -44,7 +44,7 @@ def partition_goals(goals, tree)
         subtree = branch if goal.x.between?(rect[0], rect[0] + rect[2]) and goal.y.between?(rect[1], rect[1] + rect[3])
       }
     end
-    # Expand to all sides and check collisions
+    # Expand to all sides and check collisions with visible corners
     outer_rect = subtree.first
     rect_right = (rect_left = outer_rect[0]) + outer_rect[2]
     rect_bottom = (rect_top = outer_rect[1]) + outer_rect[3]
@@ -52,17 +52,30 @@ def partition_goals(goals, tree)
       right = (left = rect[0]) + rect[2]
       bottom = (top = rect[1]) + rect[3]
 
-      rect_left = left if left > rect_left and left < goal.x
-      rect_left = right if right > rect_left and right < goal.x
+      visible_top_left     = visible?(goal, Point.new(left,  top), environment_polygons)
+      visible_top_right    = visible?(goal, Point.new(right, top), environment_polygons)
+      visible_bottom_right = visible?(goal, Point.new(right, bottom), environment_polygons)
+      visible_bottom_left  = visible?(goal, Point.new(left,  bottom), environment_polygons)
 
-      rect_right = left if left < rect_right and left > goal.x
-      rect_right = right if right < rect_right and right > goal.x
+      if visible_top_left or visible_bottom_left
+        rect_left = left if left > rect_left and left < goal.x
+        rect_right = left if left < rect_right and left > goal.x
+      end
 
-      rect_top = top if top > rect_top and top < goal.y
-      rect_top = bottom if bottom > rect_top and bottom < goal.y
+      if visible_top_right or visible_bottom_right
+        rect_left = right if right > rect_left and right < goal.x
+        rect_right = right if right < rect_right and right > goal.x
+      end
 
-      rect_bottom = top if top < rect_bottom and top > goal.y
-      rect_bottom = bottom if bottom < rect_bottom and bottom > goal.y
+      if visible_top_left or visible_top_right
+        rect_top = top if top > rect_top and top < goal.y
+        rect_bottom = top if top < rect_bottom and top > goal.y
+      end
+
+      if visible_bottom_left or visible_bottom_right
+        rect_top = bottom if bottom > rect_top and bottom < goal.y
+        rect_bottom = bottom if bottom < rect_bottom and bottom > goal.y
+      end
     }
     rect_goals[[rect_left, rect_top, rect_right - rect_left, rect_bottom - rect_top]] << goal
   end
@@ -144,7 +157,7 @@ def find_goalrtree(environment, goals)
 
   environment_polygons = environment.map {|rect| rect_to_polygon(*rect)}
   environment_tree = partition_environment(environment.dup)
-  goal_tree = partition_goals(goals.dup, environment_tree)
+  goal_tree = partition_goals(environment_polygons, goals.dup, environment_tree)
 
   srand(2)
   world_rect = environment_tree.first.first

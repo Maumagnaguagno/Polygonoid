@@ -6,7 +6,7 @@ Local rects are clustered in intermediate rects by grouping nearest visible rect
 A global rect contains such intermediate rects.
 
 <p align="center">
-<img src="https://cloud.githubusercontent.com/assets/11094484/21962561/46c81c3c-db07-11e6-849f-70715b55bea7.gif" alt="Animation with goals and rects being clustered"/>
+<img src="https://cloud.githubusercontent.com/assets/11094484/21973541/3c5a49d4-dba0-11e6-8815-437fff6d9d9c.gif" alt="Animation with goals and rects being clustered"/>
 </p>
 
 ## Execution
@@ -46,41 +46,40 @@ puts find_goalrtree(environment, goals)
 ```
 
 ### Output
-```
+```ruby
 global: [0, 0, 500, 500]
   intermediate: [265, 0, 235, 270]
-    local: [370, 0, 130, 120]
-      centroid: (435, 60)
+    local: [370, 0, 130, 150]
+      centroid: (435, 75)
       goal: (435, 75)
     local: [370, 150, 130, 120]
       centroid: (435, 210)
-      specific: [370, 150, 60, 120]
-        goal: (380, 250)
-      specific: [430, 150, 70, 120]
+      specific: [430, 150, 70, 75]
         goal: (480, 200)
+      specific: [370, 225, 60, 45]
+        goal: (380, 250)
     local: [265, 150, 85, 120]
       centroid: (307, 210)
       goal: (280, 200)
     local: [265, 0, 85, 120]
       centroid: (307, 60)
       goal: (300, 50)
-  intermediate: [0, 120, 245, 150]
+  intermediate: [0, 120, 245, 380]
     local: [175, 120, 70, 150]
       centroid: (210, 195)
       goal: (200, 150)
     local: [0, 120, 130, 150]
       centroid: (65, 195)
       goal: (100, 150)
-  intermediate: [0, 320, 245, 180]
-    local: [175, 320, 70, 45]
-      centroid: (210, 342)
+    local: [175, 290, 70, 75]
+      centroid: (210, 327)
       goal: (230, 330)
     local: [0, 420, 130, 80]
       centroid: (65, 460)
       goal: (50, 470)
-  intermediate: [370, 420, 130, 80]
-    local: [370, 420, 130, 80]
-      centroid: (435, 460)
+  intermediate: [370, 320, 130, 180]
+    local: [370, 320, 130, 180]
+      centroid: (435, 410)
       goal: (450, 470)
 ```
 Also SVGs are generated to better understand each step of the program.
@@ -94,7 +93,7 @@ goals = set of points of interest
 goal_tree = map
 for each goal in goals
   find bounding rect and all rects inside to consider as obstacles
-  use obstacles vertical and horizontal lines as reference to find the smallest rectangle around goal
+  use visible obstacle corners as reference to find the smallest rectangle around goal
   goal_tree[rect] = parition rect in N parts to N goals
 end
 
