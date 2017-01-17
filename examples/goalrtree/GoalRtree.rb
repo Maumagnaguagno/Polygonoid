@@ -160,8 +160,7 @@ def find_goalrtree(environment, goals, style = nil)
   goal_tree = partition_goals(environment_polygons, goals.dup, environment_tree)
 
   srand(2)
-  world_rect = environment_tree.first.first
-  svg = svg_grid(world_rect[2], world_rect[3])
+  svg = ''
   environment_polygons.each {|polygon| svg << polygon.to_svg("fill:##{rand(4096).to_s(16)};stroke:black")}
   svg_save('partition0.svg', svg, style)
 
