@@ -151,7 +151,7 @@ def cluster_visible_rects(environment_polygons, goal_tree, max_distance, svg = n
   clusters
 end
 
-def find_goalrtree(environment, goals)
+def find_goalrtree(environment, goals, style = nil)
   # Remove old files
   File.delete(*Dir.glob('partition*.svg'))
 
@@ -163,7 +163,7 @@ def find_goalrtree(environment, goals)
   world_rect = environment_tree.first.first
   svg = svg_grid(world_rect[2], world_rect[3])
   environment_polygons.each {|polygon| svg << polygon.to_svg("fill:##{rand(4096).to_s(16)};stroke:black")}
-  svg_save('partition0.svg', svg)
+  svg_save('partition0.svg', svg, style)
 
   global_right = goal_tree.first.first[2] - (global_left = goal_tree.first.first[0])
   global_bottom = goal_tree.first.first[3] - (global_top = goal_tree.first.first[1])
