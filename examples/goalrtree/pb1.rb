@@ -25,7 +25,7 @@ goals = [
   Point.new(450, 470)
 ]
 
-tree = find_goalrtree(environment, goals)
+tree = find_goalrtree(environment, goals, 'pb1')
 puts tree
 
 abort('Tree is different from expected') if tree !=
