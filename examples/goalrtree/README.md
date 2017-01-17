@@ -142,3 +142,7 @@ for rects in clusters
   end
 end
 ```
+
+## ToDo's
+- Check if separate clusters are connected together eventually
+- Intermediate rects may overlap with current implementation
