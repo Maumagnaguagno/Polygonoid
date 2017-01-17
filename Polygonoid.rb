@@ -23,8 +23,7 @@ def svg_grid(width, height, step = 10, style = 'fill:none;stroke:gray;stroke-wid
   <path d=\"M 100 0 L 0 0 0 100\" style=\"#{style}\"/>
 </pattern>
 </defs>
-<rect fill=\"url(#grid)\" width=\"#{width}\" height=\"#{height}\"></rect>
-<circle r=\"0.5\" style=\"fill:none;stroke:black;stroke-width:0.5\"><title>Origin</title></circle>\n"
+<rect fill=\"url(#grid)\" width=\"#{width}\" height=\"#{height}\"></rect>"
 end
 
 def svg_text(x, y, text, style = 'font-family:Helvetica;font-size:8px')
