@@ -61,17 +61,16 @@ class Line
       # TODO return coincident line segment
       if contain_point?(other.from) then return other.from
       elsif contain_point?(other.to) then return other.to
-      else return
       end
+    else
+      x1y2_x2y1 = x1 * y2 - x2 * y1
+      x3y4_x4y3 = x3 * y4 - x4 * y3
+
+      Point.new(
+        (x1y2_x2y1 * (x3 - x4) - (x1 - x2) * x3y4_x4y3) / denominator,
+        (x1y2_x2y1 * (y3 - y4) - (y1 - y2) * x3y4_x4y3) / denominator
+      )
     end
-
-    x1y2_x2y1 = x1 * y2 - x2 * y1
-    x3y4_x4y3 = x3 * y4 - x4 * y3
-
-    Point.new(
-      (x1y2_x2y1 * (x3 - x4) - (x1 - x2) * x3y4_x4y3) / denominator,
-      (x1y2_x2y1 * (y3 - y4) - (y1 - y2) * x3y4_x4y3) / denominator
-    )
   end
 
   def intersect_line2(other)
