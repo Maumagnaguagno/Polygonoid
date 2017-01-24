@@ -129,16 +129,28 @@ def cluster_visible_rects(environment_polygons, goal_tree, max_distance, svg = n
       clusters << [[r1,r], [c1,c]] if clusters.none? {|cluster|
         if cluster.last.include?(c1)
           unless cluster.last.include?(c)
-            # TODO check if this connection merges two clusters
-            cluster.first << r
-            cluster.last << c
+            # Check if new connection merges two clusters
+            if index = clusters.index {|cluster2| cluster2.last.include?(c)}
+              cluster.first.concat(clusters[index].first)
+              cluster.last.concat(clusters[index].last)
+              clusters.delete_at(index)
+            else
+              cluster.first << r
+              cluster.last << c
+            end
           end
           true
         elsif cluster.last.include?(c)
           unless cluster.last.include?(c1)
-            # TODO check if this connection merges two clusters
-            cluster.first << r1
-            cluster.last << c1
+            # Check if new connection merges two clusters
+            if index = clusters.index {|cluster2| cluster2.last.include?(c1)}
+              cluster.first.concat(clusters[index].first)
+              cluster.last.concat(clusters[index].last)
+              clusters.delete_at(index)
+            else
+              cluster.first << r1
+              cluster.last << c1
+            end
           end
           true
         end
