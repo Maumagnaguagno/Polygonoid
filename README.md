@@ -14,7 +14,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 - ``svg_text(x, y, text, style = 'font-family:Helvetica;font-size:8px')`` returns a SVG text element at the specified position.
 - ``svg_save(filename, svg, options = nil)`` saves SVG to file ``filename`` with specified ``options``.
 
-===
+---
 
 ### [Point class](src/Point.rb)
 **Attributes:**
@@ -27,7 +27,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 - ``==(other)`` returns true if ``self`` is approximately equal to ``other`` point, false otherwise.
 - ``to_svg(style = 'fill:none;stroke:black;stroke-width:0.5')`` returns string with SVG description.
 
-===
+---
 
 ### [Line class](src/Line.rb)
 **Attributes:**
@@ -51,7 +51,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 - ``intersect_line_angle(other)`` **TODO** description and tests.
 - ``to_svg(style = 'stroke:black')`` returns string with SVG description.
 
-===
+---
 
 ### [Polyline class](src/Polyline.rb)
 **Attributes:**
@@ -63,7 +63,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 - ``perimeter`` returns the sum of edge perimeters.
 - ``to_svg(style = 'fill:none;stroke:black')`` returns string with SVG description.
 
-===
+---
 
 ### [Polygon class](src/Polygon.rb)
 **Attributes:**
@@ -74,7 +74,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 - ``initialize(*vertices)`` creates an instance with the given array of ``vertices``, each vertice is a point instance.
 - ``to_svg(style = 'fill:gray;stroke:black')`` returns string with SVG description.
 
-===
+---
 
 ### [Circle class](src/Circle.rb)
 **Attributes:**
