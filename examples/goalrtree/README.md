@@ -94,7 +94,7 @@ goal_tree = map
 for each goal in goals
   find bounding rect and all rects inside to consider as obstacles
   use visible obstacle corners as reference to find the smallest rectangle around goal
-  goal_tree[rect] = parition rect in N parts to N goals
+  goal_tree[rect] = partition rect in N parts for N goals
 end
 
 clusters = set
