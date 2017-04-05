@@ -110,6 +110,21 @@ def divide_rect(rect, rgoals)
   end
 end
 
+def merge_cluster(clusters, centroids, rects, r, c)
+  unless centroids.include?(c)
+    # New connection merges two clusters
+    if index = clusters.index {|cluster2| cluster2.last.include?(c)}
+      rects.concat(clusters[index].first)
+      centroids.concat(clusters[index].last)
+      clusters.delete_at(index)
+    else
+      rects << r
+      centroids << c
+    end
+  end
+  true
+end
+
 def cluster_visible_rects(environment_polygons, goal_tree, max_distance, svg = nil, svg_filename = nil, view = nil)
   clusters = []
   # Use rect centroid as reference for visibility
@@ -128,31 +143,9 @@ def cluster_visible_rects(environment_polygons, goal_tree, max_distance, svg = n
       svg << Line.new(c1, c).to_svg('stroke:red') if svg
       clusters << [[r1,r], [c1,c]] if clusters.none? {|rects,centroids|
         if centroids.include?(c1)
-          unless centroids.include?(c)
-            # Check if new connection merges two clusters
-            if index = clusters.index {|cluster2| cluster2.last.include?(c)}
-              rects.concat(clusters[index].first)
-              centroids.concat(clusters[index].last)
-              clusters.delete_at(index)
-            else
-              rects << r
-              centroids << c
-            end
-          end
-          true
+          merge_cluster(clusters, centroids, rects, r, c)
         elsif centroids.include?(c)
-          unless centroids.include?(c1)
-            # Check if new connection merges two clusters
-            if index = clusters.index {|cluster2| cluster2.last.include?(c1)}
-              rects.concat(clusters[index].first)
-              centroids.concat(clusters[index].last)
-              clusters.delete_at(index)
-            else
-              rects << r1
-              centroids << c1
-            end
-          end
-          true
+          merge_cluster(clusters, centroids, rects, r1, c1)
         end
       }
     # Keep intermediate level with single element cluster
