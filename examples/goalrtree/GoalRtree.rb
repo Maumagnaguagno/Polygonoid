@@ -108,7 +108,7 @@ def divide_rect(rect, rgoals)
   end
 end
 
-def merge_cluster(clusters, centroids, rects, r, c, include)
+def connect_rect_to_cluster(clusters, centroids, rects, r, c, include)
   unless include
     # New connection merges two clusters
     if index = clusters.index {|cluster2| cluster2.last.include?(c)}
@@ -143,9 +143,9 @@ def cluster_visible_rects(environment_polygons, goal_tree, max_distance, svg = n
         include_c  = centroids.include?(c)
         include_c1 = centroids.include?(c1)
         if include_c1
-          merge_cluster(clusters, centroids, rects, r, c, include_c)
+          connect_rect_to_cluster(clusters, centroids, rects, r, c, include_c)
         elsif include_c
-          merge_cluster(clusters, centroids, rects, r1, c1, include_c1)
+          connect_rect_to_cluster(clusters, centroids, rects, r1, c1, include_c1)
         end
       }
     # Keep intermediate level with single element cluster
