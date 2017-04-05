@@ -80,9 +80,7 @@ def partition_goals(environment_polygons, goals, tree)
     rect_goals[[rect_left, rect_top, rect_right - rect_left, rect_bottom - rect_top]] << goal
   end
   # Divide goals within same rect
-  goal_tree = []
-  rect_goals.each {|rect,rgoals| goal_tree << divide_rect(rect, rgoals)}
-  goal_tree
+  rect_goals.map {|rect,rgoals| divide_rect(rect, rgoals)}
 end
 
 def divide_rect(rect, rgoals)
