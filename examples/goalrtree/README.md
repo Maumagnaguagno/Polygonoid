@@ -14,7 +14,7 @@ Execute with ``ruby pb1.rb``.
 Previously generated SVGs are deleted to avoid mixing executions.
 
 ### Input
-```ruby
+```Ruby
 require_relative 'GoalRtree'
 
 environment = [
@@ -46,7 +46,7 @@ puts find_goalrtree(environment, goals)
 ```
 
 ### Output
-```ruby
+```Ruby
 global: [0, 0, 500, 500]
   intermediate: [265, 0, 235, 270]
     local: [370, 0, 130, 150]
