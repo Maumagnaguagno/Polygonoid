@@ -41,5 +41,5 @@ goals = [
   Point.new( 220, -150)
 ]
 
-tree = find_goalrtree(environment_top, goals, 'pb4_top')
+tree = find_goalrtree('pb4_top', environment_top, goals)
 puts tree

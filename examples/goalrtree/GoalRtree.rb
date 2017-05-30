@@ -156,7 +156,7 @@ def cluster_visible_rects(environment_polygons, goal_tree, max_distance, svg = n
   clusters
 end
 
-def find_goalrtree(environment, goals, name)
+def find_goalrtree(name, environment, goals)
   # Remove old files
   File.delete(*Dir.glob("#{name}*.svg"))
 
