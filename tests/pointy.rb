@@ -5,15 +5,15 @@ class Pointy < Test::Unit::TestCase
 
   def test_point_initialize
     point = Point.new(10,50)
-    assert_in_epsilon(10.0, point.x)
-    assert_in_epsilon(50.0, point.y)
+    assert_equal(10, point.x)
+    assert_equal(50, point.y)
   end
 
   def test_point_equality
-    assert_equal(true, Point.new(5,5) == Point.new(5.0,5.0))
-    assert_equal(true, Point.new(0.1 + 0.2,2) == Point.new(0.3,2.000000000000000000004))
-    assert_equal(false, Point.new(5,6) == Point.new(6,5))
-    assert_equal(false, Point.new(5.1,5) == Point.new(5,5))
+    assert_equal(Point.new(5,5), Point.new(5.0,5.0))
+    assert_equal(Point.new(0.1 + 0.2,2), Point.new(0.3,2.000000000000000000004))
+    assert_not_equal(Point.new(5,6), Point.new(6,5))
+    assert_not_equal(Point.new(5.1,5), Point.new(5,5))
   end
 
   def test_point_distance
