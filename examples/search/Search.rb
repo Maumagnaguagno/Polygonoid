@@ -240,6 +240,14 @@ if $0 == __FILE__
     ]
   )
 
+  abort('Plan 4 failed') if plan != [
+    Point.new(22,8),
+    Point.new(23.7187,34.2496),
+    Point.new(61.7017,39.3297),
+    Point.new(78.7511,31.4559),
+    Point.new(41,15),
+  ]
+
   puts '------------------------------',
   'Problem 5'
   plan = search(
@@ -280,4 +288,11 @@ if $0 == __FILE__
       )
     ]
   )
+
+  abort('Plan 5 failed') if plan != [
+    Point.new(41,15),
+    Point.new(74.8331,36.1970),
+    Point.new(20.7988,45.5246),
+    Point.new(22,8),
+  ]
 end
