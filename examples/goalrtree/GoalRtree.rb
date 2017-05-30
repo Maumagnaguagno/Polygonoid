@@ -215,9 +215,7 @@ def find_goalrtree(name, environment, goals)
       hierarchy << "\n    local: #{r}\n      centroid: (#{c.x}, #{c.y})"
       goals_within = goal_tree.assoc(r).last
       if goals_within.instance_of?(Array)
-        goals_within.each {|specific,g|
-          hierarchy << "\n      specific: #{specific}\n        goal: (#{g.x}, #{g.y})"
-        }
+        goals_within.each {|specific,g| hierarchy << "\n      specific: #{specific}\n        goal: (#{g.x}, #{g.y})"}
       else hierarchy << "\n      goal: (#{goals_within.x}, #{goals_within.y})"
       end
     }
