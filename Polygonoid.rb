@@ -5,15 +5,9 @@ require_relative 'src/Polygon'
 require_relative 'src/Circle'
 
 class Numeric
-  def approx(other, relative_epsilon = nil, epsilon = nil)
-    self == other
-  end
-end
-
-class Float
   def approx(other, relative_epsilon = 0.001, epsilon = 0.001)
     # Based on Ruby Cookbook
-    (diff = (other - self).abs) <= epsilon || diff / (self > other ? self : other).abs <= relative_epsilon
+    (diff = (other - self).abs) <= epsilon || diff.fdiv(self > other ? self : other).abs <= relative_epsilon
   end
 end
 
