@@ -95,7 +95,7 @@ def search(name, start, goal, angle, environment)
       svg_save("#{name}_t#{index}.svg", new_svg, 'viewbox="0 0 100 100"')
     }
     # Visible points are reachable positions
-    reachable_positions.push(*visible_points).sort_by! {|p| p.first.distance(goal)}
+    reachable_positions.concat(visible_points).sort_by! {|p| p.first.distance(goal)}
     reachable_positions.each {|p| puts "  Point (#{p.first.x}, #{p.first.y}) => Distance #{p.first.distance(goal)}"}
     visible_points.clear
   end
