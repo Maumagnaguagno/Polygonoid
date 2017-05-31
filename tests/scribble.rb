@@ -120,7 +120,18 @@ class Scribble < Test::Unit::TestCase
   end
 
   def test_line_intersect_line_angle
-    #flunk # TODO
+    l1 = Line.new(Point.new(0,0), Point.new(1,0))
+    l2 = Line.new(Point.new(0,0), Point.new(1,1))
+    l3 = Line.new(Point.new(1,0), Point.new(0,0))
+    l4 = Line.new(Point.new(0,0), Point.new(2,1))
+    assert_equal(0, l1.intersect_line_angle(l1))
+    assert_equal(0, l2.intersect_line_angle(l2))
+    assert_equal(0, l1.intersect_line_angle(l3))
+    assert_equal(Math::PI / 4, l1.intersect_line_angle(l2))
+    assert_equal(Math::PI / 4, l2.intersect_line_angle(l1))
+    assert_equal(Math::PI / 4, l2.intersect_line_angle(l3))
+    assert_equal(Math::PI / 4, l3.intersect_line_angle(l2))
+    assert_equal(Math.atan(1.fdiv(3)), l2.intersect_line_angle(l4))
   end
 
   def test_line_to_svg

@@ -79,8 +79,7 @@ class Line
   end
 
   def intersect_line_angle(other)
-    # TODO revise this method
-    (Math.atan(@slope) - Math.atan(other.slope)).abs
+    Math.atan((@slope - other.slope) / (1 + @slope * other.slope)).abs
   end
 
   def to_svg(style = 'stroke:black')
