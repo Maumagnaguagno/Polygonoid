@@ -3,9 +3,9 @@ require_relative 'Search'
 plan = search(
   'pb1',
   # Start
-  Point.new(80.0,50.0),
+  Point.new(80,50),
   # Goal
-  Point.new(15.0,50.0),
+  Point.new(15,50),
   # Angle
   10,
   # Environment

@@ -4,9 +4,9 @@ plan = search(
   # Problem
   'pb3',
   # Start
-  Point.new(5.0,40.0),
+  Point.new(5,40),
   # Goal
-  Point.new(95.0,50.0),
+  Point.new(95,50),
   # Angle
   10,
   # Environment
