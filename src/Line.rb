@@ -54,7 +54,6 @@ class Line
     y3 = other.from.y
     x4 = other.to.x
     y4 = other.to.y
-
     # When two lines are parallel or coincident the denominator is zero
     denominator = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)
     if denominator.zero?
@@ -65,10 +64,9 @@ class Line
     else
       x1y2_x2y1 = x1 * y2 - x2 * y1
       x3y4_x4y3 = x3 * y4 - x4 * y3
-
       Point.new(
-        (x1y2_x2y1 * (x3 - x4) - (x1 - x2) * x3y4_x4y3) / denominator,
-        (x1y2_x2y1 * (y3 - y4) - (y1 - y2) * x3y4_x4y3) / denominator
+        (x1y2_x2y1 * (x3 - x4) - (x1 - x2) * x3y4_x4y3).fdiv(denominator),
+        (x1y2_x2y1 * (y3 - y4) - (y1 - y2) * x3y4_x4y3).fdiv(denominator)
       )
     end
   end
