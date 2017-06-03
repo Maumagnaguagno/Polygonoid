@@ -10,14 +10,14 @@ require_relative '../../Polygonoid'
 
 NDEG2RAD = Math::PI / -180
 
-def visible?(a, b, environment, svg = nil)
+def visible?(from, to, environment, svg = nil)
   # Check if a line betweem a and b points intersects with each polygon edge from environment
-  line = Line.new(a, b)
+  line = Line.new(from, to)
   environment.all? {|polygon|
     polygon.edges.none? {|e|
       intersection = line.intersect_line(e)
       # Collide with lines
-      collision = intersection && intersection != b && e.contain_point?(intersection) && line.contain_point?(intersection)
+      collision = intersection && intersection != to && e.contain_point?(intersection) && line.contain_point?(intersection)
       # Collide with lines, ignore vertices
       #collision = intersection && intersection != e.to && intersection != e.from && e.contain_point?(intersection) && line.contain_point?(intersection)
       svg << line.to_svg('stroke:yellow;stroke-width:0.5') << intersection.to_svg('fill:blue;stroke:blue;stroke-width:0.5') if svg and collision
@@ -26,27 +26,27 @@ def visible?(a, b, environment, svg = nil)
   }
 end
 
-def rotate(a, b, angle)
+def rotate(from, to, angle)
   # Based on http://math.stackexchange.com/questions/1687901/how-to-rotate-a-line-segment-around-one-of-the-end-points
   angle *= NDEG2RAD
   sin = Math.sin(angle)
   cos = Math.cos(angle)
-  bax = b.x - a.x
-  bay = b.y - a.y
+  x = to.x - from.x
+  y = to.y - from.y
   Point.new(
-    cos * bax - sin * bay + a.x,
-    sin * bax + cos * bay + a.y
+    cos * x - sin * y + from.x,
+    sin * x + cos * y + from.y
   )
 end
 
-def nearby(a, b, angle, environment)
-  if a
-    point = rotate(a, b, -angle)
-    yield point if visible?(a, point, environment)
-    point = rotate(a, b, angle)
-    yield point if visible?(a, point, environment)
+def nearby(from, to, angle, environment)
+  if from
+    point = rotate(from, to, -angle)
+    yield point if visible?(from, point, environment)
+    point = rotate(from, to, angle)
+    yield point if visible?(from, point, environment)
   else
-    yield b
+    yield to
   end
 end
 
