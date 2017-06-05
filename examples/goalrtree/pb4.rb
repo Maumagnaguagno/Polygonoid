@@ -41,7 +41,7 @@ goals = [
   Point.new( 220, -150)
 ]
 
-tree = find_goalrtree('pb4_top', environment_top, goals)
+tree = GoalRtree.generate('pb4_top', environment_top, goals)
 puts tree
 
 abort('Tree is different from expected') if tree !=

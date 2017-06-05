@@ -42,7 +42,7 @@ goals = [
   Point.new(450, 470)
 ]
 
-puts find_goalrtree(environment, goals)
+puts GoalRtree.generate(environment, goals)
 ```
 
 ### Output
@@ -144,4 +144,4 @@ end
 ```
 
 ## ToDo's
-- Intermediate rects may overlap with current implementation
+- Intermediate rects may overlap in current implementation
