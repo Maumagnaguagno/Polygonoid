@@ -8,7 +8,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 ## API
 
 ### [Polygonoid](Polygonoid.rb)
-- ``Numeric.approx(other, relative_epsilon = nil, epsilon = nil)`` compares with epsilon for robustness.
+- ``Numeric.approx(other, relative_epsilon = 0.001, epsilon = 0.001)`` compares with epsilon for robustness.
 - ``svg_grid(width, height, step = 10, style = 'fill:none;stroke:gray;stroke-width:0.5')`` returns a SVG grid pattern with cells of size ``step``.
 - ``svg_text(x, y, text, style = 'font-family:Helvetica;font-size:8px')`` returns a SVG text element at the specified position.
 - ``svg_save(filename, svg, options = nil)`` saves SVG to file ``filename`` with specified ``options``.
