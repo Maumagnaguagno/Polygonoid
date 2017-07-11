@@ -65,9 +65,8 @@ def search(name, start, goal, angle, environment)
     point, plan = reachable_positions.shift
     visited << point
     nearby(plan && plan.first, point, angle, environment) {|pos|
-      index += 1
       new_svg = svg.dup
-      puts "#{index}: Point (#{pos.x}, #{pos.y})"
+      puts "#{index += 1}: Point (#{pos.x}, #{pos.y})"
       # Goal visible test
       if visible?(pos, goal, environment, new_svg)
         puts '  Goal found'
