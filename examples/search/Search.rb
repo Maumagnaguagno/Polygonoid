@@ -69,7 +69,6 @@ def search(name, start, goal, angle, environment)
       puts "#{index += 1}: Point (#{pos.x}, #{pos.y})"
       # Goal visible test
       if visible?(pos, goal, environment, new_svg)
-        puts '  Goal found'
         # Build plan
         final_plan = [pos, goal]
         while plan
@@ -79,7 +78,7 @@ def search(name, start, goal, angle, environment)
         # Draw path
         new_svg << (path = Polyline.new(*final_plan)).to_svg('fill:none;stroke:green;stroke-width:0.5')
         svg_save("#{name}_t#{index}.svg", new_svg, 'viewbox="0 0 100 100"')
-        puts path.perimeter
+        puts "  Goal found, path length: #{path.perimeter}"
         return final_plan
       end
       # Visible corners
