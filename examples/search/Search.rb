@@ -50,6 +50,19 @@ def nearby(from, to, angle, environment)
   end
 end
 
+def build_plan(point, goal, plan, name, new_svg, index)
+  final_plan = [point, goal]
+  while plan
+    final_plan.unshift(plan.first)
+    plan = plan.last
+  end
+  # Draw path
+  new_svg << (path = Polyline.new(*final_plan)).to_svg('fill:none;stroke:green;stroke-width:0.5')
+  svg_save("#{name}_t#{index}.svg", new_svg, 'viewbox="0 0 100 100"')
+  puts "  Goal found, path length: #{path.perimeter}"
+  return final_plan
+end
+
 def search(name, start, goal, angle, environment)
   # Remove old files
   File.delete(*Dir.glob("#{name}*.svg"))
@@ -67,20 +80,8 @@ def search(name, start, goal, angle, environment)
     nearby(plan && plan.first, point, angle, environment) {|pos|
       new_svg = svg.dup
       puts "#{index += 1}: Point (#{pos.x}, #{pos.y})"
-      # Goal visible test
-      if visible?(pos, goal, environment, new_svg)
-        # Build plan
-        final_plan = [pos, goal]
-        while plan
-          final_plan.unshift(plan.first)
-          plan = plan.last
-        end
-        # Draw path
-        new_svg << (path = Polyline.new(*final_plan)).to_svg('fill:none;stroke:green;stroke-width:0.5')
-        svg_save("#{name}_t#{index}.svg", new_svg, 'viewbox="0 0 100 100"')
-        puts "  Goal found, path length: #{path.perimeter}"
-        return final_plan
-      end
+      # Build plan if goal visible test
+      return build_plan(pos, goal, plan, name, new_svg, index) if visible?(pos, goal, environment, new_svg)
       # Visible corners
       plan = [pos, plan]
       environment.each {|polygon|
