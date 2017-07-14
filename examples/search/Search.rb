@@ -10,7 +10,7 @@ require_relative '../../Polygonoid'
 
 NDEG2RAD = Math::PI / -180
 
-def visible?(from, to, environment, svg = nil)
+def visible?(from, to, environment)
   # Check if a line betweem a and b points intersects with each polygon edge from environment
   line = Line.new(from, to)
   environment.all? {|polygon|
@@ -20,7 +20,6 @@ def visible?(from, to, environment, svg = nil)
       collision = intersection && intersection != to && e.contain_point?(intersection) && line.contain_point?(intersection)
       # Collide with lines, ignore vertices
       #collision = intersection && intersection != e.to && intersection != e.from && e.contain_point?(intersection) && line.contain_point?(intersection)
-      svg << line.to_svg('stroke:yellow;stroke-width:0.5') << intersection.to_svg('fill:blue;stroke:blue;stroke-width:0.5') if svg and collision
       collision
     }
   }
@@ -81,12 +80,12 @@ def search(name, start, goal, angle, environment)
       new_svg = svg.dup
       puts "#{index += 1}: Point (#{pos.x}, #{pos.y})"
       # Build plan if goal visible test
-      return build_plan(pos, goal, plan, name, new_svg, index) if visible?(pos, goal, environment, new_svg)
+      return build_plan(pos, goal, plan, name, new_svg, index) if visible?(pos, goal, environment)
       # Visible corners
       plan = [pos, plan]
       environment.each {|polygon|
         polygon.vertices.each {|v|
-          if not visited.include?(v) and visible?(pos, v, environment, new_svg)
+          if not visited.include?(v) and visible?(pos, v, environment)
             visible_points << [v, plan]
             new_svg << Line.new(pos, v).to_svg('stroke:red;stroke-width:0.5')
           end

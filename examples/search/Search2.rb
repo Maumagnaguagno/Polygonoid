@@ -24,12 +24,12 @@ def search(name, start, goal, angle, environment)
     new_svg = svg.dup
     puts "#{index += 1}: Point (#{point.x}, #{point.y})"
     # Build plan if goal visible test
-    return build_plan(point, goal, plan, name, new_svg, index) if visible?(point, goal, environment, new_svg)
+    return build_plan(point, goal, plan, name, new_svg, index) if visible?(point, goal, environment)
     # Visible corners
     plan = [point, plan]
     environment.each {|polygon|
       polygon.vertices.each {|v|
-        if not visited.include?(v) and visible?(point, v, environment, new_svg)
+        if not visited.include?(v) and visible?(point, v, environment)
           nearby(point, v, angle, environment) {|pos|
             visible_points << [pos, plan]
             new_svg << Line.new(point, pos).to_svg('stroke:red;stroke-width:0.5')
