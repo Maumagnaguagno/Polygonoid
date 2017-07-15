@@ -10,21 +10,6 @@ require_relative '../../Polygonoid'
 
 NDEG2RAD = Math::PI / -180
 
-def visible?(from, to, environment)
-  # Check if a line betweem a and b points intersects with each polygon edge from environment
-  line = Line.new(from, to)
-  environment.all? {|polygon|
-    polygon.edges.none? {|e|
-      intersection = line.intersect_line(e)
-      # Collide with lines
-      collision = intersection && intersection != to && e.contain_point?(intersection) && line.contain_point?(intersection)
-      # Collide with lines, ignore vertices
-      #collision = intersection && intersection != e.to && intersection != e.from && e.contain_point?(intersection) && line.contain_point?(intersection)
-      collision
-    }
-  }
-end
-
 def rotate(from, to, angle)
   # Based on http://math.stackexchange.com/questions/1687901/how-to-rotate-a-line-segment-around-one-of-the-end-points
   angle *= NDEG2RAD

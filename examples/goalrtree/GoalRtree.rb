@@ -12,16 +12,6 @@ module GoalRtree
     )
   end
 
-  def visible?(a, b, environment_polygons)
-    # Check if a line betweem a and b points intersects with each polygon edge from environment
-    line = Line.new(a, b)
-    environment_polygons.all? {|polygon|
-      polygon.edges.none? {|e|
-        (intersection = line.intersect_line(e)) && intersection != b && e.contain_point?(intersection) && line.contain_point?(intersection)
-      }
-    }
-  end
-
   def partition_environment(environment, tree = [])
     until environment.empty?
       tree << [environment.shift, []] if tree.none? {|branch|
