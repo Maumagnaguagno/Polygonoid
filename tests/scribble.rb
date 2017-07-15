@@ -115,7 +115,7 @@ class Scribble < Test::Unit::TestCase
     assert_equal(Point.new(80,50), l1.intersect_line(l2))
   end
 
-  def test_line_intersection_line2
+  def test_line_intersect_line2
     #flunk # TODO
   end
 

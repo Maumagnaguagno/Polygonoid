@@ -1,6 +1,7 @@
 require_relative 'Search'
 
 plan = search(
+  # Problem
   'pb1',
   # Start
   Point.new(80,50),
