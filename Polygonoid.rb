@@ -28,7 +28,7 @@ def svg_save(filename, svg, options = nil)
   IO.write(filename, "<svg xmlns=\"http://www.w3.org/2000/svg\" #{options}>\n#{svg}</svg>")
 end
 
-def visible?(from, to, environment_polygons)
+def visible?(from, to, environment)
   # Check if a line betweem from and to points intersects with each polygon edge from environment
   line = Line.new(from, to)
   environment.all? {|polygon|
