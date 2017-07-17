@@ -82,8 +82,8 @@ global: [0, 0, 500, 500]
       centroid: (435, 410)
       goal: (450, 470)
 ```
-Also SVGs are generated to better understand each step of the program.
 
+Also SVGs are generated to better understand each step of the program.
 
 ## Pseudocode
 ```
