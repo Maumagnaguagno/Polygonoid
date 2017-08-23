@@ -23,11 +23,12 @@ def external_bitangent_lines(a, b)
   [Line.new(Point.new(xa, a.cy + ra), Point.new(xb, b.cy + rb)), Line.new(Point.new(xa, a.cy - ra), Point.new(xb, b.cy - rb))]
 end
 
-begin
+if $0 == __FILE__
   a = Circle.new(150, 150, 130)
   b = Circle.new(450, 150, 50)
   l1, l2 = internal_bitangent_lines(a, b)
   l3, l4 = external_bitangent_lines(a, b)
   svg = svg_grid(550, 300) << a.to_svg << b.to_svg << l1.to_svg('stroke:red') << l2.to_svg('stroke:red') << l3.to_svg('stroke:blue') << l4.to_svg('stroke:blue')
   svg_save('bitangent_lines.svg', svg, 'viewbox="0 0 550 300"')
+  abort('Error with bitangent lines') unless l1.from == Point.new(228, 254) and l1.to == Point.new(420, 110) and l2.from == Point.new(228, 46) and l2.to == Point.new(420, 190)
 end
