@@ -59,7 +59,7 @@ if $0 == __FILE__
         l3, l4 = external_bitangent_lines(a, b, d)
         svg << l3.to_svg('stroke:blue') << l4.to_svg('stroke:blue')
       end
-      svg_save('bitangent_forest.svg', svg, 'viewbox="0 0 200 200"')
     }
   }
+  svg_save('bitangent_forest.svg', svg, 'viewbox="0 0 200 200"')
 end
