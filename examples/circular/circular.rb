@@ -42,4 +42,24 @@ if $0 == __FILE__
     puts 'Unexpected external bitangent lines' unless l3.from == Point.new(184.66, 24.70) and l3.to == Point.new(463.33, 101.81) and l4.from == Point.new(184.66, 275.29) and l4.to == Point.new(463.33, 198.18)
   end
   svg_save('bitangent_lines.svg', svg, 'viewbox="0 0 550 300"')
+
+  # Forest
+  svg = svg_grid(1100, 1100)
+  srand(0)
+  circles = Array.new(5) {Circle.new(50 + rand(1000), 50 + rand(1000), 5 + rand(50))}
+  circles.each {|c| svg << c.to_svg}
+  circles.each_with_index {|a,i|
+    circles.drop(i).each {|b|
+      d = Math.hypot(a.cx - b.cx, a.cy - b.cy)
+      if a.radius + b.radius <= d
+        l1, l2 = internal_bitangent_lines(a, b, d)
+        svg << l1.to_svg('stroke:red') << l2.to_svg('stroke:red')
+      end
+      if (a.radius - b.radius).abs <= d
+        l3, l4 = external_bitangent_lines(a, b, d)
+        svg << l3.to_svg('stroke:blue') << l4.to_svg('stroke:blue')
+      end
+      svg_save('bitangent_forest.svg', svg, 'viewbox="0 0 200 200"')
+    }
+  }
 end
