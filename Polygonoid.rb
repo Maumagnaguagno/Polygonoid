@@ -17,11 +17,11 @@ def svg_grid(width, height, step = 10, style = 'fill:none;stroke:gray;stroke-wid
   <path d=\"M 100 0 L 0 0 0 100\" style=\"#{style}\"/>
 </pattern>
 </defs>
-<rect fill=\"url(#grid)\" width=\"#{width}\" height=\"#{height}\"></rect>"
+<rect fill=\"url(#grid)\" width=\"#{width}\" height=\"#{height}\"></rect>\n"
 end
 
 def svg_text(x, y, text, style = 'font-family:Helvetica;font-size:8px')
-  "<text x=\"#{x}\" y=\"#{y}\" style=\"#{style}\">#{text}</text>"
+  "<text x=\"#{x}\" y=\"#{y}\" style=\"#{style}\">#{text}</text>\n"
 end
 
 def svg_save(filename, svg, options = nil)
