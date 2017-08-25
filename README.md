@@ -22,8 +22,8 @@ SVG output also provides a nice way of checking what is happening inside the box
 
 **Methods:**
 - ``initialize(x, y)`` creates an instance with the given ``x`` and ``y`` coordinates.
-- ``distance(other)`` returns distance to ``other`` point.
 - ``==(other)`` returns true if ``self`` is approximately equal to ``other`` point, false otherwise.
+- ``distance(other)`` returns distance to ``other`` point.
 - ``to_svg(style = 'fill:none;stroke:black;stroke-width:0.5')`` returns string with SVG description.
 
 ---
@@ -37,6 +37,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 
 **Methods:**
 - ``initialize(from, to)`` creates an instance with the given ``from`` and ``to`` points.
+- ``==(other)`` returns true if ``self`` is approximately equal to ``other`` line, false otherwise.
 - ``perimeter`` returns distance between ``from`` and ``to``.
 - ``x_intercept`` returns position where line intercepts the X axis.
 - ``vertical?`` returns true if line is vertical, false otherwise.
@@ -83,6 +84,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 
 **Methods:**
 - ``initialize(cx, cy, radius)`` creates an instance at ``cx`` and ``cy`` with radius ``radius``.
+- ``==(other)`` returns true if ``self`` is approximately equal to ``other`` circle, false otherwise.
 - ``perimeter`` returns perimeter/circumference of circle.
 - ``area`` returns area of circle.
 - ``contain_point?(other)`` returns true if ``other`` point is within area of circle, false otherwise.
