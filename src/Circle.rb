@@ -10,6 +10,10 @@ class Circle
     @radius = radius
   end
 
+  def ==(other)
+    @cx.approx(other.cx) && @cy.approx(other.cy) and @radius.approx(other.radius)
+  end
+
   def perimeter
     PI2 * @radius
   end
