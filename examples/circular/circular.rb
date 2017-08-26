@@ -48,8 +48,9 @@ if $0 == __FILE__
   srand(0)
   circles = Array.new(5) {Circle.new(50 + rand(1000), 50 + rand(1000), 5 + rand(50))}
   circles.each {|c| svg << c.to_svg}
-  circles.each_with_index {|a,i|
-    circles.drop(i).each {|b|
+  i = 0
+  circles.each {|a|
+    circles.drop(i += 1).each {|b|
       d = Math.hypot(a.cx - b.cx, a.cy - b.cy)
       if a.radius + b.radius <= d
         l1, l2 = internal_bitangent_lines(a, b, d)
