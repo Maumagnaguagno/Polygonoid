@@ -17,7 +17,7 @@ def internal_bitangent_lines(a, b, d)
 end
 
 def external_bitangent_lines(a, b, d)
-  angle = Math.acos((a.radius - b.radius).abs.fdiv(d))
+  angle = Math.acos((a.radius - b.radius).fdiv(d))
   ab = Math.atan2(b.cy - a.cy, b.cx - a.cx)
   c = get_point(a.cx, a.cy, a.radius, ab - angle)
   d = get_point(a.cx, a.cy, a.radius, ab + angle)
