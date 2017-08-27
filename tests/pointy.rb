@@ -10,7 +10,9 @@ class Pointy < Test::Unit::TestCase
   end
 
   def test_point_equality
-    assert_equal(Point.new(5,5), Point.new(5.0,5.0))
+    a = Point.new(5,5)
+    assert_equal(a, a)
+    assert_equal(a, Point.new(5.0,5.0))
     assert_equal(Point.new(0.1 + 0.2,2), Point.new(0.3,2.000000000000000000004))
     assert_not_equal(Point.new(5,6), Point.new(6,5))
     assert_not_equal(Point.new(5.1,5), Point.new(5,5))

@@ -10,6 +10,15 @@ class Round < Test::Unit::TestCase
     assert_equal(3, circle.radius)
   end
 
+  def test_circle_equality
+    a = Circle.new(23,89,5)
+    b = Circle.new(23,89,5)
+    c = Circle.new(400,5,10)
+    assert_equal(a, a)
+    assert_equal(a, b)
+    assert_not_equal(a, c)
+  end
+
   def test_circle_perimeter
     circle = Circle.new(1,2,3)
     assert_equal(Math::PI * 6, circle.perimeter)
