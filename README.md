@@ -43,8 +43,9 @@ SVG output also provides a nice way of checking what is happening inside the box
 - ``vertical?`` returns true if line is vertical, false otherwise.
 - ``horizontal?`` returns true if line is horizontal, false otherwise.
 - ``parallel_to?(other)`` returns true if ``self`` is parallel to ``other`` line, false otherwise.
-- ``contain_point?(other)`` returns true if segment ``self`` contains ``other`` point, false otherwise.
-- ``distance_to_point(other)`` returns distance between ``self`` and ``other`` point.
+- ``segment_contain_point?(point)`` returns true if segment ``self`` contains ``point``, false otherwise.
+- ``distance_to_point(point)`` returns distance between ``self`` and ``point``.
+- ``segment_distance_to_point(point)`` returns distance between segment ``self`` and ``point``.
 - ``intersect_line(other)`` returns point of intersection between ``self`` and ``other`` line, ``nil`` if none.
   - **TODO** return line of intersection if lines are coincident.
 - ``intersect_line2(other)`` works like ``intersect_line(other)`` for non horizontal/vertical lines.
@@ -87,8 +88,8 @@ SVG output also provides a nice way of checking what is happening inside the box
 - ``==(other)`` returns true if ``self`` is approximately equal to ``other`` circle, false otherwise.
 - ``perimeter`` returns perimeter/circumference of circle.
 - ``area`` returns area of circle.
-- ``contain_point?(other)`` returns true if ``other`` point is within area of circle, false otherwise.
-- ``distance_to_point(other)`` returns distance from ``other`` point to circle border.
+- ``contain_point?(point)`` returns true if ``point`` is within area of circle, false otherwise.
+- ``distance_to_point(point)`` returns distance between circle border and ``point``.
 - ``to_svg(style = 'fill:gray;stroke:black')`` returns string with SVG description.
 
 ## ToDo's
