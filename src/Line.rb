@@ -45,6 +45,16 @@ class Line
     (x2_x1 * (y1 - point.y) - (x1 - point.x) * y2_y1).abs / Math.hypot(x2_x1, y2_y1)
   end
 
+  def segment_distance_to_point(point)
+    x = @to.x - @from.x
+    y = @to.y - @from.y
+    l2 = x ** 2 + y ** 2
+    return Math.hypot(point.x - @from.x, point.y - @from.y) if l2 == 0
+    t = ((point.x - @from.x) * x + (point.y - @from.y) * y) / l2
+    t = (t > 0 ? (t < 1 ? t : 1) : 0)
+    Math.hypot(point.x - @from.x - t * x, point.y - @from.y - t * y)
+  end
+
   def intersect_line(other)
     x1 = @from.x
     y1 = @from.y
