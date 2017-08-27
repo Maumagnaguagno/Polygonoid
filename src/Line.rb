@@ -33,8 +33,8 @@ class Line
     @slope.abs == Float::INFINITY && other.slope.abs == Float::INFINITY || @slope.approx(other.slope)
   end
 
-  def contain_point?(other)
-    (@from.distance(other) + @to.distance(other)).approx(@from.distance(@to))
+  def segment_contain_point?(point)
+    (@from.distance(point) + @to.distance(point)).approx(@from.distance(@to))
   end
 
   def distance_to_point(other)
@@ -58,8 +58,8 @@ class Line
     denominator = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)
     if denominator.zero?
       # TODO return coincident line segment
-      if contain_point?(other.from) then return other.from
-      elsif contain_point?(other.to) then return other.to
+      if segment_contain_point?(other.from) then return other.from
+      elsif segment_contain_point?(other.to) then return other.to
       end
     else
       x1y2_x2y1 = x1 * y2 - x2 * y1

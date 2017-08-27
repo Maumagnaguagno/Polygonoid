@@ -34,9 +34,9 @@ def visible?(from, to, environment)
   environment.all? {|polygon|
     polygon.edges.none? {|e|
       # Collide with lines
-      (intersection = line.intersect_line(e)) && intersection != to && e.contain_point?(intersection) && line.contain_point?(intersection)
+      (intersection = line.intersect_line(e)) && intersection != to && e.segment_contain_point?(intersection) && line.segment_contain_point?(intersection)
       # Collide with lines, ignore vertices
-      #(intersection = line.intersect_line(e)) && intersection != e.to && intersection != e.from && e.contain_point?(intersection) && line.contain_point?(intersection)
+      #(intersection = line.intersect_line(e)) && intersection != e.to && intersection != e.from && e.segment_contain_point?(intersection) && line.segment_contain_point?(intersection)
     }
   }
 end
