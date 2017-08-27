@@ -37,12 +37,12 @@ class Line
     (@from.distance(point) + @to.distance(point)).approx(@from.distance(@to))
   end
 
-  def distance_to_point(other)
+  def distance_to_point(point)
     x1 = @from.x
     y1 = @from.y
     x2_x1 = @to.x - x1
     y2_y1 = @to.y - y1
-    (x2_x1 * (y1 - other.y) - (x1 - other.x) * y2_y1).abs / Math.hypot(x2_x1, y2_y1)
+    (x2_x1 * (y1 - point.y) - (x1 - point.x) * y2_y1).abs / Math.hypot(x2_x1, y2_y1)
   end
 
   def intersect_line(other)

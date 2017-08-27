@@ -22,12 +22,12 @@ class Circle
     Math::PI * @radius ** 2
   end
 
-  def contain_point?(other)
-    Math.hypot(@cx - other.x, @cy - other.y) <= @radius
+  def contain_point?(point)
+    Math.hypot(@cx - point.x, @cy - point.y) <= @radius
   end
 
-  def distance_to_point(other)
-    (dis = Math.hypot(@cx - other.x, @cy - other.y) - @radius) <= 0 ? 0 : dis
+  def distance_to_point(point)
+    (d = Math.hypot(@cx - point.x, @cy - point.y) - @radius) <= 0 ? 0 : d
   end
 
   def to_svg(style = 'fill:gray;stroke:black')
