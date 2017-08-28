@@ -11,13 +11,13 @@ circles.each {|a|
     d = Math.hypot(a.cx - b.cx, a.cy - b.cy)
     if a.radius + b.radius <= d
       l1, l2 = internal_bitangent_lines(a, b, d)
-      svg << l1.to_svg('stroke:red') if visible?(l1, circles, a, b, svg)
-      svg << l2.to_svg('stroke:red') if visible?(l2, circles, a, b, svg)
+      svg << l1.to_svg('stroke:red') if visible?(l1, circles, a, b)
+      svg << l2.to_svg('stroke:red') if visible?(l2, circles, a, b)
     end
     if (a.radius - b.radius).abs <= d
       l3, l4 = external_bitangent_lines(a, b, d)
-      svg << l3.to_svg('stroke:blue') if visible?(l3, circles, a, b, svg)
-      svg << l4.to_svg('stroke:blue') if visible?(l4, circles, a, b, svg)
+      svg << l3.to_svg('stroke:blue') if visible?(l3, circles, a, b)
+      svg << l4.to_svg('stroke:blue') if visible?(l4, circles, a, b)
     end
   }
 }
