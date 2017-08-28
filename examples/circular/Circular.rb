@@ -26,6 +26,6 @@ def external_bitangent_lines(a, b, d)
   [Line.new(c, f), Line.new(d, e)]
 end
 
-def visible?(line, circles, a, b, svg = '')
+def visible?(line, circles, a, b)
   circles.all? {|c| c == a or c == b or line.segment_distance_to_point(Point.new(c.cx, c.cy)) >= c.radius}
 end
