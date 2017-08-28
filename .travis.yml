@@ -26,4 +26,5 @@ script:
   - ruby examples/goalrtree/pb3.rb
   - ruby examples/goalrtree/pb4.rb
   - ruby examples/goalrtree/pb5.rb
-  - ruby examples/circular/circular.rb
+  - ruby examples/circular/pb1.rb
+  - ruby examples/circular/pb2.rb
