@@ -84,7 +84,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 - ``attr_reader :radius`` is how far the circle extends from the center position ``cx`` and ``cy``.
 
 **Methods:**
-- ``initialize(cx, cy, radius)`` creates an instance at ``cx`` and ``cy`` with radius ``radius``.
+- ``initialize(cx, cy, radius)`` creates an instance with center at ``cx`` and ``cy`` with ``radius``.
 - ``==(other)`` returns true if ``self`` is approximately equal to ``other`` circle, false otherwise.
 - ``perimeter`` returns perimeter/circumference of circle.
 - ``area`` returns area of circle.
