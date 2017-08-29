@@ -22,4 +22,4 @@ circles.each {|a|
   }
 }
 p Time.now.to_f - t
-svg_save('bitangent_forest.svg', svg, 'viewbox="0 0 200 200"')
+svg_save('bitangent_forest.svg', svg)

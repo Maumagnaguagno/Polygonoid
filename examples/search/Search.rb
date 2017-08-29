@@ -48,7 +48,7 @@ def build_plan(point, goal, plan, name, new_svg, index)
   end
   # Draw path
   new_svg << (path = Polyline.new(*final_plan)).to_svg('fill:none;stroke:green;stroke-width:0.5')
-  svg_save("#{name}_t#{index}.svg", new_svg, 'viewbox="0 0 100 100"')
+  svg_save("#{name}_t#{index}.svg", new_svg)
   puts "  Goal found, path length: #{path.perimeter}"
   return final_plan
 end
@@ -82,7 +82,7 @@ def search(name, start, goal, angle, environment)
           end
         }
       }
-      svg_save("#{name}_t#{index}.svg", new_svg, 'viewbox="0 0 100 100"')
+      svg_save("#{name}_t#{index}.svg", new_svg)
     }
     # Visible points are reachable positions
     reachable_positions.concat(visible_points).sort_by! {|p| p.first.distance(goal)}
@@ -125,6 +125,6 @@ def search2(name, start, goal, angle, environment)
     reachable_positions.concat(visible_points).sort_by! {|p| p.first.distance(goal)}
     reachable_positions.each {|p| puts "  Point (#{p.first.x}, #{p.first.y}) => Distance #{p.first.distance(goal)}"}
     visible_points.clear
-    svg_save("#{name}_t#{index}.svg", new_svg, 'viewbox="0 0 100 100"')
+    svg_save("#{name}_t#{index}.svg", new_svg)
   end
 end

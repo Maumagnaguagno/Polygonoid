@@ -14,4 +14,4 @@ if (a.radius - b.radius).abs <= d
   svg << l3.to_svg('stroke:blue') << l4.to_svg('stroke:blue')
   abort('Unexpected external bitangent lines') unless l3.from == Point.new(184.66, 24.70) and l3.to == Point.new(463.33, 101.81) and l4.from == Point.new(184.66, 275.29) and l4.to == Point.new(463.33, 198.18)
 end
-svg_save('bitangent_lines.svg', svg, 'viewbox="0 0 550 300"')
+svg_save('bitangent_lines.svg', svg)
