@@ -3,11 +3,10 @@ require_relative 'Circular'
 svg = svg_grid(1100, 1100)
 srand(0)
 t = Time.now.to_f
-circles = Array.new(10) {Circle.new(50 + rand(1000), 50 + rand(1000), 5 + rand(50))}
-circles.each {|c| svg << c.to_svg}
-i = 0
-circles.each {|a|
-  circles.drop(i += 1).each {|b|
+circles = Array.new(10) {Circle.new(50 + rand(1000), 50 + rand(1000), 5 + rand(50))}.each {|c| svg << c.to_svg}
+circles_dup = circles.dup
+while a = circles_dup.shift
+  circles_dup.each {|b|
     d = Math.hypot(a.cx - b.cx, a.cy - b.cy)
     if a.radius + b.radius <= d
       l1, l2 = internal_bitangent_lines(a, b, d)
@@ -20,6 +19,6 @@ circles.each {|a|
       svg << l4.to_svg('stroke:blue') if visible?(l4, circles, a, b)
     end
   }
-}
+end
 p Time.now.to_f - t
 svg_save('bitangent_forest.svg', svg)
