@@ -92,7 +92,7 @@ class Scribble < Test::Unit::TestCase
     assert_equal(0, line.distance_to_point(b))
     assert_equal(0, line.distance_to_point(Point.new(0.5,0.5)))
     assert_in_epsilon(Math.sqrt(2) / 2, line.distance_to_point(Point.new(0.5,-0.5)))
-    # TODO add more tests to show difference between line and segment
+    assert_equal(0, line.distance_to_point(Point.new(2,2)))
   end
 
   def test_line_segment_distance_to_point
@@ -103,7 +103,7 @@ class Scribble < Test::Unit::TestCase
     assert_equal(0, line.segment_distance_to_point(b))
     assert_equal(0, line.segment_distance_to_point(Point.new(0.5,0.5)))
     assert_in_epsilon(Math.sqrt(2) / 2, line.segment_distance_to_point(Point.new(0.5,-0.5)))
-    # TODO add more tests to show difference between line and segment
+    assert_equal(Math.sqrt(2), line.segment_distance_to_point(Point.new(2,2)))
   end
 
   def test_line_intersect_line_middle
