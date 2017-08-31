@@ -30,7 +30,7 @@ class Line
   end
 
   def parallel_to?(other)
-    @slope.abs == Float::INFINITY && other.slope.abs == Float::INFINITY || @slope.approx(other.slope)
+    @slope.abs == Float::INFINITY and other.slope.abs == Float::INFINITY or @slope.approx(other.slope)
   end
 
   def segment_contain_point?(point)
