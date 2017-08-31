@@ -68,8 +68,8 @@ class Line
     denominator = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)
     if denominator.zero?
       # TODO return coincident line segment
-      if segment_contain_point?(other.from) then return other.from
-      elsif segment_contain_point?(other.to) then return other.to
+      if segment_contain_point?(other.from) then other.from
+      elsif segment_contain_point?(other.to) then other.to
       end
     else
       x1y2_x2y1 = x1 * y2 - x2 * y1
