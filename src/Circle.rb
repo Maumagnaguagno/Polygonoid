@@ -11,7 +11,7 @@ class Circle
   end
 
   def ==(other)
-    @cx.approx(other.cx) && @cy.approx(other.cy) and @radius.approx(other.radius)
+    instance_of?(other.class) and @cx.approx(other.cx) and @cy.approx(other.cy) and @radius.approx(other.radius)
   end
 
   def perimeter

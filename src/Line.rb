@@ -10,7 +10,7 @@ class Line
   end
 
   def ==(other)
-    @from == other.from && @to == other.to
+    instance_of?(other.class) and @from == other.from and @to == other.to
   end
 
   def perimeter

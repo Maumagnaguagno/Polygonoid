@@ -8,7 +8,7 @@ class Point
   end
 
   def ==(other)
-    @x.approx(other.x) && @y.approx(other.y)
+    instance_of?(other.class) and @x.approx(other.x) and @y.approx(other.y)
   end
 
   def distance(other)
