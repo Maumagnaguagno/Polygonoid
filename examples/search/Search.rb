@@ -40,7 +40,7 @@ def unsafe_line_to_arc(from, to, angle, environment)
   end
 end
 
-def build_plan(point, goal, plan, name, svg, index)
+def build_plan(point, goal, plan, name, svg)
   final_plan = [point, goal]
   while plan
     final_plan.unshift(plan.first)
@@ -48,7 +48,7 @@ def build_plan(point, goal, plan, name, svg, index)
   end
   # Draw path
   svg << (path = Polyline.new(*final_plan)).to_svg('fill:none;stroke:green;stroke-width:0.5')
-  svg_save("#{name}_t#{index}.svg", svg)
+  svg_save("#{name}_plan.svg", svg)
   puts "  Goal found, path length: #{path.perimeter}"
   final_plan
 end
@@ -71,7 +71,7 @@ def search(name, start, goal, angle, environment)
       new_svg = svg.dup
       puts "#{index += 1}: Point (#{pos.x}, #{pos.y})"
       # Build plan if goal visible test
-      return build_plan(pos, goal, plan, name, new_svg, index) if visible?(pos, goal, environment)
+      return build_plan(pos, goal, plan, name, new_svg) if visible?(pos, goal, environment)
       # Visible corners
       plan = [pos, plan]
       environment.each {|polygon|
@@ -108,7 +108,7 @@ def search2(name, start, goal, angle, environment)
     new_svg = svg.dup
     puts "#{index += 1}: Point (#{point.x}, #{point.y})"
     # Build plan if goal visible test
-    return build_plan(point, goal, plan, name, new_svg, index) if visible?(point, goal, environment)
+    return build_plan(point, goal, plan, name, new_svg) if visible?(point, goal, environment)
     # Visible corners
     plan = [point, plan]
     environment.each {|polygon|
