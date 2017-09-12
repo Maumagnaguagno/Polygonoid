@@ -29,3 +29,4 @@ script:
   - ruby examples/circular/pb1.rb
   - ruby examples/circular/pb2.rb
   - ruby examples/circular/pb3.rb
+  - ruby examples/circular/pb4.rb
