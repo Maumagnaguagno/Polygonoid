@@ -28,3 +28,4 @@ script:
   - ruby examples/goalrtree/pb5.rb
   - ruby examples/circular/pb1.rb
   - ruby examples/circular/pb2.rb
+  - ruby examples/circular/pb3.rb
