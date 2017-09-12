@@ -30,10 +30,6 @@ def center(circle)
   Point.new(circle.cx, circle.cy)
 end
 
-def reverse(line)
-  Line.new(line.to, line.from)
-end
-
 def each_bitangent(a, in_dir, circles)
   circles.each {|b|
     d = Math.hypot(a.cx - b.cx, a.cy - b.cy)
