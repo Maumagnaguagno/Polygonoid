@@ -70,7 +70,7 @@ circles.each {|c|
   # Start to circle
   bitangents(start, c, bitangents_clock, bitangents_counter, circles, false)
   # Circle to goal
-  bitangents(c, goal, bitangents_clock, bitangents_counter, circles, false)
+  #bitangents(c, goal, bitangents_clock, bitangents_counter, circles, false)
 }
 # Circle to circle
 # Equivalent but faster than circles.each {|a| circles.each {|b| bitangents(a, b, bitangents_clock, bitangents_counter, circles, false)}}
