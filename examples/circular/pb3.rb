@@ -62,8 +62,8 @@ goal = Circle.new(1000,1000,0)
 svg = svg_grid(1000,1000) << start.to_svg << goal.to_svg
 bitangents_clock = Hash.new {|h,k| h[k] = []}
 bitangents_counter = Hash.new {|h,k| h[k] = []}
-srand(0)
 t = Time.now.to_f
+srand(0)
 circles = Array.new(100) {Circle.new(50 + rand(1000), 50 + rand(1000), 5 + rand(50))}
 circles.each {|c|
   svg << c.to_svg
