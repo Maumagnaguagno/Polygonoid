@@ -4,7 +4,7 @@ require_relative 'Circular'
 CLOCK = true
 COUNTER = false
 
-def search(svg, start, goal, circles, bitangents_clock, bitangents_counter)
+def search(svg, start, goal, circles)
   # Greedy best-first search
   goal_point = center(goal)
   reachable_positions = [[start, center(start), CLOCK], [start, center(start), COUNTER]]
@@ -53,11 +53,9 @@ end
 start = Circle.new(0,80,0)
 goal = Circle.new(1000,1000,0)
 svg = svg_grid(1000,1000) << start.to_svg << goal.to_svg
-bitangents_clock = Hash.new {|h,k| h[k] = []}
-bitangents_counter = Hash.new {|h,k| h[k] = []}
 t = Time.now.to_f
 srand(0)
 circles = Array.new(100) {Circle.new(50 + rand(1000), 50 + rand(1000), 5 + rand(50))}.each {|c| svg << c.to_svg}
 puts 'search'
-search(svg, start, goal, circles, bitangents_clock, bitangents_counter)
+search(svg, start, goal, circles)
 p Time.now.to_f - t
