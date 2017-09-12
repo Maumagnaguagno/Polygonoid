@@ -1,4 +1,4 @@
-require_relative '../Search/Search'
+require_relative '../search/Search'
 require_relative 'Circular'
 
 def search(svg, start, goal, circles, bitangents_clock, bitangents_counter)
