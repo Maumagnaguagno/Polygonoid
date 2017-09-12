@@ -4,7 +4,7 @@ require_relative 'Circular'
 def search(svg, start, goal, circles, bitangents_clock, bitangents_counter)
   # Greedy best-first search
   goal_point = center(goal)
-  reachable_positions = [[start, center(start), bitangents_clock[start]], [start, center(start), bitangents_counter[start]]]
+  reachable_positions = [[start, center(start), bitangents_clock[start].concat(bitangents_counter[start])]]
   visited = []
   visible_points = []
   until reachable_positions.empty?
