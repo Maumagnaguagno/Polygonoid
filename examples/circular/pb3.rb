@@ -14,7 +14,7 @@ def search(svg, start, goal, circles, bitangents_clock, bitangents_counter)
     return build_plan(point, goal_point, plan, 'circular_search', svg) if visible?(Line.new(point, goal_point), circles, circle, goal)
     # Bitangents that go from current circle using current direction
     in_bitangents.each {|c,line,out_bitangents|
-      visible_points << [c, line.to, out_bitangents, [line.to, [line.from, plan]]] if not visited.include?(line.to)
+      visible_points << [c, line.to, out_bitangents, [line.to, [line.from, plan]]] unless visited.include?(line.to)
     }
     # Visible points are reachable positions
     # TODO consider current circle and goal radius
