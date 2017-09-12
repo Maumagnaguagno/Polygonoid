@@ -9,21 +9,19 @@ def internal_bitangent_lines(a, b, d)
   angle = Math.acos((a.radius + b.radius).fdiv(d))
   ab = Math.atan2(b.cy - a.cy, b.cx - a.cx)
   ba = Math.atan2(a.cy - b.cy, a.cx - b.cx)
-  c = move(a.cx, a.cy, a.radius, ab - angle)
-  d = move(a.cx, a.cy, a.radius, ab + angle)
-  e = move(b.cx, b.cy, b.radius, ba + angle)
-  f = move(b.cx, b.cy, b.radius, ba - angle)
-  [Line.new(c, f), Line.new(d, e)]
+  [
+    Line.new(move(a.cx, a.cy, a.radius, ab - angle), move(b.cx, b.cy, b.radius, ba - angle)), # C to F
+    Line.new(move(a.cx, a.cy, a.radius, ab + angle), move(b.cx, b.cy, b.radius, ba + angle)) # D to E
+  ]
 end
 
 def external_bitangent_lines(a, b, d)
   angle = Math.acos((a.radius - b.radius).fdiv(d))
   ab = Math.atan2(b.cy - a.cy, b.cx - a.cx)
-  c = move(a.cx, a.cy, a.radius, ab - angle)
-  d = move(a.cx, a.cy, a.radius, ab + angle)
-  e = move(b.cx, b.cy, b.radius, ab + angle)
-  f = move(b.cx, b.cy, b.radius, ab - angle)
-  [Line.new(c, f), Line.new(d, e)]
+  [
+    Line.new(move(a.cx, a.cy, a.radius, ab - angle), move(b.cx, b.cy, b.radius, ab - angle)), # C to F
+    Line.new(move(a.cx, a.cy, a.radius, ab + angle), move(b.cx, b.cy, b.radius, ab + angle)) # D to E
+  ]
 end
 
 def visible?(line, circles, a, b)
