@@ -59,7 +59,7 @@ def search(name, start, goal, angle, environment)
   # SVG
   svg = svg_grid(100, 100) << start.to_svg << goal.to_svg
   environment.each {|polygon| svg << polygon.to_svg}
-  # BFS
+  # Greedy best-first search
   reachable_positions = [start]
   visited = []
   visible_points = []
