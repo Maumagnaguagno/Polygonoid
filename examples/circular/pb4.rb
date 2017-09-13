@@ -33,7 +33,7 @@ end
 
 def each_bitangent(a, in_dir, circles)
   circles.each {|b|
-    d = Math.hypot(a.cx - b.cx, a.cy - b.cy)
+    d = distance(a, b)
     if a.radius + b.radius <= d
       l1, l2 = internal_bitangent_lines(a, b, d)
       yield [b, l1, COUNTER] if in_dir == CLOCK and visible?(l1, circles, a, b)
