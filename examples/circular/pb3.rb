@@ -3,8 +3,8 @@ require_relative 'Circular'
 
 def search(svg, start, goal, circles, bitangents_clock, bitangents_counter)
   # Greedy best-first search
-  goal_point = center(goal)
-  reachable_positions = [[start, center(start), bitangents_clock[start].concat(bitangents_counter[start])]]
+  goal_point = Point.new(goal.cx, goal.cy)
+  reachable_positions = [[start, Point.new(start.cx, start.cy), bitangents_clock[start].concat(bitangents_counter[start])]]
   visited = []
   visible_points = []
   until reachable_positions.empty?
@@ -17,14 +17,14 @@ def search(svg, start, goal, circles, bitangents_clock, bitangents_counter)
       visible_points << [c, line.to, out_bitangents, [line.to, [line.from, plan]]] unless visited.include?(line.to)
     }
     # Visible points are reachable positions
-    # TODO consider current circle and goal radius
-    reachable_positions.concat(visible_points).sort_by! {|c| center(c.first).distance(goal_point)}
+    # TODO consider radius in distance
+    reachable_positions.concat(visible_points).sort_by! {|c| distance(c.first, goal)}
     visible_points.clear
   end
 end
 
-def center(circle)
-  Point.new(circle.cx, circle.cy)
+def distance(a, b)
+  Math.hypot(a.cx - b.cx, a.cy - b.cy)
 end
 
 def reverse(line)
@@ -32,7 +32,7 @@ def reverse(line)
 end
 
 def bitangents(a, b, bitangents_clock, bitangents_counter, circles, bidir)
-  d = Math.hypot(a.cx - b.cx, a.cy - b.cy)
+  d = distance(a, b)
   if a.radius + b.radius <= d
     l1, l2 = internal_bitangent_lines(a, b, d)
     if visible?(l1, circles, a, b)

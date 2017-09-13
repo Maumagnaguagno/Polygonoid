@@ -6,8 +6,9 @@ COUNTER = false
 
 def search(svg, start, goal, circles)
   # Greedy best-first search
-  goal_point = center(goal)
-  reachable_positions = [[start, center(start), CLOCK], [start, center(start), COUNTER]]
+  start_point = Point.new(start.cx, start.cy)
+  goal_point = Point.new(goal.cx, goal.cy)
+  reachable_positions = [[start, start_point, CLOCK], [start, start_point, COUNTER]]
   visited = []
   visible_points = []
   until reachable_positions.empty?
@@ -20,14 +21,14 @@ def search(svg, start, goal, circles)
       visible_points << [c, line.to, out_dir, [line.to, [line.from, plan]]] unless visited.include?(line.to)
     }
     # Visible points are reachable positions
-    # TODO consider current circle and goal radius
-    reachable_positions.concat(visible_points).sort_by! {|c| center(c.first).distance(goal_point)}
+    # TODO consider radius in distance
+    reachable_positions.concat(visible_points).sort_by! {|c| distance(c.first, goal)}
     visible_points.clear
   end
 end
 
-def center(circle)
-  Point.new(circle.cx, circle.cy)
+def distance(a, b)
+  Math.hypot(a.cx - b.cx, a.cy - b.cy)
 end
 
 def each_bitangent(a, in_dir, circles)
