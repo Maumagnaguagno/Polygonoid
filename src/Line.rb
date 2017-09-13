@@ -49,7 +49,7 @@ class Line
     x = @to.x - @from.x
     y = @to.y - @from.y
     l2 = x ** 2 + y ** 2
-    return Math.hypot(point.x - @from.x, point.y - @from.y) if l2 == 0
+    return point.distance(@to) if l2 == 0
     t = ((point.x - @from.x) * x + (point.y - @from.y) * y).fdiv(l2)
     t = (t > 0 ? (t < 1 ? t : 1) : 0)
     Math.hypot(point.x - @from.x - t * x, point.y - @from.y - t * y)
