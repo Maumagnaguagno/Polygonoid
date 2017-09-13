@@ -18,13 +18,9 @@ def search(svg, start, goal, circles, bitangents_clock, bitangents_counter)
     }
     # Visible points are reachable positions
     # TODO consider radius in distance
-    reachable_positions.concat(visible_points).sort_by! {|c| distance(c.first, goal)}
+    reachable_positions.concat(visible_points).sort_by! {|c| center_distance(c.first, goal)}
     visible_points.clear
   end
-end
-
-def distance(a, b)
-  Math.hypot(a.cx - b.cx, a.cy - b.cy)
 end
 
 def reverse(line)
@@ -32,7 +28,7 @@ def reverse(line)
 end
 
 def bitangents(a, b, bitangents_clock, bitangents_counter, circles, bidir)
-  d = distance(a, b)
+  d = center_distance(a, b)
   if a.radius + b.radius <= d
     l1, l2 = internal_bitangent_lines(a, b, d)
     if visible?(l1, circles, a, b)

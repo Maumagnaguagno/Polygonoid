@@ -22,18 +22,14 @@ def search(svg, start, goal, circles)
     }
     # Visible points are reachable positions
     # TODO consider radius in distance
-    reachable_positions.concat(visible_points).sort_by! {|c| distance(c.first, goal)}
+    reachable_positions.concat(visible_points).sort_by! {|c| center_distance(c.first, goal)}
     visible_points.clear
   end
 end
 
-def distance(a, b)
-  Math.hypot(a.cx - b.cx, a.cy - b.cy)
-end
-
 def each_bitangent(a, in_dir, circles)
   circles.each {|b|
-    d = distance(a, b)
+    d = center_distance(a, b)
     if a.radius + b.radius <= d
       l1, l2 = internal_bitangent_lines(a, b, d)
       yield [b, l1, COUNTER] if in_dir == CLOCK and visible?(l1, circles, a, b)

@@ -7,7 +7,7 @@ circles = Array.new(10) {Circle.new(50 + rand(1000), 50 + rand(1000), 5 + rand(5
 circles_dup = circles.dup
 while a = circles_dup.shift
   circles_dup.each {|b|
-    d = Math.hypot(a.cx - b.cx, a.cy - b.cy)
+    d = center_distance(a, b)
     if a.radius + b.radius <= d
       l1, l2 = internal_bitangent_lines(a, b, d)
       svg << l1.to_svg('stroke:red') if visible?(l1, circles, a, b)

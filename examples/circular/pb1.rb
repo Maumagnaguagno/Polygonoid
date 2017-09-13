@@ -2,7 +2,7 @@ require_relative 'Circular'
 
 a = Circle.new(150, 150, 130)
 b = Circle.new(450, 150, 50)
-d = Math.hypot(a.cx - b.cx, a.cy - b.cy)
+d = center_distance(a, b)
 svg = svg_grid(550, 300) << a.to_svg << b.to_svg
 if a.radius + b.radius <= d
   l1, l2 = internal_bitangent_lines(a, b, d)

@@ -27,3 +27,7 @@ end
 def visible?(line, circles, a, b)
   circles.all? {|c| c == a or c == b or line.segment_distance_to_point(Point.new(c.cx, c.cy)) >= c.radius}
 end
+
+def center_distance(a, b)
+  Math.hypot(a.cx - b.cx, a.cy - b.cy)
+end
