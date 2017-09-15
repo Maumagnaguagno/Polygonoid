@@ -1,17 +1,17 @@
 class Circle
 
-  attr_reader :cx, :cy, :radius
+  attr_reader :x, :y, :radius
 
   PI2 = Math::PI * 2
 
-  def initialize(cx, cy, radius)
-    @cx = cx
-    @cy = cy
+  def initialize(x, y, radius)
+    @x = x
+    @y = y
     @radius = radius
   end
 
   def ==(other)
-    instance_of?(other.class) and @cx.approx(other.cx) and @cy.approx(other.cy) and @radius.approx(other.radius)
+    instance_of?(other.class) and @x.approx(other.x) and @y.approx(other.y) and @radius.approx(other.radius)
   end
 
   def perimeter
@@ -23,14 +23,14 @@ class Circle
   end
 
   def contain_point?(point)
-    Math.hypot(@cx - point.x, @cy - point.y) <= @radius
+    Math.hypot(@x - point.x, @y - point.y) <= @radius
   end
 
   def distance_to_point(point)
-    (d = Math.hypot(@cx - point.x, @cy - point.y) - @radius) <= 0 ? 0 : d
+    (d = Math.hypot(@x - point.x, @y - point.y) - @radius) <= 0 ? 0 : d
   end
 
   def to_svg(style = 'fill:gray;stroke:black')
-    "<circle cx=\"#{@cx}\" cy=\"#{@cy}\" r=\"#{@radius}\" style=\"#{style}\"><title>Circle #{@cx},#{@cy} #{@radius}</title></circle>\n"
+    "<circle cx=\"#{@x}\" cy=\"#{@y}\" r=\"#{@radius}\" style=\"#{style}\"><title>Circle #{@x},#{@y} #{@radius}</title></circle>\n"
   end
 end

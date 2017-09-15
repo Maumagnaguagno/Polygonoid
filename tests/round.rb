@@ -5,8 +5,8 @@ class Round < Test::Unit::TestCase
 
   def test_circle_initialize
     circle = Circle.new(1,2,3)
-    assert_equal(1, circle.cx)
-    assert_equal(2, circle.cy)
+    assert_equal(1, circle.x)
+    assert_equal(2, circle.y)
     assert_equal(3, circle.radius)
   end
 

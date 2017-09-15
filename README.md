@@ -79,12 +79,12 @@ SVG output also provides a nice way of checking what is happening inside the box
 
 ### [Circle class](src/Circle.rb)
 **Attributes:**
-- ``attr_reader :cx`` is the horizontal position along the X axis.
-- ``attr_reader :cy`` is the vertical position along the Y axis.
-- ``attr_reader :radius`` is how far the circle extends from the center position ``cx`` and ``cy``.
+- ``attr_reader :x`` is the center position along the X axis.
+- ``attr_reader :y`` is the center position along the Y axis.
+- ``attr_reader :radius`` is how far the circle extends from the center position ``x`` and ``y``.
 
 **Methods:**
-- ``initialize(cx, cy, radius)`` creates an instance with center at ``cx`` and ``cy`` with ``radius``.
+- ``initialize(x, y, radius)`` creates an instance with center at ``x`` and ``y`` with ``radius``.
 - ``==(other)`` returns true if ``self`` is approximately equal to ``other`` circle, false otherwise.
 - ``perimeter`` returns perimeter/circumference of circle.
 - ``area`` returns area of circle.

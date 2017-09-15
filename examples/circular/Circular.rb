@@ -7,27 +7,27 @@ end
 
 def internal_bitangent_lines(a, b, d)
   angle = Math.acos((a.radius + b.radius).fdiv(d))
-  ab = Math.atan2(b.cy - a.cy, b.cx - a.cx)
-  ba = Math.atan2(a.cy - b.cy, a.cx - b.cx)
+  ab = Math.atan2(b.y - a.y, b.x - a.x)
+  ba = Math.atan2(a.y - b.y, a.x - b.x)
   [
-    Line.new(move(a.cx, a.cy, a.radius, ab - angle), move(b.cx, b.cy, b.radius, ba - angle)), # C to F
-    Line.new(move(a.cx, a.cy, a.radius, ab + angle), move(b.cx, b.cy, b.radius, ba + angle)) # D to E
+    Line.new(move(a.x, a.y, a.radius, ab - angle), move(b.x, b.y, b.radius, ba - angle)), # C to F
+    Line.new(move(a.x, a.y, a.radius, ab + angle), move(b.x, b.y, b.radius, ba + angle)) # D to E
   ]
 end
 
 def external_bitangent_lines(a, b, d)
   angle = Math.acos((a.radius - b.radius).fdiv(d))
-  ab = Math.atan2(b.cy - a.cy, b.cx - a.cx)
+  ab = Math.atan2(b.y - a.y, b.x - a.x)
   [
-    Line.new(move(a.cx, a.cy, a.radius, ab - angle), move(b.cx, b.cy, b.radius, ab - angle)), # C to F
-    Line.new(move(a.cx, a.cy, a.radius, ab + angle), move(b.cx, b.cy, b.radius, ab + angle)) # D to E
+    Line.new(move(a.x, a.y, a.radius, ab - angle), move(b.x, b.y, b.radius, ab - angle)), # C to F
+    Line.new(move(a.x, a.y, a.radius, ab + angle), move(b.x, b.y, b.radius, ab + angle)) # D to E
   ]
 end
 
 def visible?(line, circles, a, b)
-  circles.all? {|c| c == a or c == b or line.segment_distance_to_point(Point.new(c.cx, c.cy)) >= c.radius}
+  circles.all? {|c| c == a or c == b or line.segment_distance_to_point(c) >= c.radius}
 end
 
 def center_distance(a, b)
-  Math.hypot(a.cx - b.cx, a.cy - b.cy)
+  Math.hypot(a.x - b.x, a.y - b.y)
 end
