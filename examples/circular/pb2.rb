@@ -3,7 +3,7 @@ require_relative 'Circular'
 svg = svg_grid(1100, 1100)
 srand(0)
 t = Time.now.to_f
-circles = Array.new(10) {Circle.new(50 + rand(1000), 50 + rand(1000), 5 + rand(50))}.each {|c| svg << c.to_svg}
+circles = Array.new(100) {Circle.new(50 + rand(1000), 50 + rand(1000), 5 + rand(50))}.each {|c| svg << c.to_svg}
 circles_dup = circles.dup
 while a = circles_dup.shift
   circles_dup.each {|b|
