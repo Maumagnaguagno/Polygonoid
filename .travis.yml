@@ -6,8 +6,6 @@ rvm:
   - 2.1.5
   - 2.2.0
   - 2.3.0
-  # JRuby
-  - jruby-9.0.0.0
 script:
   # Tests
   - ruby tests/pointy.rb
