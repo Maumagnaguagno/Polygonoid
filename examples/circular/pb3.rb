@@ -22,62 +22,30 @@ def search(svg, start, goal, circles, bitangents_clock, bitangents_counter)
   end
 end
 
-def reverse(line)
-  Line.new(line.to, line.from)
+start = Circle.new(0,80,0)
+goal = Circle.new(1000,1000,0)
+svg = svg_grid(1000,1000) << start.to_svg << goal.to_svg
+bitangents_clock = Hash.new {|h,k| h[k] = []}
+bitangents_counter = Hash.new {|h,k| h[k] = []}
+puts 'Bitangent generation'
+t = Time.now.to_f
+srand(0)
+circles = Array.new(100) {Circle.new(50 + rand(1000), 50 + rand(1000), 5 + rand(50))}
+circles.each {|c|
+  svg << c.to_svg
+  # Start to circle
+  bitangents(start, c, bitangents_clock, bitangents_counter, circles, false)
+  # Circle to goal
+  #bitangents(c, goal, bitangents_clock, bitangents_counter, circles, false)
+}
+# Circle to circle
+# Equivalent but faster than circles.each {|a| circles.each {|b| bitangents(a, b, bitangents_clock, bitangents_counter, circles, false)}}
+circles_dup = circles.dup
+while a = circles_dup.shift
+  circles_dup.each {|b| bitangents(a, b, bitangents_clock, bitangents_counter, circles, true)}
 end
 
-def bitangents(a, b, bitangents_clock, bitangents_counter, circles, bidir)
-  d = center_distance(a, b)
-  if a.radius + b.radius <= d
-    l1, l2 = internal_bitangent_lines(a, b, d)
-    if visible?(l1, circles, a, b)
-      bitangents_clock[a] << [b, l1, bitangents_counter[b]]
-      bitangents_clock[b] << [a, reverse(l1), bitangents_counter[a]] if bidir
-    end
-    if visible?(l2, circles, a, b)
-      bitangents_counter[a] << [b, l2, bitangents_clock[b]]
-      bitangents_counter[b] << [a, reverse(l2), bitangents_clock[a]] if bidir
-    end
-  end
-  if (a.radius - b.radius).abs <= d
-    l3, l4 = external_bitangent_lines(a, b, d)
-    if visible?(l3, circles, a, b)
-      bitangents_clock[a] << [b, l3, bitangents_clock[b]]
-      bitangents_counter[b] << [a, reverse(l3), bitangents_clock[a]] if bidir
-    end
-    if visible?(l4, circles, a, b)
-      bitangents_counter[a] << [b, l4, bitangents_counter[b]]
-      bitangents_clock[b] << [a, reverse(l4), bitangents_clock[a]] if bidir
-    end
-  end
-end
-
-if $0 == __FILE__
-  start = Circle.new(0,80,0)
-  goal = Circle.new(1000,1000,0)
-  svg = svg_grid(1000,1000) << start.to_svg << goal.to_svg
-  bitangents_clock = Hash.new {|h,k| h[k] = []}
-  bitangents_counter = Hash.new {|h,k| h[k] = []}
-  puts 'Bitangent generation'
-  t = Time.now.to_f
-  srand(0)
-  circles = Array.new(100) {Circle.new(50 + rand(1000), 50 + rand(1000), 5 + rand(50))}
-  circles.each {|c|
-    svg << c.to_svg
-    # Start to circle
-    bitangents(start, c, bitangents_clock, bitangents_counter, circles, false)
-    # Circle to goal
-    #bitangents(c, goal, bitangents_clock, bitangents_counter, circles, false)
-  }
-  # Circle to circle
-  # Equivalent but faster than circles.each {|a| circles.each {|b| bitangents(a, b, bitangents_clock, bitangents_counter, circles, false)}}
-  circles_dup = circles.dup
-  while a = circles_dup.shift
-    circles_dup.each {|b| bitangents(a, b, bitangents_clock, bitangents_counter, circles, true)}
-  end
-
-  p Time.now.to_f - t
-  puts 'search'
-  search(svg, start, goal, circles, bitangents_clock, bitangents_counter)
-  p Time.now.to_f - t
-end
+p Time.now.to_f - t
+puts 'search'
+search(svg, start, goal, circles, bitangents_clock, bitangents_counter)
+p Time.now.to_f - t
