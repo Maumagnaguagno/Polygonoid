@@ -40,8 +40,7 @@ def unsafe_line_to_arc(from, to, angle, environment)
   end
 end
 
-def build_plan(point, goal, plan, name, svg)
-  final_plan = [point, goal]
+def build_plan(final_plan, plan, name, svg)
   while plan
     final_plan.unshift(plan.first)
     plan = plan.last
@@ -71,7 +70,7 @@ def search(name, start, goal, angle, environment)
       new_svg = svg.dup
       puts "#{index += 1}: Point (#{pos.x}, #{pos.y})"
       # Build plan if goal visible test
-      return build_plan(pos, goal, plan, name, new_svg) if visible?(pos, goal, environment)
+      return build_plan([pos, goal], plan, name, new_svg) if visible?(pos, goal, environment)
       # Visible corners
       plan = [pos, plan]
       environment.each {|polygon|
@@ -108,7 +107,7 @@ def search2(name, start, goal, angle, environment)
     new_svg = svg.dup
     puts "#{index += 1}: Point (#{point.x}, #{point.y})"
     # Build plan if goal visible test
-    return build_plan(point, goal, plan, name, new_svg) if visible?(point, goal, environment)
+    return build_plan([point, goal], plan, name, new_svg) if visible?(point, goal, environment)
     # Visible corners
     plan = [point, plan]
     environment.each {|polygon|
