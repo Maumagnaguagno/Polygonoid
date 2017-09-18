@@ -40,15 +40,17 @@ def unsafe_line_to_arc(from, to, angle, environment)
   end
 end
 
-def build_plan(final_plan, plan, name, svg)
+def build_plan(final_plan, plan, name = nil, svg = nil)
   while plan
     final_plan.unshift(plan.first)
     plan = plan.last
   end
   # Draw path
-  svg << (path = Polyline.new(*final_plan)).to_svg('fill:none;stroke:green;stroke-width:0.5')
-  svg_save("#{name}_plan.svg", svg)
-  puts "  Goal found, path length: #{path.perimeter}"
+  if svg
+    svg << (path = Polyline.new(*final_plan)).to_svg('fill:none;stroke:green;stroke-width:0.5')
+    svg_save("#{name}_plan.svg", svg)
+    puts "  Goal found, path length: #{path.perimeter}"
+  end
   final_plan
 end
 
