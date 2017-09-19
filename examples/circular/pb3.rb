@@ -1,27 +1,6 @@
 require_relative '../search/Search'
 require_relative 'Circular'
 
-def search(svg, start, goal, circles, bitangents_clock, bitangents_counter)
-  # Greedy best-first search
-  reachable_positions = [[start, start, bitangents_clock[start].concat(bitangents_counter[start])]]
-  visited = []
-  visible_points = []
-  until reachable_positions.empty?
-    circle, point, in_bitangents, plan = reachable_positions.shift
-    visited << point
-    # Build plan if goal visible test
-    return build_plan([goal], plan, 'circular_search', svg) if visible?(Line.new(point, goal), circles, circle, goal)
-    # Bitangents that go from current circle using current direction
-    in_bitangents.each {|c,line,out_bitangents|
-      visible_points << [c, line.to, out_bitangents, [line.to, [line.from, plan]]] unless visited.include?(line.to)
-    }
-    # Visible points are reachable positions
-    # TODO consider radius in distance
-    reachable_positions.concat(visible_points).sort_by! {|c| center_distance(c.first, goal)}
-    visible_points.clear
-  end
-end
-
 start = Circle.new(0,80,0)
 goal = Circle.new(1000,1000,0)
 svg = svg_grid(1000,1000) << start.to_svg << goal.to_svg
@@ -47,5 +26,5 @@ end
 
 p Time.now.to_f - t
 puts 'search'
-search(svg, start, goal, circles, bitangents_clock, bitangents_counter)
+precomputed_search(start, goal, circles, bitangents_clock, bitangents_counter, 'circular_search', svg)
 p Time.now.to_f - t

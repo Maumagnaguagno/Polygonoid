@@ -73,3 +73,45 @@ def each_bitangent(a, in_dir, circles)
     end
   }
 end
+
+def precomputed_search(start, goal, circles, bitangents_clock, bitangents_counter, name, svg)
+  # Greedy best-first search
+  reachable_positions = [[start, start, bitangents_clock[start].concat(bitangents_counter[start])]]
+  visited = []
+  visible_points = []
+  until reachable_positions.empty?
+    circle, point, in_bitangents, plan = reachable_positions.shift
+    visited << point
+    # Build plan if goal visible test
+    return build_plan([goal], plan, name, svg) if visible?(Line.new(point, goal), circles, circle, goal)
+    # Bitangents that go from current circle using current direction
+    in_bitangents.each {|c,line,out_bitangents|
+      visible_points << [c, line.to, out_bitangents, [line.to, [line.from, plan]]] unless visited.include?(line.to)
+    }
+    # Visible points are reachable positions
+    # TODO consider radius in distance
+    reachable_positions.concat(visible_points).sort_by! {|c| center_distance(c.first, goal)}
+    visible_points.clear
+  end
+end
+
+def search(start, goal, circles, name = nil, svg = nil)
+  # Greedy best-first search
+  reachable_positions = [[start, start, CLOCK], [start, start, COUNTER]]
+  visited = []
+  visible_points = []
+  until reachable_positions.empty?
+    circle, point, in_dir, plan = reachable_positions.shift
+    visited << point
+    # Build plan if goal visible test
+    return build_plan([goal], plan, name, svg) if visible?(Line.new(point, goal), circles, circle, goal)
+    # Bitangents that go from current circle using current direction
+    each_bitangent(circle, in_dir, circles) {|c,line,out_dir|
+      visible_points << [c, line.to, out_dir, [line.to, [line.from, plan]]] unless visited.include?(line.to)
+    }
+    # Visible points are reachable positions
+    # TODO consider radius in distance
+    reachable_positions.concat(visible_points).sort_by! {|c| center_distance(c.first, goal)}
+    visible_points.clear
+  end
+end
