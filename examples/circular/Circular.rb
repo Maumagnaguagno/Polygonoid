@@ -1,6 +1,9 @@
 # Based on https://redblobgames.github.io/circular-obstacle-pathfinding/
 require_relative '../../Polygonoid'
 
+CLOCK = true
+COUNTER = false
+
 def move(x, y, amount, angle)
   Point.new(x + amount * Math.cos(angle), y + amount * Math.sin(angle))
 end

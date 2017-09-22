@@ -1,9 +1,6 @@
 require_relative '../search/Search'
 require_relative 'Circular'
 
-CLOCK = true
-COUNTER = false
-
 start = Circle.new(0,80,0)
 goal = Circle.new(1000,1000,0)
 svg = svg_grid(1000,1000) << start.to_svg << goal.to_svg
