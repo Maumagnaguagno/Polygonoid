@@ -77,7 +77,7 @@ def each_bitangent(a, in_dir, circles)
   }
 end
 
-def precomputed_search(start, goal, circles, bitangents_clock, bitangents_counter, name, svg)
+def precomputed_search(start, goal, circles, bitangents_clock, bitangents_counter, name = nil, svg = nil)
   # Greedy best-first search
   reachable_positions = [[start, start, bitangents_clock[start].concat(bitangents_counter[start])]]
   visited = []
