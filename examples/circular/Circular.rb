@@ -83,9 +83,9 @@ def precomputed_search(start, goal, circles, bitangents_clock, bitangents_counte
   visited = []
   until reachable_positions.empty?
     circle, point, in_bitangents, plan = reachable_positions.shift
-    visited << point
-    # Build plan if goal visible test
+    # Build plan if goal visible
     return build_plan([goal], plan, name, svg) if visible?(Line.new(point, goal), circles, circle, goal)
+    visited << point
     # Bitangents that go from current circle using current direction
     in_bitangents.each {|c,line,out_bitangents|
       reachable_positions << [c, line.to, out_bitangents, [line.to, [line.from, plan]]] unless visited.include?(line.to)
@@ -102,9 +102,9 @@ def search(start, goal, circles, name = nil, svg = nil)
   visited = []
   until reachable_positions.empty?
     circle, point, in_dir, plan = reachable_positions.shift
-    visited << point
-    # Build plan if goal visible test
+    # Build plan if goal visible
     return build_plan([goal], plan, name, svg) if visible?(Line.new(point, goal), circles, circle, goal)
+    visited << point
     # Bitangents that go from current circle using current direction
     each_bitangent(circle, in_dir, circles) {|c,line,out_dir|
       reachable_positions << [c, line.to, out_dir, [line.to, [line.from, plan]]] unless visited.include?(line.to)
