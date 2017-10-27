@@ -45,8 +45,12 @@ class Scribble < Test::Unit::TestCase
   end
 
   def test_line_x_intercept
-    line = Line.new(Point.new(0,1), Point.new(5,5))
-    assert_equal(-1.25, line.x_intercept)
+    l1 = Line.new(Point.new(0,1), Point.new(5,5))
+    assert_equal(-1.25, l1.x_intercept)
+    l2 = Line.new(Point.new(0,1), Point.new(1,1))
+    assert_equal(nil, l2.x_intercept)
+    l3 = Line.new(Point.new(0,0), Point.new(0,0))
+    assert_equal(nil, l3.x_intercept)
   end
 
   def test_line_vertical
