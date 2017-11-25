@@ -50,23 +50,27 @@ module GoalRtree
         visible_bottom_left  = visible?(goal, Point.new(left,  bottom), environment_polygons)
 
         if visible_top_left or visible_bottom_left
-          rect_left = left if left > rect_left and left < goal.x
-          rect_right = left if left < rect_right and left > goal.x
+          if left > rect_left and left < goal.x then rect_left = left
+          elsif left < rect_right and left > goal.x then rect_right = left
+          end
         end
 
         if visible_top_right or visible_bottom_right
-          rect_left = right if right > rect_left and right < goal.x
-          rect_right = right if right < rect_right and right > goal.x
+          if right > rect_left and right < goal.x then rect_left = right
+          elsif right < rect_right and right > goal.x then rect_right = right
+          end
         end
 
         if visible_top_left or visible_top_right
-          rect_top = top if top > rect_top and top < goal.y
-          rect_bottom = top if top < rect_bottom and top > goal.y
+          if top > rect_top and top < goal.y then rect_top = top
+          elsif top < rect_bottom and top > goal.y then rect_bottom = top
+          end
         end
 
         if visible_bottom_left or visible_bottom_right
-          rect_top = bottom if bottom > rect_top and bottom < goal.y
-          rect_bottom = bottom if bottom < rect_bottom and bottom > goal.y
+          if bottom > rect_top and bottom < goal.y then rect_top = bottom
+          elsif bottom < rect_bottom and bottom > goal.y then rect_bottom = bottom
+          end
         end
       }
       rect_goals[[rect_left, rect_top, rect_right - rect_left, rect_bottom - rect_top]] << goal
