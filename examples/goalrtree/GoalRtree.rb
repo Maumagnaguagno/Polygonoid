@@ -27,8 +27,7 @@ module GoalRtree
 
   def partition_goals(environment_polygons, goals, tree)
     rect_goals = Hash.new {|h,k| h[k] = []}
-    until goals.empty?
-      goal = goals.shift
+    goals.each {|goal|
       # Find subtree containing goal
       subtree = tree.first
       until subtree.last.none? {|branch|
@@ -74,7 +73,7 @@ module GoalRtree
         end
       }
       rect_goals[[rect_left, rect_top, rect_right - rect_left, rect_bottom - rect_top]] << goal
-    end
+    }
     # Divide goals within same rect
     rect_goals.map {|rect,rgoals| divide_rect(rect, rgoals)}
   end
@@ -158,7 +157,7 @@ module GoalRtree
 
     environment_polygons = environment.map {|rect| rect_to_polygon(*rect)}
     environment_tree = partition_environment(environment.dup)
-    goal_tree = partition_goals(environment_polygons, goals.dup, environment_tree)
+    goal_tree = partition_goals(environment_polygons, goals, environment_tree)
 
     srand(2)
     world_rect = environment_tree.first.first
