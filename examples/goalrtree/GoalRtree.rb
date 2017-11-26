@@ -13,11 +13,10 @@ module GoalRtree
   end
 
   def partition_environment(environment, tree = [])
-    until environment.empty?
+    while rect = environment.first
       tree << [environment.shift, []] if tree.none? {|branch|
-        rect = environment.first
         outer_rect = branch.first
-        if rect != outer_rect and outer_rect[0] <= rect[0] and (rect[0] + rect[2]) <= (outer_rect[0] + outer_rect[2]) and outer_rect[1] <= rect[1] and (rect[1] + rect[3]) <= (outer_rect[1] + outer_rect[3])
+        if outer_rect[0] <= rect[0] and (rect[0] + rect[2]) <= (outer_rect[0] + outer_rect[2]) and outer_rect[1] <= rect[1] and (rect[1] + rect[3]) <= (outer_rect[1] + outer_rect[3])
           partition_environment(environment, branch.last)
         end
       }
