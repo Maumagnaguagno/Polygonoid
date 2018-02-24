@@ -18,9 +18,8 @@ class Chain  < Test::Unit::TestCase
     a = Point.new(23,89)
     b = Point.new(155,0.8)
     c = Point.new(400,0)
-    abc = Polyline.new(a, b, c)
     perimeter = Math.hypot(23 - 155, 89 - 0.8) + Math.hypot(155 - 400, 0.8)
-    assert_equal(perimeter, abc.perimeter)
+    assert_equal(perimeter, Polyline.new(a, b, c).perimeter)
   end
 
   def test_polyline_to_svg

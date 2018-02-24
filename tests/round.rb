@@ -20,13 +20,11 @@ class Round < Test::Unit::TestCase
   end
 
   def test_circle_perimeter
-    circle = Circle.new(1,2,3)
-    assert_equal(Math::PI * 6, circle.perimeter)
+    assert_equal(Math::PI * 6, Circle.new(1,2,3).perimeter)
   end
 
   def test_circle_area
-    circle = Circle.new(1,2,3)
-    assert_equal(Math::PI * 3 ** 2, circle.area)
+    assert_equal(Math::PI * 3 ** 2, Circle.new(1,2,3).area)
   end
 
   def test_circle_contain_point
