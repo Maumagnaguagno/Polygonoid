@@ -75,6 +75,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 
 **Methods:**
 - ``initialize(*vertices)`` creates an instance with the given array of ``vertices``, each vertice is a point instance.
+- ``area`` returns area of simple polygon.
 - ``to_svg(style = 'fill:gray;stroke:black')`` returns string with SVG description.
 
 ---
