@@ -6,13 +6,13 @@ class Polygon < Polyline
   end
 
   def area
-    n = 0
+    a = 0
     p2 = @vertices.last
     @vertices.each {|p1|
-      n += p1.x * p2.y - p2.x * p1.y
+      a += p1.x * p2.y - p2.x * p1.y
       p2 = p1
     }
-    n.abs.fdiv(2)
+    a.fdiv(2)
   end
 
   def to_svg(style = 'fill:gray;stroke:black')

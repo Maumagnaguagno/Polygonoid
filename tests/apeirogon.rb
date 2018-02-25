@@ -29,9 +29,9 @@ class Apeirogon  < Test::Unit::TestCase
     c = Point.new(1,1)
     d = Point.new(1,0)
     assert_equal(1, Polygon.new(a, b, c, d).area)
-    assert_equal(1, Polygon.new(d, c, b, a).area)
+    assert_equal(-1, Polygon.new(d, c, b, a).area)
     assert_equal(0.5, Polygon.new(a, b, c).area)
-    assert_equal(0.5, Polygon.new(c, b, a).area)
+    assert_equal(-0.5, Polygon.new(c, b, a).area)
   end
 
   def test_polygon_to_svg
