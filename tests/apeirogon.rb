@@ -34,6 +34,19 @@ class Apeirogon  < Test::Unit::TestCase
     assert_equal(-0.5, Polygon.new(c, b, a).area)
   end
 
+  def test_polygon_center
+    a = Point.new(0,0)
+    b = Point.new(0,1)
+    c = Point.new(1,1)
+    d = Point.new(1,0)
+    c1 = Point.new(0.5,0.5)
+    c2 = Point.new(1.fdiv(3),2.fdiv(3))
+    assert_equal(c1, Polygon.new(a, b, c, d).center)
+    assert_equal(c1, Polygon.new(d, c, b, a).center)
+    assert_equal(c2, Polygon.new(a, b, c).center)
+    assert_equal(c2, Polygon.new(c, b, a).center)
+  end
+
   def test_polygon_to_svg
     poly = Polygon.new(Point.new(1,2), Point.new(3,4), Point.new(5,6))
     assert_equal("<polygon points=\"1,2 3,4 5,6\" style=\"fill:gray;stroke:black\"><title>Polygon 1,2 3,4 5,6</title></polygon>\n", poly.to_svg)

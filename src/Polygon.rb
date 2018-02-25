@@ -15,6 +15,19 @@ class Polygon < Polyline
     a.fdiv(2)
   end
 
+  def center
+    cx = cy = 0
+    p2 = @vertices.last
+    @vertices.each {|p1|
+      n = (p1.x * p2.y - p2.x * p1.y)
+      cx += (p1.x + p2.x) * n
+      cy += (p1.y + p2.y) * n
+      p2 = p1
+    }
+    a6 = area * 6
+    Point.new(cx.fdiv(a6), cy.fdiv(a6))
+  end
+
   def to_svg(style = 'fill:gray;stroke:black')
     v = @vertices.map {|p| "#{p.x},#{p.y}"}.join(' ')
     "<polygon points=\"#{v}\" style=\"#{style}\"><title>Polygon #{v}</title></polygon>\n"
