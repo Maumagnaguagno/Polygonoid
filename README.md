@@ -43,6 +43,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 - ``vertical?`` returns true if line is vertical, false otherwise.
 - ``horizontal?`` returns true if line is horizontal, false otherwise.
 - ``parallel_to?(other)`` returns true if ``self`` is parallel to ``other`` line, false otherwise.
+- ``point_side(point)`` returns less or greater than zero according to which side of ``self`` the ``point`` is, 0 otherwise.
 - ``segment_contain_point?(point)`` returns true if segment ``self`` contains ``point``, false otherwise.
 - ``distance_to_point(point)`` returns distance between ``self`` and ``point``.
 - ``segment_distance_to_point(point)`` returns distance between segment ``self`` and ``point``.

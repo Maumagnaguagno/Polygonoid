@@ -33,6 +33,10 @@ class Line
     @slope.abs == Float::INFINITY and other.slope.abs == Float::INFINITY or @slope.approx(other.slope)
   end
 
+  def point_side(point)
+    (point.x - @from.x) * (@to.y - @from.y) - (point.y - @from.y) * (@to.x - @from.x)
+  end
+  
   def segment_contain_point?(point)
     (@from.distance(point) + @to.distance(point)).approx(@from.distance(@to))
   end

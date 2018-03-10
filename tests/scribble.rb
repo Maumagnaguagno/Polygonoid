@@ -81,6 +81,15 @@ class Scribble < Test::Unit::TestCase
     assert_equal(true,  Line.new(a,b).parallel_to?(Line.new(c,d)))
   end
 
+  def test_line_point_side
+    a = Point.new(0,0)
+    b = Point.new(1,1)
+    line = Line.new(a,b)
+    assert_equal(-1, line.point_side(Point.new(0,1)))
+    assert_equal(0, line.point_side(Point.new(0.5,0.5)))
+    assert_equal(1, line.point_side(Point.new(1,0)))
+  end
+
   def test_line_segment_contain_point
     a = Point.new(60,40)
     b = Point.new(55,70)
