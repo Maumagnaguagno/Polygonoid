@@ -28,6 +28,18 @@ class Polygon < Polyline
     Point.new(cx.fdiv(a6), cy.fdiv(a6))
   end
 
+  def contain_point?(point)
+    winding = 0
+    @edges.each {|e|
+      if e.from.y <= point.y
+        winding += 1 if e.to.y > point.y and e.point_side(point) > 0
+      elsif e.to.y <= point.y and e.point_side(point) < 0
+        winding -= 1
+      end
+    }
+    winding != 0
+  end
+
   def to_svg(style = 'fill:gray;stroke:black')
     v = @vertices.map {|p| "#{p.x},#{p.y}"}.join(' ')
     "<polygon points=\"#{v}\" style=\"#{style}\"><title>Polygon #{v}</title></polygon>\n"
