@@ -53,12 +53,18 @@ class Apeirogon  < Test::Unit::TestCase
     c = Point.new(1,1)
     d = Point.new(1,0)
     p = Polygon.new(a, b, c, d)
+    assert_equal(true, p.contain_point?(Point.new(0.5,0.5)))
+    # Corners may not be detected
     assert_equal(false, p.contain_point?(a))
     assert_equal(false, p.contain_point?(b))
     assert_equal(false, p.contain_point?(c))
     assert_equal(true, p.contain_point?(d))
-    
-    assert_equal(true, p.contain_point?(Point.new(0.5,0.5)))
+    # Left and top are not included
+    assert_equal(false, p.contain_point?(Point.new(0,0.5)))
+    assert_equal(false, p.contain_point?(Point.new(0.5,1)))
+    assert_equal(true, p.contain_point?(Point.new(1,0.5)))
+    assert_equal(true, p.contain_point?(Point.new(0.5,0)))
+    # Outside
     assert_equal(false, p.contain_point?(Point.new(-0.5,0.5)))
     assert_equal(false, p.contain_point?(Point.new(0.5,1.5)))
     assert_equal(false, p.contain_point?(Point.new(1.5,0.5)))
