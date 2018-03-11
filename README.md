@@ -41,12 +41,12 @@ SVG output also provides a nice way of checking what is happening inside the box
 - ``perimeter`` returns distance between ``from`` and ``to``.
 - ``x_intercept`` returns position where ``self`` intercepts the X axis, ``nil`` for horizontal lines.
 - ``vertical?`` returns true if ``self`` is vertical, false otherwise.
-- ``horizontal?`` returns true if line is horizontal, false otherwise.
+- ``horizontal?`` returns true if ``self`` is horizontal, false otherwise.
 - ``parallel_to?(other)`` returns true if ``self`` is parallel to ``other`` line, false otherwise.
-- ``point_side(point)`` returns less or greater than zero according to which side of ``self`` the ``point`` is, 0 otherwise.
-- ``segment_contain_point?(point)`` returns true if segment ``self`` contains ``point``, false otherwise.
+- ``point_side(point)`` returns less or greater than zero according to which side of ``self`` the ``point`` is, 0 if on ``self``.
+- ``segment_contain_point?(point)`` returns true if ``self`` segment contains ``point``, false otherwise.
 - ``distance_to_point(point)`` returns distance between ``self`` and ``point``.
-- ``segment_distance_to_point(point)`` returns distance between segment ``self`` and ``point``.
+- ``segment_distance_to_point(point)`` returns distance between ``self`` segment and ``point``.
 - ``intersect_line(other)`` returns point of intersection between ``self`` and ``other`` line, ``nil`` if none.
   - **TODO** return line of intersection if lines are coincident.
 - ``intersect_line2(other)`` works like ``intersect_line(other)`` for non-horizontal/vertical lines.
@@ -92,8 +92,8 @@ SVG output also provides a nice way of checking what is happening inside the box
 **Methods:**
 - ``initialize(x, y, radius)`` creates an instance with center at ``x`` and ``y`` with ``radius``.
 - ``==(other)`` returns true if ``self`` is approximately equal to ``other`` circle, false otherwise.
-- ``perimeter`` returns perimeter/circumference of circle.
-- ``area`` returns area of circle.
-- ``contain_point?(point)`` returns true if ``point`` is within area of circle, false otherwise.
-- ``distance_to_point(point)`` returns distance between circle border and ``point``.
+- ``perimeter`` returns perimeter/circumference of ``self``.
+- ``area`` returns area of ``self``.
+- ``contain_point?(point)`` returns true if ``point`` is within area of ``self``, false otherwise.
+- ``distance_to_point(point)`` returns distance between ``self`` border and ``point``.
 - ``to_svg(style = 'fill:gray;stroke:black')`` returns string with SVG description.
