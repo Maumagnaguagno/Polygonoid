@@ -93,8 +93,8 @@ class Scribble < Test::Unit::TestCase
   def test_line_segment_contain_point
     a = Point.new(60,40)
     b = Point.new(55,70)
-    c = Point.new(58,50)
-    assert_equal(true, Line.new(a,b).segment_contain_point?(c))
+    assert_equal(true, Line.new(a,b).segment_contain_point?(Point.new(58,50)))
+    assert_equal(false, Line.new(a,b).segment_contain_point?(Point.new(0,0)))
   end
 
   def test_line_distance_to_point
