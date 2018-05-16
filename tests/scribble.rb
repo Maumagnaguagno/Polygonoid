@@ -112,8 +112,12 @@ class Scribble < Test::Unit::TestCase
   def test_line_segment_contain_point
     a = Point.new(60,40)
     b = Point.new(55,70)
-    assert_equal(true, Line.new(a,b).segment_contain_point?(Point.new(58,50)))
-    assert_equal(false, Line.new(a,b).segment_contain_point?(Point.new(0,0)))
+    line = Line.new(a,b)
+    assert_equal(true, line.segment_contain_point?(a))
+    assert_equal(true, line.segment_contain_point?(b))
+    assert_equal(true, line.segment_contain_point?(Point.new(58,50)))
+    assert_equal(false, line.segment_contain_point?(Point.new(0,0)))
+    assert_equal(false, line.segment_contain_point?(Point.new(0,400)))
   end
 
   def test_line_distance_to_point
@@ -150,9 +154,9 @@ class Scribble < Test::Unit::TestCase
     l2 = Line.new(a, Point.new(5,0))
     assert_equal(a, l1.intersect_line(l2))
     # Intersect other lines beyond segment limits
-    l2 = Line.new(Point.new(0,1), Point.new(0,2))
-    l3 = Line.new(Point.new(1,0), Point.new(2,0))
-    assert_equal(a, l2.intersect_line(l3))
+    l3 = Line.new(Point.new(0,1), Point.new(0,2))
+    l4 = Line.new(Point.new(1,0), Point.new(2,0))
+    assert_equal(a, l3.intersect_line(l4))
   end
 
   def test_line_intersect_line_coincident
