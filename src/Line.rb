@@ -37,6 +37,10 @@ class Line
     (point.x - @from.x) * (@to.y - @from.y) - (point.y - @from.y) * (@to.x - @from.x)
   end
   
+  def contain_point?(point)
+    point_side(point).approx(0)
+  end
+
   def segment_contain_point?(point)
     (@from.distance(point) + @to.distance(point)).approx(@from.distance(@to))
   end
