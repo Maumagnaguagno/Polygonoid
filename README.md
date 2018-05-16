@@ -44,6 +44,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 - ``horizontal?`` returns true if ``self`` is horizontal, false otherwise.
 - ``parallel_to?(other)`` returns true if ``self`` is parallel to ``other`` line, false otherwise.
 - ``point_side(point)`` returns less or greater than zero according to which side of ``self`` the ``point`` is, 0 if on ``self``.
+- ``contain_point?(point)`` returns true if ``point`` is on ``self``, false otherwise.
 - ``segment_contain_point?(point)`` returns true if ``point`` is on ``self``, false otherwise.
 - ``distance_to_point(point)`` returns distance between ``self`` and ``point``.
 - ``segment_distance_to_point(point)`` returns distance between ``self`` segment and ``point``.
@@ -65,7 +66,6 @@ SVG output also provides a nice way of checking what is happening inside the box
 **Methods:**
 - ``initialize(*vertices)`` creates an instance with the given array of ``vertices``, each vertice is a point instance.
 - ``perimeter`` returns the sum of edge perimeters.
-- ``contain_point?(point)`` returns true if ``point`` is on ``self``, false otherwise.
 - ``to_svg(style = 'fill:none;stroke:black')`` returns string with SVG description.
 
 ---
