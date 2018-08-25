@@ -25,7 +25,7 @@ def svg_text(x, y, text, style = 'font-family:Helvetica;font-size:8px')
 end
 
 def svg_save(filename, svg, options = nil)
-  IO.write(filename, "<svg xmlns=\"http://www.w3.org/2000/svg\" #{options}>\n#{svg}</svg>")
+  IO.binwrite(filename, "<svg xmlns=\"http://www.w3.org/2000/svg\" #{options}>\n#{svg}</svg>")
 end
 
 def visible?(from, to, environment)
