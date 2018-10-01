@@ -24,8 +24,8 @@ class Polygon < Polyline
       cy += (p1.y + p2.y) * n
       p2 = p1
     }
-    a6 = a * 3
-    Point.new(cx.fdiv(a6), cy.fdiv(a6))
+    a *= 3
+    Point.new(cx.fdiv(a), cy.fdiv(a))
   end
 
   def contain_point?(point)
