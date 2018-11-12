@@ -102,19 +102,16 @@ module GoalRtree
     end
   end
 
-  def connect_rect_to_cluster(clusters, centroids, rects, r, c, include)
-    unless include
-      # New connection merges two clusters
-      if index = clusters.index {|cluster2| cluster2.last.include?(c)}
-        rects.concat(clusters[index].first)
-        centroids.concat(clusters[index].last)
-        clusters.delete_at(index)
-      else
-        rects << r
-        centroids << c
-      end
+  def connect_rect_to_cluster(clusters, centroids, rects, r, c)
+    # New connection merges two clusters
+    if index = clusters.index {|cluster2| cluster2.last.include?(c)}
+      rects.concat(clusters[index].first)
+      centroids.concat(clusters[index].last)
+      clusters.delete_at(index)
+    else
+      rects << r
+      centroids << c
     end
-    true
   end
 
   def cluster_visible_rects(environment_polygons, goal_tree, max_distance, svg = nil, svg_filename = nil, view = nil)
@@ -134,12 +131,12 @@ module GoalRtree
       if c
         svg << Line.new(c1, c).to_svg('stroke:red') if svg
         clusters << [[r1,r], [c1,c]] if clusters.none? {|rects,centroids|
-          include_c  = centroids.include?(c)
-          include_c1 = centroids.include?(c1)
-          if include_c1
-            connect_rect_to_cluster(clusters, centroids, rects, r, c, include_c)
-          elsif include_c
-            connect_rect_to_cluster(clusters, centroids, rects, r1, c1, include_c1)
+          if centroids.include?(c1)
+            connect_rect_to_cluster(clusters, centroids, rects, r, c) if not centroids.include?(c)
+            true
+          elsif centroids.include?(c)
+            connect_rect_to_cluster(clusters, centroids, rects, r1, c1)
+            true
           end
         }
       # Keep intermediate level with single element cluster
