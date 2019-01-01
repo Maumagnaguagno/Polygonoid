@@ -31,6 +31,7 @@ class Polygon < Polyline
   def contain_point?(point)
     winding = 0
     @edges.each {|e|
+      return true if e.segment_contain_point?(point)
       if e.from.y <= point.y
         winding += 1 if e.to.y > point.y and e.point_side(point) > 0
       elsif e.to.y <= point.y and e.point_side(point) < 0

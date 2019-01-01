@@ -29,12 +29,12 @@ class Chain  < Test::Unit::TestCase
     d = Point.new(1,0)
     p = Polyline.new(a, b, c, d)
     assert_equal(false, p.contain_point?(Point.new(0.5,0.5)))
-    # Corners are detected
+    # Corners
     assert_equal(true, p.contain_point?(a))
     assert_equal(true, p.contain_point?(b))
     assert_equal(true, p.contain_point?(c))
     assert_equal(true, p.contain_point?(d))
-    # Middle points must match
+    # Middle points
     assert_equal(true, p.contain_point?(Point.new(0,0.5)))
     assert_equal(true, p.contain_point?(Point.new(0.5,1)))
     assert_equal(true, p.contain_point?(Point.new(1,0.5)))
