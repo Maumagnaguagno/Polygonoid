@@ -66,6 +66,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 **Methods:**
 - ``initialize(*vertices)`` creates an instance with the given array of ``vertices``, each vertice is a point instance.
 - ``perimeter`` returns the sum of edge perimeters.
+- ``contain_point?(point)`` returns true if ``point`` is on ``self``, false otherwise.
 - ``to_svg(style = 'fill:none;stroke:black')`` returns string with SVG description.
 
 ---

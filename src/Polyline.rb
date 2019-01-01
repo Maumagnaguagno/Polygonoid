@@ -11,6 +11,10 @@ class Polyline
     @edges.inject(0) {|sum,edge| sum + edge.perimeter}
   end
 
+  def contain_point?(point) # TODO add tests
+    @edges.any? {|e| e.segment_contain_point?(point)}
+  end
+
   def to_svg(style = 'fill:none;stroke:black')
     v = @vertices.map {|p| "#{p.x},#{p.y}"}.join(' ')
     "<polyline points=\"#{v}\" style=\"#{style}\"><title>Polyline #{v}</title></polyline>\n"

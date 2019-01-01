@@ -22,6 +22,30 @@ class Chain  < Test::Unit::TestCase
     assert_equal(perimeter, Polyline.new(a, b, c).perimeter)
   end
 
+  def test_polyline_contain_point
+    a = Point.new(0,0)
+    b = Point.new(0,1)
+    c = Point.new(1,1)
+    d = Point.new(1,0)
+    p = Polyline.new(a, b, c, d)
+    assert_equal(false, p.contain_point?(Point.new(0.5,0.5)))
+    # Corners are detected
+    assert_equal(true, p.contain_point?(a))
+    assert_equal(true, p.contain_point?(b))
+    assert_equal(true, p.contain_point?(c))
+    assert_equal(true, p.contain_point?(d))
+    # Middle points must match
+    assert_equal(true, p.contain_point?(Point.new(0,0.5)))
+    assert_equal(true, p.contain_point?(Point.new(0.5,1)))
+    assert_equal(true, p.contain_point?(Point.new(1,0.5)))
+    assert_equal(false, p.contain_point?(Point.new(0.5,0)))
+    # Outside
+    assert_equal(false, p.contain_point?(Point.new(-0.5,0.5)))
+    assert_equal(false, p.contain_point?(Point.new(0.5,1.5)))
+    assert_equal(false, p.contain_point?(Point.new(1.5,0.5)))
+    assert_equal(false, p.contain_point?(Point.new(0.5,-0.5)))
+  end
+
   def test_polyline_to_svg
     poly = Polyline.new(Point.new(1,2), Point.new(3,4), Point.new(5,6))
     assert_equal("<polyline points=\"1,2 3,4 5,6\" style=\"fill:none;stroke:black\"><title>Polyline 1,2 3,4 5,6</title></polyline>\n", poly.to_svg)
