@@ -11,7 +11,7 @@ class Polyline
     @edges.inject(0) {|sum,edge| sum + edge.perimeter}
   end
 
-  def contain_point?(point) # TODO add tests
+  def contain_point?(point)
     @edges.any? {|e| e.segment_contain_point?(point)}
   end
 
