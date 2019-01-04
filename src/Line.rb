@@ -38,7 +38,7 @@ class Line
   end
   
   def contain_point?(point)
-    point.y.approx(@slope * point.x + @y_intercept)
+    @y_intercept ? point.y.approx(@slope * point.x + @y_intercept) : point_side(point).approx(0)
   end
 
   def segment_contain_point?(point)

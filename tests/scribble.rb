@@ -107,6 +107,12 @@ class Scribble < Test::Unit::TestCase
     assert_equal(false, l2.contain_point?(Point.new(58,50)))
     assert_equal(false, l2.contain_point?(Point.new(0,0)))
     assert_equal(true, l2.contain_point?(Point.new(0,400)))
+    # Vertical
+    line = Line.new(a,Point.new(0,1))
+    assert_equal(true, line.contain_point?(Point.new(0,0.5)))
+    # Horizontal
+    line = Line.new(a,Point.new(1,0))
+    assert_equal(true, line.contain_point?(Point.new(0.5,0)))
   end
 
   def test_line_segment_contain_point
