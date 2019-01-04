@@ -74,11 +74,7 @@ class Line
     y4 = other.to.y
     # When two lines are parallel or coincident the denominator is zero
     denominator = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)
-    if denominator.zero?
-      # TODO return coincident line segment
-      if segment_contain_point?(other.from) then other.from
-      elsif segment_contain_point?(other.to) then other.to
-      end
+    if denominator.zero? then @from
     else
       x1y2_x2y1 = x1 * y2 - x2 * y1
       x3y4_x4y3 = x3 * y4 - x4 * y3
