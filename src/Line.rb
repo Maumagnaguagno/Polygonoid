@@ -42,7 +42,11 @@ class Line
   end
 
   def segment_contain_point?(point)
-    (@from.distance(point) + @to.distance(point)).approx(@from.distance(@to))
+    @from == point or @to == point or (
+      (@from.x < @to.x ? point.x.between?(@from.x, @to.x) : point.x.between?(@to.x, @from.x)) and
+      (@from.y < @to.y ? point.y.between?(@from.y, @to.y) : point.y.between?(@to.y, @from.y)) and
+      contain_point?(point)
+    )
   end
 
   def distance_to_point(point)

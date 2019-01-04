@@ -104,7 +104,7 @@ class Scribble < Test::Unit::TestCase
     assert_equal(false, l1.contain_point?(Point.new(0,1)))
     assert_equal(true, l2.contain_point?(c))
     assert_equal(true, l2.contain_point?(d))
-    #assert_equal(true, l2.contain_point?(Point.new(58,50)))
+    assert_equal(false, l2.contain_point?(Point.new(58,50)))
     assert_equal(false, l2.contain_point?(Point.new(0,0)))
     assert_equal(true, l2.contain_point?(Point.new(0,400)))
   end
@@ -115,7 +115,7 @@ class Scribble < Test::Unit::TestCase
     line = Line.new(a,b)
     assert_equal(true, line.segment_contain_point?(a))
     assert_equal(true, line.segment_contain_point?(b))
-    assert_equal(true, line.segment_contain_point?(Point.new(58,50)))
+    assert_equal(false, line.segment_contain_point?(Point.new(58,50)))
     assert_equal(false, line.segment_contain_point?(Point.new(0,0)))
     assert_equal(false, line.segment_contain_point?(Point.new(0,400)))
   end
