@@ -48,7 +48,7 @@ SVG output also provides a nice way of checking what is happening inside the box
 - ``segment_contain_point?(point)`` returns ``true`` if ``point`` is on ``self``, ``false`` otherwise.
 - ``distance_to_point(point)`` returns distance between ``self`` and ``point``.
 - ``segment_distance_to_point(point)`` returns distance between ``self`` segment and ``point``.
-- ``intersect_line(other)`` returns point of intersection between ``self`` and ``other`` line, ``self.from`` if coincident, ``nil`` if none.
+- ``intersect_line(other)`` returns intersection point of ``self`` and ``other`` line, ``self.from`` if coincident, ``nil`` if none.
 - ``intersect_line2(other)`` works like ``intersect_line(other)`` for non-horizontal/vertical lines.
   - **TODO** verify implementation and add tests.
 - ``intersect_line_angle(other)`` returns angle between lines based on their slope.
