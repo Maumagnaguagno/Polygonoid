@@ -166,13 +166,34 @@ class Scribble < Test::Unit::TestCase
   end
 
   def test_line_intersect_line_coincident
-    l1 = Line.new(Point.new(80,50), Point.new(50,50))
-    l2 = Line.new(Point.new(80,50), Point.new(60,50))
-    assert_equal(Point.new(80,50), l1.intersect_line(l2))
+    a = Point.new(80,50)
+    l1 = Line.new(a, Point.new(50,50))
+    l2 = Line.new(a, Point.new(60,50))
+    assert_equal(a, l1.intersect_line(l2))
   end
 
-  def test_line_intersect_line2
-    #flunk # TODO
+  def test_line_intersect_line_non_vertical_middle
+    l1 = Line.new(Point.new(0,0), Point.new(1,1))
+    l2 = Line.new(Point.new(0,1), Point.new(1,0))
+    assert_equal(Point.new(0.5,0.5), l1.intersect_line_non_vertical(l2))
+  end
+
+  def test_line_intersect_line_non_vertical_vertex
+    a = Point.new(0,0)
+    b = Point.new(1,1)
+    l1 = Line.new(a, b)
+    l2 = Line.new(Point.new(2,0), b)
+    assert_equal(b, l1.intersect_line_non_vertical(l2))
+    # Intersect other lines beyond segment limits
+    l3 = Line.new(Point.new(2,1), Point.new(3,0))
+    assert_equal(Point.new(1.5,1.5), l1.intersect_line_non_vertical(l3))
+  end
+
+  def test_line_intersect_line_non_vertical_coincident
+    a = Point.new(80,50)
+    l1 = Line.new(a, Point.new(50,50))
+    l2 = Line.new(a, Point.new(60,50))
+    assert_equal(a, l1.intersect_line_non_vertical(l2))
   end
 
   def test_line_intersect_line_angle

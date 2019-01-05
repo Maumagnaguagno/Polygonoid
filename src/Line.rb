@@ -85,11 +85,13 @@ class Line
     end
   end
 
-  def intersect_line2(other)
-    # TODO verify use
-    return if vertical? or other.vertical?
-    n = (other.y_intercept - @y_intercept) / (@slope - other.slope)
-    Point.new(n, n * @slope + @y_intercept)
+  def intersect_line_non_vertical(other)
+    if @slope == other.slope
+      @from if @y_intercept == other.y_intercept
+    else
+      x = (other.y_intercept - @y_intercept) / (@slope - other.slope)
+      Point.new(x, @slope * x + @y_intercept)
+    end
   end
 
   def intersect_line_angle(other)
