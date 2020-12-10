@@ -11,30 +11,27 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[ci skip]')"
     steps:
     - uses: actions/checkout@v2
-    - name: Install Ruby
-      uses: ruby/setup-ruby@v1
+    - uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby }}
-    - name: Tests
-      run: |
-        ruby tests/pointy.rb
-        ruby tests/scribble.rb
-        ruby tests/chain.rb
-        ruby tests/apeirogon.rb
-        ruby tests/round.rb
-    - name: Examples
-      run: |
-        ruby examples/search/pb1.rb
-        ruby examples/search/pb2.rb
-        ruby examples/search/pb3.rb
-        ruby examples/search/pb4.rb
-        ruby examples/search/pb5.rb
-        ruby examples/goalrtree/pb1.rb
-        ruby examples/goalrtree/pb2.rb
-        ruby examples/goalrtree/pb3.rb
-        ruby examples/goalrtree/pb4.rb
-        ruby examples/goalrtree/pb5.rb
-        ruby examples/circular/pb1.rb
-        ruby examples/circular/pb2.rb
-        ruby examples/circular/pb3.rb
-        ruby examples/circular/pb4.rb
+    # Tests
+    - run: ruby tests/pointy.rb
+    - run: ruby tests/scribble.rb
+    - run: ruby tests/chain.rb
+    - run: ruby tests/apeirogon.rb
+    - run: ruby tests/round.rb
+    # Examples
+    - run: ruby examples/search/pb1.rb
+    - run: ruby examples/search/pb2.rb
+    - run: ruby examples/search/pb3.rb
+    - run: ruby examples/search/pb4.rb
+    - run: ruby examples/search/pb5.rb
+    - run: ruby examples/goalrtree/pb1.rb
+    - run: ruby examples/goalrtree/pb2.rb
+    - run: ruby examples/goalrtree/pb3.rb
+    - run: ruby examples/goalrtree/pb4.rb
+    - run: ruby examples/goalrtree/pb5.rb
+    - run: ruby examples/circular/pb1.rb
+    - run: ruby examples/circular/pb2.rb
+    - run: ruby examples/circular/pb3.rb
+    - run: ruby examples/circular/pb4.rb
