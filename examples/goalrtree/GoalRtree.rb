@@ -38,7 +38,7 @@ module GoalRtree
       outer_rect = subtree.first
       rect_right = (rect_left = outer_rect[0]) + outer_rect[2]
       rect_bottom = (rect_top = outer_rect[1]) + outer_rect[3]
-      subtree.last.each {|rect,_|
+      subtree.last.each {|rect,|
         right = (left = rect[0]) + rect[2]
         bottom = (top = rect[1]) + rect[3]
 
@@ -117,7 +117,7 @@ module GoalRtree
   def cluster_visible_rects(environment_polygons, goal_tree, max_distance, svg = nil, svg_filename = nil, view = nil)
     clusters = []
     # Use rect centroid as reference for visibility
-    rect_centroids = goal_tree.map {|r,_| [r, Point.new(r[0] + r[2] / 2, r[1] + r[3] / 2)]}
+    rect_centroids = goal_tree.map {|r,| [r, Point.new(r[0] + r[2] / 2, r[1] + r[3] / 2)]}
     rect_centroids.each {|r1,c1|
       dist = max_distance
       c = r = nil
