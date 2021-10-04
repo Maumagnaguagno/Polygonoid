@@ -92,7 +92,7 @@ def precomputed_search(start, goal, circles, bitangents_clock, bitangents_counte
     }
     # Visible points are reachable positions
     # TODO consider radius in distance
-    reachable_positions.sort_by! {|c| center_distance(c.first, goal)}
+    reachable_positions.sort_by! {|c,| center_distance(c, goal)}
   end
 end
 
@@ -111,6 +111,6 @@ def search(start, goal, circles, name = nil, svg = nil)
     }
     # Visible points are reachable positions
     # TODO consider radius in distance
-    reachable_positions.sort_by! {|c| center_distance(c.first, goal)}
+    reachable_positions.sort_by! {|c,| center_distance(c, goal)}
   end
 end
