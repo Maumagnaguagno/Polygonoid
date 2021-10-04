@@ -86,8 +86,8 @@ def search(name, start, goal, angle, environment)
       svg_save("#{name}_t#{index}.svg", new_svg)
     }
     # Visible points are reachable positions
-    reachable_positions.concat(visible_points).sort_by! {|p| p.first.distance(goal)}
-    reachable_positions.each {|p| puts "  Point (#{p.first.x}, #{p.first.y}) => Distance #{p.first.distance(goal)}"}
+    reachable_positions.concat(visible_points).sort_by! {|p,| p.distance(goal)}
+    reachable_positions.each {|p,| puts "  Point (#{p.x}, #{p.y}) => Distance #{p.distance(goal)}"}
     visible_points.clear
   end
 end
@@ -123,8 +123,8 @@ def search2(name, start, goal, angle, environment)
       }
     }
     # Visible points are reachable positions
-    reachable_positions.concat(visible_points).sort_by! {|p| p.first.distance(goal)}
-    reachable_positions.each {|p| puts "  Point (#{p.first.x}, #{p.first.y}) => Distance #{p.first.distance(goal)}"}
+    reachable_positions.concat(visible_points).sort_by! {|p,| p.distance(goal)}
+    reachable_positions.each {|p,| puts "  Point (#{p.x}, #{p.y}) => Distance #{p.distance(goal)}"}
     visible_points.clear
     svg_save("#{name}_t#{index}.svg", new_svg)
   end

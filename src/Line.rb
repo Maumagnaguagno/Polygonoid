@@ -36,7 +36,7 @@ class Line
   def point_side(point)
     (point.x - @from.x) * (@to.y - @from.y) - (point.y - @from.y) * (@to.x - @from.x)
   end
-  
+
   def contain_point?(point)
     @y_intercept ? point.y.approx(@slope * point.x + @y_intercept) : point_side(point).approx(0)
   end
