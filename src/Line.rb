@@ -86,11 +86,10 @@ class Line
   end
 
   def intersect_line_non_vertical(other)
-    if @slope == other.slope
-      @from if @y_intercept == other.y_intercept
-    else
+    if @slope != other.slope
       x = (other.y_intercept - @y_intercept) / (@slope - other.slope)
       Point.new(x, @slope * x + @y_intercept)
+    elsif @y_intercept == other.y_intercept then @from
     end
   end
 
