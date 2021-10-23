@@ -68,7 +68,7 @@ def search(name, start, goal, angle, environment)
   until reachable_positions.empty?
     point, plan = reachable_positions.shift
     visited << point
-    unsafe_line_to_arc(plan && plan.first, point, angle, environment) {|pos|
+    unsafe_line_to_arc(plan&.first, point, angle, environment) {|pos|
       new_svg = svg.dup
       puts "#{index += 1}: Point (#{pos.x}, #{pos.y})"
       # Build plan if goal visible test
