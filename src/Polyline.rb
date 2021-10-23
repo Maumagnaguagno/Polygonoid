@@ -8,7 +8,7 @@ class Polyline
   end
 
   def perimeter
-    @edges.inject(0) {|sum,edge| sum + edge.perimeter}
+    @edges.sum(&:perimeter)
   end
 
   def contain_point?(point)
