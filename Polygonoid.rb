@@ -14,7 +14,7 @@ end
 def svg_grid(width, height, step = 10, style = 'fill:none;stroke:gray;stroke-width:0.5')
 "<defs>
 <pattern id=\"grid\" width=\"#{step}\" height=\"#{step}\" patternUnits=\"userSpaceOnUse\">
-  <path d=\"M100 0H0V100\" style=\"#{style}\"/>
+  <path d=\"M#{step} 0H0V#{step}\" style=\"#{style}\"/>
 </pattern>
 </defs>
 <rect fill=\"url(#grid)\" width=\"#{width}\" height=\"#{height}\"/>\n"
