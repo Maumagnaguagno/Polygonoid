@@ -3,7 +3,7 @@ require_relative 'Circular'
 
 start = Circle.new(0,80,0)
 goal = Circle.new(1000,1000,0)
-svg = svg_grid(1000,1000) << start.to_svg << goal.to_svg
+svg = svg_grid << start.to_svg << goal.to_svg
 bitangents_clock = Hash.new {|h,k| h[k] = []}
 bitangents_counter = Hash.new {|h,k| h[k] = []}
 puts 'Bitangent generation'

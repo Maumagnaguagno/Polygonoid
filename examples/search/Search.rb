@@ -58,7 +58,7 @@ def search(name, start, goal, angle, environment)
   # Remove old files
   File.delete(*Dir.glob("#{name}*.svg"))
   # SVG
-  svg = svg_grid(100, 100) << start.to_svg << goal.to_svg
+  svg = svg_grid << start.to_svg << goal.to_svg
   environment.each {|polygon| svg << polygon.to_svg}
   # Greedy best-first search
   reachable_positions = [start]
@@ -96,7 +96,7 @@ def search2(name, start, goal, angle, environment)
   # Remove old files
   File.delete(*Dir.glob("#{name}*.svg"))
   # SVG
-  svg = svg_grid(100, 100) << start.to_svg << goal.to_svg
+  svg = svg_grid << start.to_svg << goal.to_svg
   environment.each {|polygon| svg << polygon.to_svg}
   # BFS
   reachable_positions = [start]

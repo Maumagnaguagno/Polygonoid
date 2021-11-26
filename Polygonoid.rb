@@ -11,13 +11,13 @@ class Numeric
   end
 end
 
-def svg_grid(width, height, step = 10, style = 'fill:none;stroke:gray;stroke-width:0.5')
+def svg_grid(step = 10, style = 'fill:none;stroke:gray;stroke-width:0.5')
 "<defs>
 <pattern id=\"grid\" width=\"#{step}\" height=\"#{step}\" patternUnits=\"userSpaceOnUse\">
   <path d=\"M#{step} 0H0V#{step}\" style=\"#{style}\"/>
 </pattern>
 </defs>
-<rect fill=\"url(#grid)\" width=\"#{width}\" height=\"#{height}\"/>\n"
+<rect fill=\"url(#grid)\" width=\"100%\" height=\"100%\"/>\n"
 end
 
 def svg_text(x, y, text, style = 'font-family:Helvetica;font-size:8px')

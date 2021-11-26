@@ -1,6 +1,6 @@
 require_relative 'Circular'
 
-svg = svg_grid(1100, 1100)
+svg = svg_grid
 srand(0)
 t = Time.now.to_f
 circles = Array.new(100) {Circle.new(50 + rand(1000), 50 + rand(1000), 5 + rand(50))}.each {|c| svg << c.to_svg}
