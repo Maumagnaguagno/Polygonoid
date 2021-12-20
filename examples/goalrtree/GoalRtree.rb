@@ -74,32 +74,30 @@ module GoalRtree
       rect_goals[[rect_left, rect_top, rect_right - rect_left, rect_bottom - rect_top]] << goal
     }
     # Divide goals within same rect
-    rect_goals.map {|rect,rgoals| divide_rect(rect, rgoals)}
-  end
-
-  def divide_rect(rect, rgoals)
-    if rgoals.size != 1
-      specific_rects = []
-      rgoals.each {|g1|
-        g1_right = (g1_left = rect[0]) + rect[2]
-        g1_bottom = (g1_top = rect[1]) + rect[3]
-        rgoals.each {|g2|
-          if g1 != g2
-            x = (g1.x + g2.x) / 2
-            y = (g1.y + g2.y) / 2
-            if g1.x > x then g1_left = x if x > g1_left
-            elsif g1.x < x then g1_right = x if x < g1_right
+    rect_goals.map {|rect,rgoals|
+      if rgoals.size != 1
+        specific_rects = []
+        rgoals.each {|g1|
+          g1_right = (g1_left = rect[0]) + rect[2]
+          g1_bottom = (g1_top = rect[1]) + rect[3]
+          rgoals.each {|g2|
+            if g1 != g2
+              x = (g1.x + g2.x) / 2
+              y = (g1.y + g2.y) / 2
+              if g1.x > x then g1_left = x if x > g1_left
+              elsif g1.x < x then g1_right = x if x < g1_right
+              end
+              if g1.y > y then g1_top = y if y > g1_top
+              elsif g1.y < y then g1_bottom = y if y < g1_bottom
+              end
             end
-            if g1.y > y then g1_top = y if y > g1_top
-            elsif g1.y < y then g1_bottom = y if y < g1_bottom
-            end
-          end
+          }
+          specific_rects << [[g1_left, g1_top, g1_right - g1_left, g1_bottom - g1_top], g1]
         }
-        specific_rects << [[g1_left, g1_top, g1_right - g1_left, g1_bottom - g1_top], g1]
-      }
-      [rect, specific_rects]
-    else [rect, rgoals.first]
-    end
+        [rect, specific_rects]
+      else [rect, rgoals.first]
+      end
+    }
   end
 
   def connect_rect_to_cluster(clusters, centroids, rects, r, c)
