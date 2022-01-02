@@ -59,7 +59,7 @@ class Line
     l2 = x * x + y * y
     return point.distance(@to) if l2 == 0
     t = ((point.x - @from.x) * x + (point.y - @from.y) * y).fdiv(l2)
-    t = (t > 0 ? (t < 1 ? t : 1) : 0)
+    t = t > 0 ? t < 1 ? t : 1 : 0
     Math.hypot(point.x - @from.x - t * x, point.y - @from.y - t * y)
   end
 
