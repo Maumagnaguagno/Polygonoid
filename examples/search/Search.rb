@@ -8,18 +8,18 @@
 
 require_relative '../../Polygonoid'
 
-NDEG2RAD = Math::PI / -180
+DEG2RAD = Math::PI / 180
 
 def rotate(from, to, angle)
   # Based on http://math.stackexchange.com/questions/1687901/how-to-rotate-a-line-segment-around-one-of-the-end-points
-  angle *= NDEG2RAD
+  angle *= DEG2RAD
   sin = Math.sin(angle)
   cos = Math.cos(angle)
   x = to.x - from.x
   y = to.y - from.y
   Point.new(
-    cos * x - sin * y + from.x,
-    sin * x + cos * y + from.y
+    cos * x + sin * y + from.x,
+    cos * y - sin * x + from.y
   )
 end
 
