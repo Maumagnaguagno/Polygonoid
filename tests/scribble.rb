@@ -9,22 +9,22 @@ class Scribble < Test::Unit::TestCase
     c = Point.new(5,0)
     # Different points
     line = Line.new(a,b)
-    assert_equal(a, line.from)
-    assert_equal(b, line.to)
+    assert_same(a, line.from)
+    assert_same(b, line.to)
     assert_equal(0.8, line.slope)
     assert_equal(1, line.y_intercept)
     # Same point
     line = Line.new(a,a)
-    assert_equal(a, line.from)
-    assert_equal(a, line.to)
+    assert_same(a, line.from)
+    assert_same(a, line.to)
     assert_equal(true, line.slope.nan?)
-    assert_equal(nil, line.y_intercept)
+    assert_nil(line.y_intercept)
     # Vertical lines have undefined slope
     line = Line.new(b,c)
-    assert_equal(b, line.from)
-    assert_equal(c, line.to)
+    assert_same(b, line.from)
+    assert_same(c, line.to)
     assert_equal(-Float::INFINITY, line.slope)
-    assert_equal(nil, line.y_intercept)
+    assert_nil(line.y_intercept)
   end
 
   def test_line_equality
@@ -48,9 +48,9 @@ class Scribble < Test::Unit::TestCase
     l1 = Line.new(Point.new(0,1), Point.new(5,5))
     assert_equal(-1.25, l1.x_intercept)
     l2 = Line.new(Point.new(0,1), Point.new(1,1))
-    assert_equal(nil, l2.x_intercept)
+    assert_nil(l2.x_intercept)
     l3 = Line.new(Point.new(0,0), Point.new(0,0))
-    assert_equal(nil, l3.x_intercept)
+    assert_nil(l3.x_intercept)
   end
 
   def test_line_vertical
