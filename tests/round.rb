@@ -29,10 +29,10 @@ class Round < Test::Unit::TestCase
 
   def test_circle_contain_point
     circle = Circle.new(0,0,3)
-    assert_equal(true, circle.contain_point?(Point.new(0,0)))
-    assert_equal(true, circle.contain_point?(Point.new(0,3)))
-    assert_equal(true, circle.contain_point?(Point.new(3,0)))
-    assert_equal(false, circle.contain_point?(Point.new(3,3)))
+    assert_true(circle.contain_point?(Point.new(0,0)))
+    assert_true(circle.contain_point?(Point.new(0,3)))
+    assert_true(circle.contain_point?(Point.new(3,0)))
+    assert_false(circle.contain_point?(Point.new(3,3)))
   end
 
   def test_circle_distance_to_point

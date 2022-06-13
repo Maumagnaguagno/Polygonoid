@@ -17,7 +17,7 @@ class Scribble < Test::Unit::TestCase
     line = Line.new(a,a)
     assert_same(a, line.from)
     assert_same(a, line.to)
-    assert_equal(true, line.slope.nan?)
+    assert_true(line.slope.nan?)
     assert_nil(line.y_intercept)
     # Vertical lines have undefined slope
     line = Line.new(b,c)
@@ -55,20 +55,20 @@ class Scribble < Test::Unit::TestCase
 
   def test_line_vertical
     a = Point.new(0,0)
-    assert_equal(true,  Line.new(a, Point.new(0,1)).vertical?)
-    assert_equal(false, Line.new(a, Point.new(1,0)).vertical?)
-    assert_equal(false, Line.new(a, Point.new(1,1)).vertical?)
+    assert_true( Line.new(a, Point.new(0,1)).vertical?)
+    assert_false(Line.new(a, Point.new(1,0)).vertical?)
+    assert_false(Line.new(a, Point.new(1,1)).vertical?)
     # Weird behavior for same from/to point
-    assert_equal(true, Line.new(a,a).vertical?)
+    assert_true(Line.new(a,a).vertical?)
   end
 
   def test_line_horizontal
     a = Point.new(0,0)
-    assert_equal(false, Line.new(a, Point.new(0,1)).horizontal?)
-    assert_equal(true,  Line.new(a, Point.new(1,0)).horizontal?)
-    assert_equal(false, Line.new(a, Point.new(1,1)).horizontal?)
+    assert_false(Line.new(a, Point.new(0,1)).horizontal?)
+    assert_true( Line.new(a, Point.new(1,0)).horizontal?)
+    assert_false(Line.new(a, Point.new(1,1)).horizontal?)
     # Weird behavior for same from/to point
-    assert_equal(true, Line.new(a,a).horizontal?)
+    assert_true(Line.new(a,a).horizontal?)
   end
 
   def test_line_parallel_to
@@ -76,9 +76,9 @@ class Scribble < Test::Unit::TestCase
     b = Point.new(1,0)
     c = Point.new(5,0)
     d = Point.new(5,5)
-    assert_equal(true,  Line.new(a,b).parallel_to?(Line.new(a,b)))
-    assert_equal(false, Line.new(a,a).parallel_to?(Line.new(a,a)))
-    assert_equal(true,  Line.new(a,b).parallel_to?(Line.new(c,d)))
+    assert_true( Line.new(a,b).parallel_to?(Line.new(a,b)))
+    assert_false(Line.new(a,a).parallel_to?(Line.new(a,a)))
+    assert_true( Line.new(a,b).parallel_to?(Line.new(c,d)))
   end
 
   def test_line_point_side
@@ -97,33 +97,33 @@ class Scribble < Test::Unit::TestCase
     d = Point.new(55,70)
     l1 = Line.new(a,b)
     l2 = Line.new(c,d)
-    assert_equal(true, l1.contain_point?(Point.new(0.5,0.5)))
-    assert_equal(true, l1.contain_point?(Point.new(-1,-1)))
-    assert_equal(true, l1.contain_point?(Point.new(2,2)))
-    assert_equal(false, l1.contain_point?(Point.new(1,0)))
-    assert_equal(false, l1.contain_point?(Point.new(0,1)))
-    assert_equal(true, l2.contain_point?(c))
-    assert_equal(true, l2.contain_point?(d))
-    assert_equal(false, l2.contain_point?(Point.new(58,50)))
-    assert_equal(false, l2.contain_point?(Point.new(0,0)))
-    assert_equal(true, l2.contain_point?(Point.new(0,400)))
+    assert_true( l1.contain_point?(Point.new(0.5,0.5)))
+    assert_true( l1.contain_point?(Point.new(-1,-1)))
+    assert_true( l1.contain_point?(Point.new(2,2)))
+    assert_false(l1.contain_point?(Point.new(1,0)))
+    assert_false(l1.contain_point?(Point.new(0,1)))
+    assert_true( l2.contain_point?(c))
+    assert_true( l2.contain_point?(d))
+    assert_false(l2.contain_point?(Point.new(58,50)))
+    assert_false(l2.contain_point?(Point.new(0,0)))
+    assert_true( l2.contain_point?(Point.new(0,400)))
     # Vertical
     line = Line.new(a,Point.new(0,1))
-    assert_equal(true, line.contain_point?(Point.new(0,0.5)))
+    assert_true(line.contain_point?(Point.new(0,0.5)))
     # Horizontal
     line = Line.new(a,Point.new(1,0))
-    assert_equal(true, line.contain_point?(Point.new(0.5,0)))
+    assert_true(line.contain_point?(Point.new(0.5,0)))
   end
 
   def test_line_segment_contain_point
     a = Point.new(60,40)
     b = Point.new(55,70)
     line = Line.new(a,b)
-    assert_equal(true, line.segment_contain_point?(a))
-    assert_equal(true, line.segment_contain_point?(b))
-    assert_equal(false, line.segment_contain_point?(Point.new(58,50)))
-    assert_equal(false, line.segment_contain_point?(Point.new(0,0)))
-    assert_equal(false, line.segment_contain_point?(Point.new(0,400)))
+    assert_true(line.segment_contain_point?(a))
+    assert_true(line.segment_contain_point?(b))
+    assert_false(line.segment_contain_point?(Point.new(58,50)))
+    assert_false(line.segment_contain_point?(Point.new(0,0)))
+    assert_false(line.segment_contain_point?(Point.new(0,400)))
   end
 
   def test_line_distance_to_point
