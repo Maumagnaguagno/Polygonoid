@@ -127,10 +127,10 @@ module GoalRtree
         end
       }
       if c
-        svg << Line.new(c1, c).to_svg('stroke:red') if svg
+        svg&.<< Line.new(c1, c).to_svg('stroke:red')
         clusters << [[r1,r], [c1,c]] if clusters.none? {|rects,centroids|
           if centroids.include?(c1)
-            connect_rect_to_cluster(clusters, centroids, rects, r, c) if not centroids.include?(c)
+            connect_rect_to_cluster(clusters, centroids, rects, r, c) unless centroids.include?(c)
             true
           elsif centroids.include?(c)
             connect_rect_to_cluster(clusters, centroids, rects, r1, c1)
