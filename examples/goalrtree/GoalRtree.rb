@@ -76,8 +76,7 @@ module GoalRtree
     # Divide goals within same rect
     rect_goals.map {|rect,rgoals|
       if rgoals.size != 1
-        specific_rects = []
-        rgoals.each {|g1|
+        [rect, rgoals.map {|g1|
           g1_right = (g1_left = rect[0]) + rect[2]
           g1_bottom = (g1_top = rect[1]) + rect[3]
           rgoals.each {|g2|
@@ -92,9 +91,8 @@ module GoalRtree
               end
             end
           }
-          specific_rects << [[g1_left, g1_top, g1_right - g1_left, g1_bottom - g1_top], g1]
-        }
-        [rect, specific_rects]
+          [[g1_left, g1_top, g1_right - g1_left, g1_bottom - g1_top], g1]
+        }]
       else [rect, rgoals.first]
       end
     }
