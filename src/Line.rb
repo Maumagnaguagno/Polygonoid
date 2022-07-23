@@ -30,7 +30,7 @@ class Line
   end
 
   def parallel_to?(other)
-    @slope.abs == Float::INFINITY and other.slope.abs == Float::INFINITY or @slope.approx(other.slope)
+    @slope.infinite? and other.slope.infinite? and true or @slope.approx(other.slope)
   end
 
   def point_side(point)
