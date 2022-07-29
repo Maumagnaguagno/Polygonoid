@@ -172,7 +172,7 @@ module GoalRtree
         global_bottom = bottom if bottom > global_bottom
         # Local rect
         svg << rect_to_polygon(*rect).to_svg("fill:##{rand(4096).to_s(16)};stroke:white;stroke-dasharray:2;opacity:0.7")
-        content.instance_of?(Array) ? queue.push(content) : svg << content.to_svg('fill:none;stroke:black;stroke-width:10')
+        content.instance_of?(Array) ? queue << content : svg << content.to_svg('fill:none;stroke:black;stroke-width:10')
         svg_save("#{name}_#{counter += 1}.svg", svg, view)
       }
     end
