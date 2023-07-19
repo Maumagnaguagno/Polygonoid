@@ -1,5 +1,5 @@
 # Based on https://redblobgames.github.io/circular-obstacle-pathfinding/
-require_relative '../../Polygonoid'
+require_relative '../search/Search'
 
 CLOCK = true
 COUNTER = false

@@ -1,4 +1,3 @@
-require_relative '../search/Search'
 require_relative 'Circular'
 
 start = Circle.new(0,80,0)
