@@ -1,4 +1,4 @@
-require_relative 'Search'
+require_relative 'Linear'
 
 plan = search(
   # Problem
