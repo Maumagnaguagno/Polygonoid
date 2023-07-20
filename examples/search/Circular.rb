@@ -1,5 +1,5 @@
 # Based on https://redblobgames.github.io/circular-obstacle-pathfinding/
-require_relative '../search/Linear'
+require_relative 'Linear'
 
 CLOCK = true
 COUNTER = false
