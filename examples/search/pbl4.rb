@@ -1,8 +1,8 @@
 require_relative 'Linear'
 
-plan = search(
+plan = Linear.search(
   # Problem
-  'pb4',
+  'pbl4',
   # Start
   Point.new(22,8),
   # Goal

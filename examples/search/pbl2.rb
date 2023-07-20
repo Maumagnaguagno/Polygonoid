@@ -1,10 +1,10 @@
 require_relative 'Linear'
 
-plan = search(
+plan = Linear.search(
   # Problem
-  'pb1',
+  'pbl2',
   # Start
-  Point.new(80,50),
+  Point.new(65,65),
   # Goal
   Point.new(15,50),
   # Angle
@@ -23,8 +23,8 @@ plan = search(
 )
 
 abort('Plan failed') if plan != [
-  Point.new(80,50),
-  Point.new(53.9287,25.0944),
-  Point.new(34.4357,26.6385),
+  Point.new(65,65),
+  Point.new(56.0200,71.6505),
+  Point.new(35.0309,73.6753),
   Point.new(15,50)
 ]

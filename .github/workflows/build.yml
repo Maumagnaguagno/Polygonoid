@@ -21,15 +21,15 @@ jobs:
     - run: ruby tests/apeirogon.rb
     - run: ruby tests/round.rb
     # Examples
-    - run: ruby examples/search/pb1l.rb
-    - run: ruby examples/search/pb2l.rb
-    - run: ruby examples/search/pb3l.rb
-    - run: ruby examples/search/pb4l.rb
-    - run: ruby examples/search/pb5l.rb
-    - run: ruby examples/search/pb1c.rb
-    - run: ruby examples/search/pb2c.rb
-    - run: ruby examples/search/pb3c.rb
-    - run: ruby examples/search/pb4c.rb
+    - run: ruby examples/search/pbl1.rb
+    - run: ruby examples/search/pbl2.rb
+    - run: ruby examples/search/pbl3.rb
+    - run: ruby examples/search/pbl4.rb
+    - run: ruby examples/search/pbl5.rb
+    - run: ruby examples/search/pbc1.rb
+    - run: ruby examples/search/pbc2.rb
+    - run: ruby examples/search/pbc3.rb
+    - run: ruby examples/search/pbc4.rb
     - run: ruby examples/goalrtree/pb1.rb
     - run: ruby examples/goalrtree/pb2.rb
     - run: ruby examples/goalrtree/pb3.rb

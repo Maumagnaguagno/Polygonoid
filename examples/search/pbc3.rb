@@ -12,7 +12,7 @@ circles = Array.new(100) {Circle.new(50 + rand(1000), 50 + rand(1000), 5 + rand(
 circles.each {|c|
   svg << c.to_svg
   # Start to circle
-  bitangents(start, c, bitangents_clock, bitangents_counter, circles, false)
+  Circular.bitangents(start, c, bitangents_clock, bitangents_counter, circles, false)
   # Circle to goal
   #bitangents(c, goal, bitangents_clock, bitangents_counter, circles, false)
 }
@@ -20,10 +20,10 @@ circles.each {|c|
 # Equivalent but faster than circles.each {|a| circles.each {|b| bitangents(a, b, bitangents_clock, bitangents_counter, circles, false)}}
 circles_dup = circles.dup
 while a = circles_dup.shift
-  circles_dup.each {|b| bitangents(a, b, bitangents_clock, bitangents_counter, circles, true)}
+  circles_dup.each {|b| Circular.bitangents(a, b, bitangents_clock, bitangents_counter, circles, true)}
 end
 
 p Time.now.to_f - t
 puts 'search'
-precomputed_search(start, goal, circles, bitangents_clock, bitangents_counter, 'circular_search', svg)
+Circular.precomputed_search(start, goal, circles, bitangents_clock, bitangents_counter, 'circular_search', svg)
 p Time.now.to_f - t
