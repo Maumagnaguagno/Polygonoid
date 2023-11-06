@@ -180,7 +180,7 @@ module GoalRtree
     global_width = global_right - global_left
     global_height = global_bottom - global_top
     hierarchy = "global: #{[global_left, global_top, global_width, global_height]}"
-    cluster_visible_rects(environment_polygons, goal_tree, Math.hypot(global_width, global_height), svg, "#{name}_#{counter += 1}.svg", view).each {|rects,centroids|
+    cluster_visible_rects(environment_polygons, goal_tree, global_width + global_height, svg, "#{name}_#{counter += 1}.svg", view).each {|rects,centroids|
       # Intermediate rect
       rect = rects.shift
       rect_right = (rect_left = rect[0]) + rect[2]
