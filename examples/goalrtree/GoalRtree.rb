@@ -101,9 +101,9 @@ module GoalRtree
   def connect_rect_to_cluster(clusters, centroids, rects, r, c)
     # New connection merges two clusters
     if index = clusters.index {|cluster2| cluster2.last.include?(c)}
-      rects.concat(clusters[index].first)
-      centroids.concat(clusters[index].last)
-      clusters.delete_at(index)
+      r, c = clusters.delete_at(index)
+      rects.concat(r)
+      centroids.concat(c)
     else
       rects << r
       centroids << c
