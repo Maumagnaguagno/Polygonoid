@@ -161,8 +161,7 @@ module GoalRtree
     global_bottom = goal_tree.first.first[3] - (global_top = goal_tree.first.first[1])
     counter = 0
     queue = [goal_tree]
-    until queue.empty?
-      queue.shift.each {|rect,content|
+    while queue.shift&.each {|rect,content|
         # Global rect
         right = (left = rect[0]) + rect[2]
         bottom = (top = rect[1]) + rect[3]
@@ -192,8 +191,7 @@ module GoalRtree
         rect_right = right if right > rect_right
         rect_top = top if top < rect_top
         rect_bottom = bottom if bottom > rect_bottom
-      }
-      rects.unshift(rect)
+      }.unshift(rect)
       intermediate = [rect_left, rect_top, rect_right - rect_left, rect_bottom - rect_top]
       svg << rect_to_polygon(*intermediate).to_svg("fill:#fff;stroke:white;stroke-dasharray:2;opacity:0.5")
       svg_save("#{name}_#{counter += 1}.svg", svg, view)
