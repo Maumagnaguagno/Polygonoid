@@ -148,7 +148,7 @@ module GoalRtree
     File.delete(*Dir.glob("#{name}*.svg"))
 
     environment_polygons = environment.map {|rect| rect_to_polygon(*rect)}
-    environment_tree = partition_environment(environment.dup)
+    environment_tree = partition_environment(environment)
     goal_tree = partition_goals(environment_polygons, goals, environment_tree)
 
     srand(2)
