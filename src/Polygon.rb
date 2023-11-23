@@ -2,12 +2,12 @@ class Polygon < Polyline
 
   def initialize(*vertices)
     super
-    @edges << Line.new(vertices.last, vertices.first)
+    @edges << Line.new(vertices[-1], vertices[0])
   end
 
   def area
     a = 0
-    p2 = @vertices.last
+    p2 = @vertices[-1]
     @vertices.each {|p1|
       a += p1.x * p2.y - p2.x * p1.y
       p2 = p1
@@ -17,7 +17,7 @@ class Polygon < Polyline
 
   def center
     a = cx = cy = 0
-    p2 = @vertices.last
+    p2 = @vertices[-1]
     @vertices.each {|p1|
       a += n = (p1.x * p2.y - p2.x * p1.y)
       cx += (p1.x + p2.x) * n

@@ -13,11 +13,11 @@ module GoalRtree
   end
 
   def partition_environment(environment, tree = [])
-    while rect = environment.first
+    while rect = environment[0]
       tree << [environment.shift, []] if tree.none? {|branch|
-        outer_rect = branch.first
+        outer_rect = branch[0]
         if outer_rect[0] <= rect[0] and rect[0] + rect[2] <= outer_rect[0] + outer_rect[2] and outer_rect[1] <= rect[1] and rect[1] + rect[3] <= outer_rect[1] + outer_rect[3]
-          partition_environment(environment, branch.last)
+          partition_environment(environment, branch[-1])
         end
       }
     end
@@ -28,17 +28,17 @@ module GoalRtree
     rect_goals = Hash.new {|h,k| h[k] = []}
     goals.each {|goal|
       # Find subtree containing goal
-      subtree = tree.first
-      until subtree.last.none? {|branch|
-          rect = branch.first
+      subtree = tree[0]
+      until subtree[-1].none? {|branch|
+          rect = branch[0]
           subtree = branch if goal.x.between?(rect[0], rect[0] + rect[2]) and goal.y.between?(rect[1], rect[1] + rect[3])
         }
       end
       # Expand to all sides and check collisions with visible corners
-      outer_rect = subtree.first
+      outer_rect = subtree[0]
       rect_right = (rect_left = outer_rect[0]) + outer_rect[2]
       rect_bottom = (rect_top = outer_rect[1]) + outer_rect[3]
-      subtree.last.each {|rect,|
+      subtree[-1].each {|rect,|
         right = (left = rect[0]) + rect[2]
         bottom = (top = rect[1]) + rect[3]
 
@@ -93,14 +93,14 @@ module GoalRtree
           }
           [[g1_left, g1_top, g1_right - g1_left, g1_bottom - g1_top], g1]
         }]
-      else [rect, rgoals.first]
+      else [rect, rgoals[0]]
       end
     }
   end
 
   def connect_rect_to_cluster(clusters, centroids, rects, r, c)
     # New connection merges two clusters
-    if index = clusters.index {|cluster2| cluster2.last.include?(c)}
+    if index = clusters.index {|cluster2| cluster2[-1].include?(c)}
       r, c = clusters.delete_at(index)
       rects.concat(r)
       centroids.concat(c)
@@ -152,13 +152,13 @@ module GoalRtree
     goal_tree = partition_goals(environment_polygons, goals, environment_tree)
 
     srand(2)
-    world_rect = environment_tree.first.first
+    world_rect = environment_tree[0][0]
     svg = ''
     environment_polygons.each {|polygon| svg << polygon.to_svg("fill:##{rand(4096).to_s(16)};stroke:black")}
     svg_save("#{name}_0.svg", svg, view = "width=\"#{world_rect[2]}\" height=\"#{world_rect[3]}\" viewBox=\"#{world_rect[0]} #{world_rect[1]} #{world_rect[2]} #{world_rect[3]}\"")
 
-    global_right = goal_tree.first.first[2] - (global_left = goal_tree.first.first[0])
-    global_bottom = goal_tree.first.first[3] - (global_top = goal_tree.first.first[1])
+    global_right = goal_tree[0][0][2] - (global_left = goal_tree[0][0][0])
+    global_bottom = goal_tree[0][0][3] - (global_top = goal_tree[0][0][1])
     counter = 0
     queue = [goal_tree]
     while queue.shift&.each {|rect,content|
@@ -198,7 +198,7 @@ module GoalRtree
       hierarchy << "\n  intermediate: #{intermediate}"
       rects.zip(centroids) {|r,c|
         hierarchy << "\n    local: #{r}\n      centroid: (#{c.x}, #{c.y})"
-        goals_within = goal_tree.assoc(r).last
+        goals_within = goal_tree.assoc(r)[-1]
         if goals_within.instance_of?(Array)
           goals_within.each {|specific,g| hierarchy << "\n      specific: #{specific}\n        goal: (#{g.x}, #{g.y})"}
         else hierarchy << "\n      goal: (#{goals_within.x}, #{goals_within.y})"

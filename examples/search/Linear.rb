@@ -45,8 +45,8 @@ module Linear
 
   def build_plan(final_plan, plan, name = nil, svg = nil)
     while plan
-      final_plan.unshift(plan.first)
-      plan = plan.last
+      final_plan.unshift(plan[0])
+      plan = plan[-1]
     end
     # Draw path
     if svg
@@ -71,7 +71,7 @@ module Linear
     until reachable_positions.empty?
       point, plan = reachable_positions.shift
       visited << point
-      unsafe_line_to_arc(plan&.first, point, angle, environment) {|pos|
+      unsafe_line_to_arc(plan&.[](0), point, angle, environment) {|pos|
         new_svg = svg.dup
         puts "#{index += 1}: Point (#{pos.x}, #{pos.y})"
         # Build plan if goal visible test
