@@ -1,3 +1,11 @@
+#-----------------------------------------------
+# Polygonoid
+#-----------------------------------------------
+# Mau Magnaguagno
+#-----------------------------------------------
+# Geometric library for Ruby
+#-----------------------------------------------
+
 require_relative 'src/Point'
 require_relative 'src/Line'
 require_relative 'src/Polyline'
