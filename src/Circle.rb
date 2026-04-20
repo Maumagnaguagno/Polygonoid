@@ -30,6 +30,10 @@ class Circle
     (d = Math.hypot(@x - point.x, @y - point.y) - @radius) <= 0 ? 0 : d
   end
 
+  def distance_to_circle(other)
+    (d = Math.hypot(@x - other.x, @y - other.y) - @radius - other.radius) <= 0 ? 0 : d
+  end
+
   def to_svg(style = 'fill:gray;stroke:black')
     "<circle cx=\"#{@x}\" cy=\"#{@y}\" r=\"#{@radius}\" style=\"#{style}\"><title>Circle #{@x},#{@y} #{@radius}</title></circle>\n"
   end

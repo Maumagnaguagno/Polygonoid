@@ -43,6 +43,14 @@ class Round < Test::Unit::TestCase
     assert_in_epsilon(Math.hypot(3,3) - 3, circle.distance_to_point(Point.new(3,3)))
   end
 
+  def test_circle_distance_to_circle
+    circle = Circle.new(0,0,3)
+    assert_equal(0, circle.distance_to_circle(Circle.new(0,0,1)))
+    assert_equal(0, circle.distance_to_circle(Circle.new(0,3,1)))
+    assert_equal(0, circle.distance_to_circle(Circle.new(3,0,1)))
+    assert_in_epsilon(Math.hypot(5, 5) - 4, circle.distance_to_circle(Circle.new(5,5,1)))
+  end
+
   def test_circle_to_svg
     circle = Circle.new(1,2,3)
     assert_equal("<circle cx=\"1\" cy=\"2\" r=\"3\" style=\"fill:gray;stroke:black\"><title>Circle 1,2 3</title></circle>\n", circle.to_svg)
