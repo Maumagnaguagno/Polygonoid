@@ -46,7 +46,7 @@ module Linear
   def build_plan(final_plan, plan, name = nil, svg = nil)
     while plan
       final_plan.unshift(plan[0])
-      plan = plan[-1]
+      plan = plan[1]
     end
     # Draw path
     if svg
