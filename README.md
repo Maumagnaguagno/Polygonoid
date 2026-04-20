@@ -95,4 +95,5 @@ SVG output also provides a nice way of checking what is happening inside the box
 - ``area`` returns area of ``self``.
 - ``contain_point?(point)`` returns ``true`` if ``point`` is within area of ``self``, ``false`` otherwise.
 - ``distance_to_point(point)`` returns distance between ``self`` border and ``point``.
+- ``distance_to_circle(other)`` returns distance between ``self`` border and ``other``.
 - ``to_svg(style = 'fill:gray;stroke:black')`` returns string with SVG description.
